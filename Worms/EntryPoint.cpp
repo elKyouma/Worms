@@ -14,28 +14,36 @@ int WinMain( int argc, char** argv )
 	{
 		/* Initialises data */
 		SDL_Window* window = NULL;
+		SDL_Renderer* renderer = NULL;
 
-		/*
-		* Initialises the SDL video subsystem (as well as the events subsystem).
-		* Returns 0 on success or a negative error code on failure using SDL_GetError().
-		*/
+		// Initialises the SDL video subsystem (as well as the events subsystem).
 		SDL_CALL( SDL_Init( SDL_INIT_VIDEO ) != 0 );
 
 		/* Creates a SDL window */
-		window = SDL_CreateWindow( "SDL Example", /* Title of the SDL window */
-								   SDL_WINDOWPOS_UNDEFINED, /* Position x of the window */
-								   SDL_WINDOWPOS_UNDEFINED, /* Position y of the window */
-								   WIDTH, /* Width of the window in pixels */
-								   HEIGHT, /* Height of the window in pixels */
-								   0 ); /* Additional flag(s) */
-
+		window = SDL_CreateWindow( "SDL Example", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, 0 );
 		SDL_CHECK( window );
 
-		/* Pauses all SDL subsystems for a variable amount of milliseconds */
-		SDL_Delay( DELAY );
+		renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED );
+		SDL_CHECK( renderer );
+
+		bool quiting = false;
+		while ( !quiting )
+		{
+			SDL_Event ev;
+			while ( SDL_PollEvent( &ev ) )
+			{
+				switch ( ev.type )
+				{
+				case SDL_QUIT:
+					quiting = true;
+					break;
+				}
+			}
+		}
 
 		/* Frees memory */
 		SDL_DestroyWindow( window );
+		SDL_DestroyRenderer( renderer );
 
 		/* Shuts down all SDL subsystems */
 		SDL_Quit();
