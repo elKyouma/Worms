@@ -1,6 +1,9 @@
 #include <fstream>
+#include <imgui.h>
+#include <imgui_impl_sdlrenderer2.h>
 #include <SDL2/SDL.h> /* macOS- and GNU/Linux-specific */
 #include <stdio.h> /* printf and fprintf */
+#include "imgui_impl_sdl2.h"
 #include "SDL_Exception.h"
 
 /* Sets constants */
@@ -26,12 +29,28 @@ int WinMain( int argc, char** argv )
 		renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED );
 		SDL_CHECK( renderer );
 
+		IMGUI_CHECKVERSION();
+		ImGui::CreateContext();
+		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+		io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+
+		// Setup Dear ImGui style
+		ImGui::StyleColorsDark();
+
+		// Setup Platform/Renderer backends
+		ImGui_ImplSDL2_InitForSDLRenderer( window, renderer );
+		ImGui_ImplSDLRenderer2_Init( renderer );
+
+		float clear_color[4] = { 0,0,0,0 };
+
 		bool quiting = false;
 		while ( !quiting )
 		{
 			SDL_Event ev;
 			while ( SDL_PollEvent( &ev ) )
 			{
+				ImGui_ImplSDL2_ProcessEvent( &ev );
 				switch ( ev.type )
 				{
 				case SDL_QUIT:
@@ -39,9 +58,29 @@ int WinMain( int argc, char** argv )
 					break;
 				}
 			}
+			// Start the Dear ImGui frame
+			ImGui_ImplSDLRenderer2_NewFrame();
+			ImGui_ImplSDL2_NewFrame();
+			ImGui::NewFrame();
+
+			ImGui::BeginMainMenuBar();
+			ImGui::MenuItem( "Game" );
+			ImGui::MenuItem( "Editors" );
+			ImGui::MenuItem( "Debug" );
+			ImGui::EndMainMenuBar();
+
+			// Rendering
+			ImGui::Render();
+			SDL_RenderSetScale( renderer, io.DisplayFramebufferScale.x, io.DisplayFramebufferScale.y );
+			SDL_SetRenderDrawColor( renderer, (Uint8)(clear_color[0] * 255), (Uint8)(clear_color[1] * 255), (Uint8)(clear_color[2] * 255), (Uint8)(clear_color[3] * 255) );
+			SDL_RenderClear( renderer );
+			ImGui_ImplSDLRenderer2_RenderDrawData( ImGui::GetDrawData() );
+			SDL_RenderPresent( renderer );
 		}
 
 		/* Frees memory */
+		ImGui_ImplSDLRenderer2_Shutdown();
+		ImGui_ImplSDL2_Shutdown();
 		SDL_DestroyWindow( window );
 		SDL_DestroyRenderer( renderer );
 
