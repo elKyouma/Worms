@@ -143,11 +143,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ComponentArray.cpp" />
+    <ClCompile Include="ComponentManager.cpp" />
+    <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="src\EntryPoint.cpp" />
     <ClCompile Include="src\SDL_Exception.cpp" />
+    <ClCompile Include="SystemManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ComponentArray.h" />
+    <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="EntityManager.h" />
     <ClInclude Include="src\SDL_Exception.h" />
+    <ClInclude Include="SystemManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
