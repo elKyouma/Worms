@@ -9,7 +9,6 @@
 /* Sets constants */
 #define WIDTH 800
 #define HEIGHT 600
-#define DELAY 3000
 
 int WinMain( int argc, char** argv )
 {
@@ -42,8 +41,6 @@ int WinMain( int argc, char** argv )
 		ImGui_ImplSDL2_InitForSDLRenderer( window, renderer );
 		ImGui_ImplSDLRenderer2_Init( renderer );
 
-		float clear_color[4] = { 0,0,0,0 };
-
 		bool quiting = false;
 		while ( !quiting )
 		{
@@ -72,7 +69,7 @@ int WinMain( int argc, char** argv )
 			// Rendering
 			ImGui::Render();
 			SDL_RenderSetScale( renderer, io.DisplayFramebufferScale.x, io.DisplayFramebufferScale.y );
-			SDL_SetRenderDrawColor( renderer, (Uint8)(clear_color[0] * 255), (Uint8)(clear_color[1] * 255), (Uint8)(clear_color[2] * 255), (Uint8)(clear_color[3] * 255) );
+			SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
 			SDL_RenderClear( renderer );
 			ImGui_ImplSDLRenderer2_RenderDrawData( ImGui::GetDrawData() );
 			SDL_RenderPresent( renderer );
