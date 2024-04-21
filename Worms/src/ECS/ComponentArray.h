@@ -52,15 +52,15 @@ void ComponentArray<Data>::SetData( Entity ent, Data data )
 template<typename Data>
 void ComponentArray<Data>::EraseData( Entity ent )
 {
+	amountOfComponents--;
 	Entity index = entityToIndex[ent];
 
 	components[index] = components[amountOfComponents];
+	components[amountOfComponents] = Data{};
 
 	entityToIndex.erase( ent );
 	entityToIndex[amountOfComponents] = index;
 
 	indexToEntity[index] = indexToEntity[amountOfComponents];
 	indexToEntity.erase( amountOfComponents );
-
-	amountOfComponents--;
 }
