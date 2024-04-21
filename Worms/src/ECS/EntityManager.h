@@ -15,6 +15,8 @@ public:
 	void SetSignature( EntityId ent, Signature signature );
 	Signature GetSignature( EntityId ent );
 
+	uint16_t GetAmountOfAvailableEntities() const;
+
 private:
 	std::queue<EntityId> availableEntities;
 	std::array<Signature, MAX_ENTITIES> entities;

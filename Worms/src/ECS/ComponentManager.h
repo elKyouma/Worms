@@ -35,6 +35,8 @@ void ComponentManager::RegisterComponent()
 {
 	if ( registeredComponents == MAX_COMPONENTS )
 		ECS_THROW( "ComponentArray overflow" );
+	if ( typeToComponentId.find( typeid(T).name() ) != typeToComponentId.end() )
+		ECS_THROW( "Component already refistered" );
 
 	components[registeredComponents] = new ComponentArray<T>();
 	typeToComponentId.insert( { typeid(T).name(), registeredComponents++ } );

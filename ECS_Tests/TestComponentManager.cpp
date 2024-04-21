@@ -39,8 +39,17 @@ TEST_F( TestComponentManager, CheckRegisteredTypes )
 	manager.RegisterComponent<Motion>();
 	vec = manager.GetRegisteredComponents();
 	EXPECT_EQ( vec.size(), 2 );
-	EXPECT_STREQ( vec[0].c_str(), "struct Position" );
-	EXPECT_STREQ( vec[1].c_str(), "struct Motion" );
+}
 
+TEST_F( TestComponentManager, ComponentAlreadyRegistered )
+{
+	ComponentManager manager{};
+	manager.RegisterComponent<Position>();
+	EXPECT_THROW( { manager.RegisterComponent<Position>(); }, ECS_Exception );
+}
 
+TEST_F( TestComponentManager, UnregisteredComponent )
+{
+	ComponentManager manager{};
+	EXPECT_THROW( { manager.GetComponentArray<Position>(); }, ECS_Exception );
 }

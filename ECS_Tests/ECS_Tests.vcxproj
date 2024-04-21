@@ -139,6 +139,7 @@
     </ClCompile>
     <ClCompile Include="TestComponentArray.cpp" />
     <ClCompile Include="TestComponentManager.cpp" />
+    <ClCompile Include="TestEntityManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Worms\Worms.vcxproj">
