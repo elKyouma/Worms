@@ -1,20 +1,15 @@
 #pragma once
-#include <exception>
-#include <string>
+#include "AppException.h"
 
-class SDL_Exception : public std::exception
+class SDL_Exception : public AppException
 {
 public:
-	SDL_Exception( int line, const char* file ) noexcept;
-	const char* what() const noexcept override;
-	virtual const char* GetType() const noexcept;
-	int GetLine() const noexcept;
-	const std::string& GetFile() const noexcept;
-	std::string GetOriginString() const noexcept;
-private:
-	int line;
-	std::string file;
-	mutable std::string whatBuffer;
+	SDL_Exception( int line, const char* file ) noexcept
+		:
+		AppException( line, file, SDL_GetError() )
+	{}
+
+	virtual inline const char* GetType()const noexcept { return "SDL Exception"; }
 };
 
 #define SDL_CALL(x) SD:SDL_ClearError(); if(x != 0) throw SDL_Exception(__LINE__, __FILE__)
