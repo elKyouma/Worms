@@ -1,0 +1,46 @@
+#include "pch.h"
+#include "ComponentManager.h"
+#include "Components.h"
+#include "ECS_Types.h"
+
+class TestComponentManager : public ::testing::Test
+{
+
+};
+
+//ComponentArray<Position>;
+
+TEST_F( TestComponentManager, RegisterComponentAndAccessTheData )
+{
+	ComponentManager manager{};
+	manager.RegisterComponent<Position>();
+
+	for ( int i = 0; i < 10; i++ )
+		manager.AddComponent<Position>( i );
+
+	Position& p = manager.GetComponent<Position>( 3 );
+	p.x = 3.f;
+	p.y = 8.f;
+	EXPECT_FLOAT_EQ( manager.GetComponentArray<Position>().GetData( 3 ).x, 3.f );
+	EXPECT_FLOAT_EQ( manager.GetComponentArray<Position>().GetDataAtIndex( 3 ).x, 3.f );
+	EXPECT_FLOAT_EQ( manager.GetComponentArray<Position>().GetData( 3 ).y, 8.f );
+	EXPECT_FLOAT_EQ( manager.GetComponentArray<Position>().GetDataAtIndex( 3 ).y, 8.f );
+}
+
+TEST_F( TestComponentManager, CheckRegisteredTypes )
+{
+	ComponentManager manager{};
+	manager.RegisterComponent<Position>();
+	auto vec = manager.GetRegisteredComponents();
+
+
+	EXPECT_EQ( vec.size(), 1 );
+	EXPECT_STREQ( vec[0].c_str(), "struct Position" );
+	manager.RegisterComponent<Motion>();
+	vec = manager.GetRegisteredComponents();
+	EXPECT_EQ( vec.size(), 2 );
+	EXPECT_STREQ( vec[0].c_str(), "struct Position" );
+	EXPECT_STREQ( vec[1].c_str(), "struct Motion" );
+
+
+}

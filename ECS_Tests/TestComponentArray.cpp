@@ -1,6 +1,5 @@
 #include "pch.h"
 #include <assert.h>
-#include "../Worms/src/AppException.cpp"
 #include "ComponentArray.h"
 #include "Components.h"
 
@@ -19,7 +18,7 @@ protected:
 };
 
 TEST_F( TestComponentArray, CreatePositionComponent ) {
-	ComponentArray<Position> components;
+	ComponentArray<Position> components{};
 	components.AddData( 2 );
 	auto& data = components.GetData( 2 );
 
@@ -28,7 +27,7 @@ TEST_F( TestComponentArray, CreatePositionComponent ) {
 }
 
 TEST_F( TestComponentArray, UseTheSameComponent ) {
-	ComponentArray<Position> components;
+	ComponentArray<Position> components{};
 	components.AddData( 1 );
 	components.AddData( 2 );
 
@@ -47,7 +46,7 @@ TEST_F( TestComponentArray, UseTheSameComponent ) {
 }
 
 TEST_F( TestComponentArray, ValidateMemoryPositioning ) {
-	ComponentArray<Position> components;
+	ComponentArray<Position> components{};
 	const int amountOfComponents = 10;
 	AddComponentsWithUniquePos( components, amountOfComponents );
 
@@ -57,7 +56,7 @@ TEST_F( TestComponentArray, ValidateMemoryPositioning ) {
 }
 
 TEST_F( TestComponentArray, ValidateEraseComponentMemoryPositioning ) {
-	ComponentArray<Position> components;
+	ComponentArray<Position> components{};
 	const int amountOfComponents = 10;
 	AddComponentsWithUniquePos( components, amountOfComponents );
 
@@ -75,7 +74,7 @@ TEST_F( TestComponentArray, ValidateEraseComponentMemoryPositioning ) {
 }
 
 TEST_F( TestComponentArray, ValidateEraseComponentThatDoesntExist ) {
-	ComponentArray<Position> components;
+	ComponentArray<Position> components{};
 	const int amountOfComponents = 10;
 	AddComponentsWithUniquePos( components, amountOfComponents );
 
@@ -84,7 +83,7 @@ TEST_F( TestComponentArray, ValidateEraseComponentThatDoesntExist ) {
 }
 
 TEST_F( TestComponentArray, SetDataToComponentThatDoesntExist ) {
-	ComponentArray<Position> components;
+	ComponentArray<Position> components{};
 	const int amountOfComponents = 10;
 	AddComponentsWithUniquePos( components, amountOfComponents );
 
@@ -93,7 +92,7 @@ TEST_F( TestComponentArray, SetDataToComponentThatDoesntExist ) {
 }
 
 TEST_F( TestComponentArray, SetDataWorksProperly ) {
-	ComponentArray<Position> components;
+	ComponentArray<Position> components{};
 	const int amountOfComponents = 10;
 	AddComponentsWithUniquePos( components, amountOfComponents );
 

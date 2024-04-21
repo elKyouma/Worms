@@ -5,7 +5,6 @@
 #include <stdio.h> /* printf and fprintf */
 #include "imgui_impl_sdl2.h"
 #include "SDL_Exception.h"
-
 /* Sets constants */
 #define WIDTH 800
 #define HEIGHT 600

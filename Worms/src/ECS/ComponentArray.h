@@ -5,20 +5,22 @@
 
 class IComponentArray
 {
-
+public:
+	virtual ~IComponentArray() {}
 };
 
 template<typename Data>
-class ComponentArray : IComponentArray
+class ComponentArray : public IComponentArray
 {
 public:
-	Data AddData( EntityId ent );
+	Data& AddData( EntityId ent );
 	Data& GetData( EntityId ent );
 	Data& GetDataAtIndex( EntityId ent );
 	void SetData( EntityId ent, Data data );
 	void EraseData( EntityId ent );
 
 	ComponentType GetType;
+	virtual ~ComponentArray() {}
 private:
 	ComponentType typeId;
 
@@ -30,7 +32,7 @@ private:
 };
 
 template<typename Data>
-Data ComponentArray<Data>::AddData( EntityId ent )
+Data& ComponentArray<Data>::AddData( EntityId ent )
 {
 	if ( amountOfComponents == MAX_ENTITIES )
 		ECS_THROW( "Entities overflow" );
