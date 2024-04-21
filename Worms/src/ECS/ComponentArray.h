@@ -14,7 +14,7 @@ class ComponentArray : IComponentArray
 public:
 	Data AddData( Entity ent );
 	Data& GetData( Entity ent );
-	void SetData( Entity ent, Data& data );
+	void SetData( Entity ent, Data data );
 	void EraseData( Entity ent );
 
 	ComponentType GetType;
@@ -29,7 +29,7 @@ private:
 };
 
 template<typename Data>
-inline Data ComponentArray<Data>::AddData( Entity ent )
+Data ComponentArray<Data>::AddData( Entity ent )
 {
 	entityToIndex[ent] = amountOfComponents;
 	indexToEntity[amountOfComponents] = ent;
@@ -38,25 +38,28 @@ inline Data ComponentArray<Data>::AddData( Entity ent )
 }
 
 template<typename Data>
-inline Data& ComponentArray<Data>::GetData( Entity ent )
+Data& ComponentArray<Data>::GetData( Entity ent )
 {
 	return components[ent];
 }
 
 template<typename Data>
-inline void ComponentArray<Data>::SetData( Entity ent, Data& data )
+void ComponentArray<Data>::SetData( Entity ent, Data data )
 {
 	components[ent] = data;
 }
 
 template<typename Data>
-inline void ComponentArray<Data>::EraseData( Entity ent )
+void ComponentArray<Data>::EraseData( Entity ent )
 {
 	Entity index = entityToIndex[ent];
-	entityToIndex.erase( ent );
 
 	components[index] = components[amountOfComponents];
-	indexToEntity[index] = components[amountOfComponents];
+
+	entityToIndex.erase( ent );
+	entityToIndex[amountOfComponents] = index;
+
+	indexToEntity[index] = indexToEntity[amountOfComponents];
 	indexToEntity.erase( amountOfComponents );
 
 	amountOfComponents--;

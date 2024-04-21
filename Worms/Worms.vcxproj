@@ -143,19 +143,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ComponentArray.cpp" />
-    <ClCompile Include="ComponentManager.cpp" />
-    <ClCompile Include="EntityManager.cpp" />
+    <ClCompile Include="src\ECS\ComponentManager.cpp" />
+    <ClCompile Include="src\ECS\EntityManager.cpp" />
     <ClCompile Include="src\EntryPoint.cpp" />
     <ClCompile Include="src\SDL_Exception.cpp" />
-    <ClCompile Include="SystemManager.cpp" />
+    <ClCompile Include="src\ECS\SystemManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ComponentArray.h" />
-    <ClInclude Include="ComponentManager.h" />
-    <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="src\ECS\ComponentArray.h" />
+    <ClInclude Include="src\ECS\ComponentManager.h" />
+    <ClInclude Include="src\ECS\ECS_Types.h" />
+    <ClInclude Include="src\ECS\EntityManager.h" />
+    <ClInclude Include="src\ECS\Components.h" />
     <ClInclude Include="src\SDL_Exception.h" />
-    <ClInclude Include="SystemManager.h" />
+    <ClInclude Include="src\ECS\SystemManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
