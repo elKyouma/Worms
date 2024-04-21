@@ -143,20 +143,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\AppException.cpp" />
+    <ClCompile Include="src\ECS\ECS_Exception.cpp" />
     <ClCompile Include="src\ECS\ComponentManager.cpp" />
     <ClCompile Include="src\ECS\EntityManager.cpp" />
     <ClCompile Include="src\EntryPoint.cpp" />
-    <ClCompile Include="src\SDL_Exception.cpp" />
     <ClCompile Include="src\ECS\SystemManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\AppException.h" />
+    <ClInclude Include="src\ECS\ECS_Exception.h" />
     <ClInclude Include="src\ECS\ComponentArray.h" />
     <ClInclude Include="src\ECS\ComponentManager.h" />
     <ClInclude Include="src\ECS\ECS_Types.h" />
     <ClInclude Include="src\ECS\EntityManager.h" />
     <ClInclude Include="src\ECS\Components.h" />
-    <ClInclude Include="src\SDL_Exception.h" />
     <ClInclude Include="src\ECS\SystemManager.h" />
+    <ClInclude Include="src\SDL_Exception.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
