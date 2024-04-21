@@ -2,28 +2,28 @@
 
 EntityManager::EntityManager()
 {
-	for ( Entity e = 0u; e < MAX_ENTITIES; e++ )
+	for ( EntityId e = 0u; e < MAX_ENTITIES; e++ )
 		availableEntities.emplace( e );
 }
 
-Entity EntityManager::CreateEntity()
+EntityId EntityManager::CreateEntity()
 {
-	Entity newEntity = availableEntities.front();
+	EntityId newEntity = availableEntities.front();
 	availableEntities.pop();
 	return newEntity;
 }
 
-void EntityManager::DestroyEntity( Entity ent )
+void EntityManager::DestroyEntity( EntityId ent )
 {
 	availableEntities.push( ent );
 }
 
-void EntityManager::SetSignature( Entity ent, Signature signature )
+void EntityManager::SetSignature( EntityId ent, Signature signature )
 {
 	entities[ent] = signature;
 }
 
-Signature EntityManager::GetSignature( Entity ent )
+Signature EntityManager::GetSignature( EntityId ent )
 {
 	return entities[ent];
 }

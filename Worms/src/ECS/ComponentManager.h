@@ -13,10 +13,10 @@ public:
 	ComponentArray<T>& GetComponentArray();
 
 	template<typename T>
-	T& GetComponent( Entity ent );
+	T& GetComponent( EntityId ent );
 
 	template<typename T>
-	T& AddComponent( Entity ent );
+	T& AddComponent( EntityId ent );
 
 private:
 	std::array<IComponentArray, MAX_COMPONENTS* MAX_ENTITIES> components;
@@ -39,13 +39,13 @@ inline ComponentArray<T>& ComponentManager::GetComponentArray()
 }
 
 template<typename T>
-inline T& ComponentManager::GetComponent( Entity ent )
+inline T& ComponentManager::GetComponent( EntityId ent )
 {
 
 }
 
 template<typename T>
-inline T& ComponentManager::AddComponent( Entity ent )
+inline T& ComponentManager::AddComponent( EntityId ent )
 {
 
 }

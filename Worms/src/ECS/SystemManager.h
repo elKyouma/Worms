@@ -8,7 +8,7 @@ class System
 public:
 	virtual void Update() = 0;
 private:
-	std::set<Entity> subscribed;
+	std::set<EntityId> subscribed;
 };
 
 //class SystemManager

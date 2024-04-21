@@ -8,7 +8,7 @@
 #define MAX_ENTITIES 1000
 #define MAX_SYSTEMS 16
 
-typedef uint16_t Entity;
+typedef uint16_t EntityId;
 typedef uint8_t ComponentType;
 typedef std::bitset<MAX_COMPONENTS> Signature;
 

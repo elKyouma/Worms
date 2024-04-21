@@ -9,14 +9,14 @@ class EntityManager
 public:
 	EntityManager();
 
-	Entity CreateEntity();
-	void DestroyEntity( Entity ent );
+	EntityId CreateEntity();
+	void DestroyEntity( EntityId ent );
 
-	void SetSignature( Entity ent, Signature signature );
-	Signature GetSignature( Entity ent );
+	void SetSignature( EntityId ent, Signature signature );
+	Signature GetSignature( EntityId ent );
 
 private:
-	std::queue<Entity> availableEntities;
+	std::queue<EntityId> availableEntities;
 	std::array<Signature, MAX_ENTITIES> entities;
 
 };
