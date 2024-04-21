@@ -1,5 +1,6 @@
 #include "pch.h"
 #include <assert.h>
+#include "../Worms/src/AppException.cpp"
 #include "ComponentArray.h"
 #include "Components.h"
 
@@ -72,6 +73,15 @@ namespace
 			}
 			EXPECT_FLOAT_EQ( components.GetData( i ).y, (float)i );
 		}
+	}
+
+	TEST_F( TestComponentArray, ValidateEraseComponentThatDoesntExist ) {
+		ComponentArray<Position> components;
+		const int amountOfComponents = 10;
+		AddComponentsWithUniquePos( components, amountOfComponents );
+
+		EXPECT_THROW( { components.EraseData( 12 ); }, AppException );
+
 	}
 
 }

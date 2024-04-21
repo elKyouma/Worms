@@ -53,7 +53,10 @@ template<typename Data>
 void ComponentArray<Data>::EraseData( Entity ent )
 {
 	amountOfComponents--;
-	Entity index = entityToIndex[ent];
+	auto it = entityToIndex.find( ent );
+	if ( it == entityToIndex.end() )
+		ECS_THROW( "Component you are trying to erase doesn't exist" );
+	Entity index = it->second;
 
 	components[index] = components[amountOfComponents];
 	components[amountOfComponents] = Data{};

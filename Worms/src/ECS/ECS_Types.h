@@ -1,7 +1,9 @@
-#pragma once;
+#pragma once
 #include <bitset>
 #include <cstdint>
 #include <exception>
+#include "../ECS_Exception.h"
+
 #define MAX_COMPONENTS 32
 #define MAX_ENTITIES 1000
 #define MAX_SYSTEMS 16

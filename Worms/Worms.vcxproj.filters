@@ -30,9 +30,6 @@
     <ClCompile Include="src\AppException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ECS\ECS_Exception.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ECS\EntityManager.h">
@@ -56,7 +53,7 @@
     <ClInclude Include="src\AppException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ECS\ECS_Exception.h">
+    <ClInclude Include="src\ECS_Exception.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\SDL_Exception.h">

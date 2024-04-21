@@ -1,5 +1,6 @@
-#include <sstream>
 #include "AppException.h"
+
+#include <sstream>
 
 
 AppException::AppException( int line, const char* file, const char* message ) noexcept
@@ -19,7 +20,7 @@ const char* AppException::what() const noexcept
 	return whatBuffer.c_str();
 }
 
-inline const char* AppException::GetType() const noexcept
+const inline char* AppException::GetType() const noexcept
 {
 	return "Worms Exception";
 }
