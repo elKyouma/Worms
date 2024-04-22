@@ -24,7 +24,7 @@
     <ClCompile Include="src\ECS\SystemManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AppException.cpp">
+    <ClCompile Include="src\ExceptionHandling\AppException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ECS\Systems.h">
@@ -50,13 +50,13 @@
     <ClInclude Include="src\ECS\Components.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppException.h">
+    <ClInclude Include="src\ExceptionHandling\AppException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ECS_Exception.h">
+    <ClInclude Include="src\ExceptionHandling\ECS_Exception.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\SDL_Exception.h">
+    <ClInclude Include="src\ExceptionHandling\SDL_Exception.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ECS\ComponentManager.h">

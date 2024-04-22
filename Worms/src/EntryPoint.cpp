@@ -3,8 +3,9 @@
 #include <imgui_impl_sdlrenderer2.h>
 #include <SDL2/SDL.h> /* macOS- and GNU/Linux-specific */
 #include <stdio.h> /* printf and fprintf */
+#include "ExceptionHandling/SDL_Exception.h"
 #include "imgui_impl_sdl2.h"
-#include "SDL_Exception.h"
+
 /* Sets constants */
 #define WIDTH 800
 #define HEIGHT 600
