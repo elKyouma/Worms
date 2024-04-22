@@ -18,14 +18,24 @@ void EntityManager::DestroyEntity( EntityId ent )
 	availableEntities.push( ent );
 }
 
+void EntityManager::AddToSignature( EntityId ent, ComponentType type )
+{
+	signatures[ent].set( type - 1, true );
+}
+
+void EntityManager::DeleteFromSignature( EntityId ent, ComponentType type )
+{
+	signatures[ent].set( type - 1, false );
+}
+
 void EntityManager::SetSignature( EntityId ent, Signature signature )
 {
-	entities[ent] = signature;
+	signatures[ent] = signature;
 }
 
 Signature EntityManager::GetSignature( EntityId ent )
 {
-	return entities[ent];
+	return signatures[ent];
 }
 
 uint16_t EntityManager::GetAmountOfAvailableEntities() const

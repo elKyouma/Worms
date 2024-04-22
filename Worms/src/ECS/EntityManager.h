@@ -12,6 +12,8 @@ public:
 	EntityId CreateEntity();
 	void DestroyEntity( EntityId ent );
 
+	void AddToSignature( EntityId ent, ComponentType type );
+	void DeleteFromSignature( EntityId ent, ComponentType type );
 	void SetSignature( EntityId ent, Signature signature );
 	Signature GetSignature( EntityId ent );
 
@@ -19,7 +21,7 @@ public:
 
 private:
 	std::queue<EntityId> availableEntities;
-	std::array<Signature, MAX_ENTITIES> entities;
+	std::array<Signature, MAX_COMPONENTS> signatures;
 
 };
 
