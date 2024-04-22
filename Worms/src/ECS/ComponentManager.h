@@ -5,6 +5,7 @@
 #include "ComponentArray.h"
 #include "ECS_Types.h"
 
+
 class ComponentManager
 {
 public:
@@ -16,6 +17,9 @@ public:
 
 	template<typename T>
 	T& GetComponent( EntityId ent );
+
+	template<typename T>
+	uint8_t GetComponentId() const;
 
 	template<typename T>
 	T& AddComponent( EntityId ent );
@@ -59,22 +63,17 @@ T& ComponentManager::GetComponent( EntityId ent )
 }
 
 template<typename T>
+uint8_t ComponentManager::GetComponentId() const
+{
+	auto it = typeToComponentId.find( typeid(T).name() );
+	if ( it == typeToComponentId.end() )
+		ECS_THROW( "You are trying to access unregistered component array" );
+	return it->second;
+}
+
+template<typename T>
 T& ComponentManager::AddComponent( EntityId ent )
 {
 	return GetComponentArray<T>().AddData( ent );
 }
 
-std::vector<std::string> ComponentManager::GetRegisteredComponents()
-{
-	std::vector<std::string> result{};
-	for ( auto it = typeToComponentId.begin(); it != typeToComponentId.end(); it++ )
-		result.push_back( it->first );
-
-	return result;
-}
-
-ComponentManager::~ComponentManager()
-{
-	for ( int i = 0; i < registeredComponents; i++ )
-		delete components[i];
-}

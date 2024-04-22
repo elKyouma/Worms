@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "ComponentManager.h"
+#include "ComponentManager.cpp"
 #include "Components.h"
 #include "ECS_Types.h"
 

@@ -1,24 +1,13 @@
 #pragma once
 #include <array>
-#include <set>
+#include "ComponentManager.h"
 #include "ECS_Types.h"
-
-class System
-{
-public:
-	virtual void Update() {};
-	inline Signature GetSystemSignature() const { return systemSignature; }
-	bool CheckIfSubscribed( EntityId ent ) const { return subscribed.find( ent ) != subscribed.end(); }
-	void Subscribe( EntityId ent ) { subscribed.insert( ent ); }
-	void Unsubscribe( EntityId ent ) { subscribed.erase( ent ); }
-private:
-	Signature systemSignature;
-	std::set<EntityId> subscribed;
-};
+#include "System.h"
 
 class SystemManager
 {
 public:
+	SystemManager( ComponentManager& componentManager ) : componentManager( componentManager ) {}
 	void Update();
 
 	template<typename Sys>
@@ -30,12 +19,12 @@ public:
 
 private:
 	std::array<System*, MAX_SYSTEMS> systems;
-
 	size_t amountOfSystems{ 0 };
+	ComponentManager& componentManager;
 };
 
 template<typename Sys>
 inline void SystemManager::RegisterSystem()
 {
-	systems[amountOfSystems++] = new Sys{};
+	systems[amountOfSystems++] = new Sys{ componentManager };
 }
