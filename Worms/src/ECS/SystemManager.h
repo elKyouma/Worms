@@ -18,7 +18,7 @@ public:
 	~SystemManager();
 
 private:
-	std::array<System*, MAX_SYSTEMS> systems;
+	std::array<System*, MAX_SYSTEMS> systems{};
 	size_t amountOfSystems{ 0 };
 	ComponentManager& componentManager;
 };

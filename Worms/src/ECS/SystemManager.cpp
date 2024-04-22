@@ -2,8 +2,8 @@
 
 void SystemManager::Update()
 {
-	for ( auto sys : systems )
-		sys->Update();
+	for ( uint8_t i = 0; i < amountOfSystems; i++ )
+		systems[i]->Update();
 }
 
 void SystemManager::OnSignatureChange( EntityId e, Signature signature )
@@ -11,7 +11,7 @@ void SystemManager::OnSignatureChange( EntityId e, Signature signature )
 	for ( uint8_t i = 0; i < amountOfSystems; i++ )
 	{
 		bool subscribed = systems[i]->CheckIfSubscribed( e );
-		bool rightSignature = (systems[i]->GetSystemSignature() & signature) == signature;
+		bool rightSignature = (systems[i]->GetSystemSignature() & signature) == systems[i]->GetSystemSignature();
 		if ( !subscribed && rightSignature )
 			systems[i]->Subscribe( e );
 		else if ( subscribed && !rightSignature )

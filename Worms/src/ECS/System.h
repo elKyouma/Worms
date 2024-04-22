@@ -11,6 +11,7 @@ public:
 	bool CheckIfSubscribed( EntityId ent ) const { return subscribed.find( ent ) != subscribed.end(); }
 	void Subscribe( EntityId ent ) { subscribed.insert( ent ); }
 	void Unsubscribe( EntityId ent ) { subscribed.erase( ent ); }
+	uint16_t AmountOfEnttiesInSystem() const { return subscribed.size(); }
 
 protected:
 	Signature systemSignature;
