@@ -3,7 +3,6 @@
 #include "ComponentArray.h"
 #include "Components.h"
 
-
 class TestComponentArray : public ::testing::Test
 {
 protected:

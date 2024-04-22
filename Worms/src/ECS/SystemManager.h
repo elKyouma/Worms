@@ -6,22 +6,36 @@
 class System
 {
 public:
-	virtual void Update() = 0;
+	virtual void Update() {};
+	inline Signature GetSystemSignature() const { return systemSignature; }
+	bool CheckIfSubscribed( EntityId ent ) const { return subscribed.find( ent ) != subscribed.end(); }
+	void Subscribe( EntityId ent ) { subscribed.insert( ent ); }
+	void Unsubscribe( EntityId ent ) { subscribed.erase( ent ); }
 private:
+	Signature systemSignature;
 	std::set<EntityId> subscribed;
 };
 
-//class SystemManager
-//{
-//public:
-//	void Update();
-//	void RegisterSystem( System& sys );
-//
-//	void OnSignatureChange( Entity e );
-//
-//private:
-//	std::array<System&, MAX_SYSTEMS> systems;
-//
-//	size_t amountOfSystems{ 0 };
-//};
-//
+class SystemManager
+{
+public:
+	void Update();
+
+	template<typename Sys>
+	void RegisterSystem();
+
+	void OnSignatureChange( EntityId e, Signature signature );
+
+	~SystemManager();
+
+private:
+	std::array<System*, MAX_SYSTEMS> systems;
+
+	size_t amountOfSystems{ 0 };
+};
+
+template<typename Sys>
+inline void SystemManager::RegisterSystem()
+{
+	systems[amountOfSystems++] = new Sys{};
+}
