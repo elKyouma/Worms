@@ -14,6 +14,7 @@ public:
 	void RegisterSystem();
 
 	void OnSignatureChange( EntityId e, Signature signature );
+	void UnsubscribeEntity( EntityId e );
 
 	~SystemManager();
 

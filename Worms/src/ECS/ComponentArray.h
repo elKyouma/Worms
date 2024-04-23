@@ -7,6 +7,8 @@ class IComponentArray
 {
 public:
 	virtual ~IComponentArray() {}
+	virtual void EraseData( EntityId ent ) {}
+	virtual void AddDataNoReturn( EntityId ent ) {}
 };
 
 template<typename Data>
@@ -14,6 +16,7 @@ class ComponentArray : public IComponentArray
 {
 public:
 	Data& AddData( EntityId ent );
+	void AddDataNoReturn( EntityId ent );
 	Data& GetData( EntityId ent );
 	Data& GetDataAtIndex( EntityId ent );
 	void SetData( EntityId ent, Data data );
@@ -41,6 +44,12 @@ Data& ComponentArray<Data>::AddData( EntityId ent )
 	indexToEntity[amountOfComponents] = ent;
 
 	return components[amountOfComponents++];
+}
+
+template<typename Data>
+void ComponentArray<Data>::AddDataNoReturn( EntityId ent )
+{
+	AddData( ent );
 }
 
 template<typename Data>

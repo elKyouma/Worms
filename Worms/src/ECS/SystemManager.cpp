@@ -19,6 +19,13 @@ void SystemManager::OnSignatureChange( EntityId e, Signature signature )
 	}
 }
 
+void SystemManager::UnsubscribeEntity( EntityId e )
+{
+	for ( uint8_t i = 0; i < amountOfSystems; i++ )
+		if ( systems[i]->CheckIfSubscribed( e ) )
+			systems[i]->Unsubscribe( e );
+}
+
 SystemManager::~SystemManager()
 {
 	for ( uint8_t i = 0; i < amountOfSystems; i++ )

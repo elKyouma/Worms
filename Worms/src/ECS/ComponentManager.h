@@ -23,6 +23,12 @@ public:
 
 	template<typename T>
 	T& AddComponent( EntityId ent );
+	void AddComponents( EntityId ent, Signature sign );
+
+	template<typename T>
+	void RemoveComponent( EntityId ent );
+
+	void RemoveAllComponents( EntityId ent, Signature sign );
 
 	std::vector<std::string> GetRegisteredComponents();
 
@@ -76,4 +82,12 @@ T& ComponentManager::AddComponent( EntityId ent )
 {
 	return GetComponentArray<T>().AddData( ent );
 }
+
+template<typename T>
+void ComponentManager::RemoveComponent( EntityId ent )
+{
+	GetComponentArray<T>().EraseData( ent );
+}
+
+
 

@@ -157,6 +157,7 @@
     <ClCompile Include="src\ECS\Systems.h" />
     <ClCompile Include="src\EntryPoint.cpp" />
     <ClCompile Include="src\ECS\SystemManager.cpp" />
+    <ClCompile Include="src\ECS\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ExceptionHandling\AppException.h" />
@@ -169,6 +170,7 @@
     <ClInclude Include="src\ECS\Components.h" />
     <ClInclude Include="src\ECS\SystemManager.h" />
     <ClInclude Include="src\ExceptionHandling\SDL_Exception.h" />
+    <ClInclude Include="src\ECS\World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
