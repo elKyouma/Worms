@@ -13,9 +13,9 @@ public:
 	EntityId CopyEntity( EntityId toCopy );
 
 	template<typename Component>
-	Component AddComponent( EntityId ent );
+	Component& AddComponent( EntityId ent );
 	template<typename Component>
-	Component GetComponent( EntityId ent );
+	Component& GetComponent( EntityId ent );
 	template<typename Component>
 	Component RemoveComponent( EntityId ent );
 
@@ -28,21 +28,21 @@ private:
 };
 
 template<typename Component>
-Component World::AddComponent( EntityId ent )
+Component& World::AddComponent( EntityId ent )
 {
 	Signature newSign = entManager.AddToSignature( ent, comManager.GetComponentId<Component>() );
 	sysManager.OnSignatureChange( ent, newSign );
-	return comManager.AddComponent( ent );
+	return comManager.AddComponent<Component>( ent );
 }
 
 template<typename Component>
-inline Component World::GetComponent( EntityId ent )
+Component& World::GetComponent( EntityId ent )
 {
-	return comManager.GetComponent<Component>();
+	return comManager.GetComponent<Component>( ent );
 }
 
 template<typename Component>
-inline Component World::RemoveComponent( EntityId ent )
+Component World::RemoveComponent( EntityId ent )
 {
 	Signature newSign = entManager.DeleteFromSignature( ent, comManager.GetComponentId<Component>() );
 	sysManager.OnSignatureChange( ent, newSign );

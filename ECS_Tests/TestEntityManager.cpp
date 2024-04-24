@@ -40,21 +40,21 @@ TEST_F( TestEntityManager, AddingComponentsToSignatures )
 {
 	manager.AddToSignature( id1, 1 );
 	manager.AddToSignature( id1, 3 );
-	EXPECT_EQ( manager.GetSignature( id1 ).to_ulong(), 5 );
+	EXPECT_EQ( manager.GetSignature( id1 ).to_ulong(), 10 );
 
 	manager.AddToSignature( id2, 2 );
 	manager.AddToSignature( id2, 5 );
-	EXPECT_EQ( manager.GetSignature( id2 ).to_ulong(), 18 );
+	EXPECT_EQ( manager.GetSignature( id2 ).to_ulong(), 36 );
 }
 
 TEST_F( TestEntityManager, DeletingComponentFromSignature )
 {
 	manager.AddToSignature( id1, 1 );
 	manager.AddToSignature( id1, 3 );
-	EXPECT_EQ( manager.GetSignature( id1 ).to_ulong(), 5 );
+	EXPECT_EQ( manager.GetSignature( id1 ).to_ulong(), 10 );
 
 	manager.DeleteFromSignature( id1, 1 );
-	EXPECT_EQ( manager.GetSignature( id1 ).to_ulong(), 4 );
+	EXPECT_EQ( manager.GetSignature( id1 ).to_ulong(), 8 );
 	manager.DeleteFromSignature( id1, 3 );
 	EXPECT_EQ( manager.GetSignature( id1 ).to_ulong(), 0 );
 }
@@ -65,7 +65,7 @@ TEST_F( TestEntityManager, SetGetSignature )
 	manager.AddToSignature( id1, 3 );
 	manager.SetSignature( id2, manager.GetSignature( id1 ) );
 
-	EXPECT_EQ( manager.GetSignature( id1 ).to_ulong(), 5 );
-	EXPECT_EQ( manager.GetSignature( id2 ).to_ulong(), 5 );
+	EXPECT_EQ( manager.GetSignature( id1 ).to_ulong(), 10 );
+	EXPECT_EQ( manager.GetSignature( id2 ).to_ulong(), 10 );
 }
 

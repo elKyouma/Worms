@@ -2,6 +2,7 @@
 #include <set>
 #include "ComponentManager.h"
 #include "ECS_Types.h"
+
 class System
 {
 public:
