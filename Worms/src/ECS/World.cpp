@@ -14,14 +14,14 @@ EntityId World::CreateEntity()
 	return entManager.CreateEntity();
 }
 
-void World::DestroyEntity( EntityId ent )
+void World::DestroyEntity( const EntityId ent )
 {
 	comManager.RemoveAllComponents( ent, entManager.GetSignature( ent ) );
 	entManager.DestroyEntity( ent );
 	sysManager.UnsubscribeEntity( ent );
 }
 
-EntityId World::CopyEntity( EntityId toCopy )
+EntityId World::CopyEntity( const EntityId toCopy )
 {
 	EntityId newId = entManager.CreateEntity();
 	Signature toCopySign = entManager.GetSignature( toCopy );

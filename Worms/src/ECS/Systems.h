@@ -18,9 +18,6 @@ public:
 		for ( EntityId ent : subscribed )
 		{
 			positions.GetData( ent ).x += motions.GetData( ent ).v_x;
-		}
-		for ( EntityId ent : subscribed )
-		{
 			positions.GetData( ent ).y += motions.GetData( ent ).v_y;
 		}
 	}

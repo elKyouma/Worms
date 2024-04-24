@@ -13,27 +13,27 @@ EntityId EntityManager::CreateEntity()
 	return newEntity;
 }
 
-void EntityManager::DestroyEntity( EntityId ent )
+void EntityManager::DestroyEntity( const EntityId ent )
 {
 	availableEntities.push( ent );
 }
 
-Signature EntityManager::AddToSignature( EntityId ent, ComponentType type )
+Signature EntityManager::AddToSignature( const EntityId ent, const ComponentType type )
 {
 	return signatures[ent].set( type, true );
 }
 
-Signature EntityManager::DeleteFromSignature( EntityId ent, ComponentType type )
+Signature EntityManager::DeleteFromSignature( const EntityId ent, const ComponentType type )
 {
 	return signatures[ent].set( type, false );
 }
 
-void EntityManager::SetSignature( EntityId ent, Signature signature )
+void EntityManager::SetSignature( const EntityId ent, const Signature signature )
 {
 	signatures[ent] = signature;
 }
 
-Signature EntityManager::GetSignature( EntityId ent )
+Signature EntityManager::GetSignature( const EntityId ent )
 {
 	return signatures[ent];
 }

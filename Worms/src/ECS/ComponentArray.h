@@ -7,20 +7,20 @@ class IComponentArray
 {
 public:
 	virtual ~IComponentArray() {}
-	virtual void EraseData( EntityId ent ) {}
-	virtual void AddDataNoReturn( EntityId ent ) {}
+	virtual void EraseData( const EntityId ent ) {}
+	virtual void AddDataNoReturn( const EntityId ent ) {}
 };
 
 template<typename Data>
 class ComponentArray : public IComponentArray
 {
 public:
-	Data& AddData( EntityId ent );
-	void AddDataNoReturn( EntityId ent );
-	Data& GetData( EntityId ent );
-	Data& GetDataAtIndex( EntityId ent );
-	void SetData( EntityId ent, Data data );
-	void EraseData( EntityId ent );
+	Data& AddData( const EntityId ent );
+	void AddDataNoReturn( const EntityId ent );
+	Data& GetData( const EntityId ent );
+	Data& GetDataAtIndex( const EntityId ent );
+	void SetData( const EntityId ent, const Data& data );
+	void EraseData( const EntityId ent );
 
 	ComponentType GetType;
 	virtual ~ComponentArray() {}
@@ -35,7 +35,7 @@ private:
 };
 
 template<typename Data>
-Data& ComponentArray<Data>::AddData( EntityId ent )
+Data& ComponentArray<Data>::AddData( const EntityId ent )
 {
 	if ( amountOfComponents == MAX_ENTITIES )
 		ECS_THROW( "Entities overflow" );
@@ -47,13 +47,13 @@ Data& ComponentArray<Data>::AddData( EntityId ent )
 }
 
 template<typename Data>
-void ComponentArray<Data>::AddDataNoReturn( EntityId ent )
+void ComponentArray<Data>::AddDataNoReturn( const EntityId ent )
 {
 	AddData( ent );
 }
 
 template<typename Data>
-Data& ComponentArray<Data>::GetData( EntityId ent )
+Data& ComponentArray<Data>::GetData( const EntityId ent )
 {
 	auto it = entityToIndex.find( ent );
 	if ( it == entityToIndex.end() )
@@ -63,7 +63,7 @@ Data& ComponentArray<Data>::GetData( EntityId ent )
 }
 
 template<typename Data>
-inline Data& ComponentArray<Data>::GetDataAtIndex( EntityId index )
+inline Data& ComponentArray<Data>::GetDataAtIndex( const EntityId index )
 {
 	if ( index >= amountOfComponents )
 		ECS_THROW( "You are trying to access component by index that doesn't exist" );
@@ -72,7 +72,7 @@ inline Data& ComponentArray<Data>::GetDataAtIndex( EntityId index )
 }
 
 template<typename Data>
-void ComponentArray<Data>::SetData( EntityId ent, Data data )
+void ComponentArray<Data>::SetData( const EntityId ent, const Data& data )
 {
 	auto it = entityToIndex.find( ent );
 	if ( it == entityToIndex.end() )
@@ -83,13 +83,13 @@ void ComponentArray<Data>::SetData( EntityId ent, Data data )
 }
 
 template<typename Data>
-void ComponentArray<Data>::EraseData( EntityId ent )
+void ComponentArray<Data>::EraseData( const EntityId ent )
 {
 	auto it = entityToIndex.find( ent );
 	if ( it == entityToIndex.end() )
 		ECS_THROW( "Component you are trying to erase doesn't exist" );
 
-	EntityId index = it->second;
+	const EntityId index = it->second;
 
 	amountOfComponents--;
 

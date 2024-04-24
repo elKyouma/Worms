@@ -10,12 +10,12 @@ public:
 	EntityManager();
 
 	EntityId CreateEntity();
-	void DestroyEntity( EntityId ent );
+	void DestroyEntity( const EntityId ent );
 
-	Signature AddToSignature( EntityId ent, ComponentType type );
-	Signature DeleteFromSignature( EntityId ent, ComponentType type );
-	void SetSignature( EntityId ent, Signature signature );
-	Signature GetSignature( EntityId ent );
+	Signature AddToSignature( const EntityId ent, const ComponentType type );
+	Signature DeleteFromSignature( const EntityId ent, const ComponentType type );
+	void SetSignature( const EntityId ent, const Signature signature );
+	Signature GetSignature( const EntityId ent );
 
 	uint16_t GetAmountOfAvailableEntities() const;
 

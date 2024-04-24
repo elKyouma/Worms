@@ -10,27 +10,27 @@ class ComponentManager
 {
 public:
 	template<typename T>
-	void RegisterComponent();;
+	void RegisterComponent();
 
 	template<typename T>
 	ComponentArray<T>& GetComponentArray();
 
 	template<typename T>
-	T& GetComponent( EntityId ent );
+	T& GetComponent( const EntityId ent );
 
 	template<typename T>
 	uint8_t GetComponentId() const;
 
 	template<typename T>
-	T& AddComponent( EntityId ent );
-	void AddComponents( EntityId ent, Signature sign );
+	T& AddComponent( const EntityId ent );
+	void AddComponents( const EntityId ent, const Signature sign );
 
 	template<typename T>
-	void RemoveComponent( EntityId ent );
+	void RemoveComponent( const EntityId ent );
 
-	void RemoveAllComponents( EntityId ent, Signature sign );
+	void RemoveAllComponents( const EntityId ent, const Signature sign );
 
-	std::vector<std::string> GetRegisteredComponents();
+	std::vector<std::string> GetRegisteredComponents() const;
 
 	~ComponentManager();
 private:
@@ -63,7 +63,7 @@ ComponentArray<T>& ComponentManager::GetComponentArray()
 }
 
 template<typename T>
-T& ComponentManager::GetComponent( EntityId ent )
+T& ComponentManager::GetComponent( const EntityId ent )
 {
 	return GetComponentArray<T>().GetData( ent );
 }
@@ -78,13 +78,13 @@ uint8_t ComponentManager::GetComponentId() const
 }
 
 template<typename T>
-T& ComponentManager::AddComponent( EntityId ent )
+T& ComponentManager::AddComponent( const EntityId ent )
 {
 	return GetComponentArray<T>().AddData( ent );
 }
 
 template<typename T>
-void ComponentManager::RemoveComponent( EntityId ent )
+void ComponentManager::RemoveComponent( const EntityId ent )
 {
 	GetComponentArray<T>().EraseData( ent );
 }

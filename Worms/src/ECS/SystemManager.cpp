@@ -6,7 +6,7 @@ void SystemManager::Update()
 		systems[i]->Update();
 }
 
-void SystemManager::OnSignatureChange( EntityId e, Signature signature )
+void SystemManager::OnSignatureChange( const EntityId e, const Signature signature )
 {
 	for ( uint8_t i = 0; i < amountOfSystems; i++ )
 	{
@@ -19,7 +19,7 @@ void SystemManager::OnSignatureChange( EntityId e, Signature signature )
 	}
 }
 
-void SystemManager::UnsubscribeEntity( EntityId e )
+void SystemManager::UnsubscribeEntity( const EntityId e )
 {
 	for ( uint8_t i = 0; i < amountOfSystems; i++ )
 		if ( systems[i]->CheckIfSubscribed( e ) )

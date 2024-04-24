@@ -13,8 +13,8 @@ public:
 	template<typename Sys>
 	void RegisterSystem();
 
-	void OnSignatureChange( EntityId e, Signature signature );
-	void UnsubscribeEntity( EntityId e );
+	void OnSignatureChange( const EntityId e, const Signature signature );
+	void UnsubscribeEntity( const EntityId e );
 
 	~SystemManager();
 
