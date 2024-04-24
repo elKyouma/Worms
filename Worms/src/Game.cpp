@@ -1,6 +1,14 @@
 #include <imgui_impl_sdlrenderer2.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include "Game.h"
 #include "imgui_impl_sdl2.h"
+
+Game::Game()
+{
+	world = std::make_unique<World>();
+
+}
 
 void Game::InitWindow( const std::string& title, const int width, const int height )
 {
@@ -28,10 +36,17 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	ImGui_ImplSDLRenderer2_Init( renderer );
 
 	isRunning = true;
+
+	SDL_Surface* temp = IMG_Load( "worms.png" );
+	if ( temp == NULL )
+		printf( "IMG_Load: %s\n", IMG_GetError() );
+	sprite.texture = SDL_CreateTextureFromSurface( renderer, temp );
+	SDL_FreeSurface( temp );
 }
 
 void Game::Update()
 {
+	world->Update();
 }
 
 void Game::HandleEvents()
@@ -63,16 +78,34 @@ void Game::Render()
 	ImGui::EndMainMenuBar();
 
 	// Rendering
-	ImGui::Render();
-	SDL_RenderSetScale( renderer, io->DisplayFramebufferScale.x, io->DisplayFramebufferScale.y );
 	SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
 	SDL_RenderClear( renderer );
+	SDL_SetRenderDrawColor( renderer, 0, 0, 255, 255 );
+
+	/* Draw the selected image of the sprite at the right position */
+	{
+		/* Define the source rectangle for the BlitSurface */
+		SDL_Point size;
+		SDL_QueryTexture( sprite.texture, NULL, NULL, &size.x, &size.y );
+		SDL_Rect spriteImage;
+		spriteImage.x = 0;
+		spriteImage.y = 0;
+		spriteImage.w = size.x;
+		spriteImage.h = size.y;
+
+		SDL_RenderDrawRect( renderer, &spriteImage );
+		SDL_RenderCopy( renderer, sprite.texture, &spriteImage, &spriteImage );
+	}
+
+	ImGui::Render();
+	SDL_RenderSetScale( renderer, io->DisplayFramebufferScale.x, io->DisplayFramebufferScale.y );
 	ImGui_ImplSDLRenderer2_RenderDrawData( ImGui::GetDrawData() );
 	SDL_RenderPresent( renderer );
 }
 
 void Game::Clean()
 {
+	SDL_DestroyTexture( sprite.texture );
 	ImGui_ImplSDLRenderer2_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
 

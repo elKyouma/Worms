@@ -7,6 +7,9 @@ class World
 {
 public:
 	World();
+	World( const World& ) = delete;
+	World( World&& ) = delete;
+
 	EntityId CreateEntity();
 	void DestroyEntity( const EntityId ent );
 
