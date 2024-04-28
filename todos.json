@@ -1,0 +1,41 @@
+{
+    "name": "Worms",
+    "todos": [
+        {
+            "done": false,
+            "title": "Create WormManager class for choosing active worm"
+        },
+        {
+            "done": false,
+            "title": "Create Input Signleton for easy access to inputs"
+        },
+        {
+            "done": false,
+            "title": "Integrate Box2D"
+        },
+        {
+            "done": false,
+            "title": "Add test map"
+        },
+        {
+            "done": false,
+            "title": "Add debug option for collider visualization"
+        },
+        {
+            "done": false,
+            "title": "Shooting from screen center"
+        },
+        {
+            "done": false,
+            "title": "Integrate shooting with moving character"
+        },
+        {
+            "done": false,
+            "title": "Character movement"
+        },
+        {
+            "done": false,
+            "title": "Character movement with physics"
+        }
+    ]
+}
