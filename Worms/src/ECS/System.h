@@ -8,6 +8,7 @@ class System
 public:
 	System( ComponentManager& componentManager ) : componentManager( componentManager ) {}
 	virtual void Update() {};
+	virtual void Render() {};
 	inline Signature GetSystemSignature() const { return systemSignature; }
 	bool CheckIfSubscribed( const EntityId ent ) const { return subscribed.find( ent ) != subscribed.end(); }
 	void Subscribe( const EntityId ent ) { subscribed.insert( ent ); }

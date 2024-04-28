@@ -2,11 +2,13 @@
 #include "Systems.h"
 #include "World.h"
 
-World::World()
+World::World( SDL_Renderer* renderer ) : renderer( renderer )
 {
 	comManager.RegisterComponent<Position>();
+	comManager.RegisterComponent<Sprite>();
 	comManager.RegisterComponent<Motion>();
 	sysManager.RegisterSystem<Movement>();
+	sysManager.RegisterSystem<SpriteRenderer>( renderer );
 }
 
 EntityId World::CreateEntity()
@@ -34,4 +36,9 @@ EntityId World::CopyEntity( const EntityId toCopy )
 void World::Update()
 {
 	sysManager.Update();
+}
+
+void World::Render()
+{
+	sysManager.Render();
 }
