@@ -3,13 +3,13 @@
 #include "ExceptionHandling/SDL_Exception.h"
 #include "Worm.h"
 
-Worm::Worm( SDL_Renderer* renderer, World* world )
+Worm::Worm( SDL_Renderer* renderer, World* world ) : world( world )
 {
 	wormId = world->CreateEntity();
 	world->AddComponent<Position>( wormId );
 	Sprite& spriteComponent = world->AddComponent<Sprite>( wormId );
 	motion = &world->AddComponent<Motion>( wormId );
-	motion->v_y = 5;
+	motion->v_y = 0.05;
 
 	SDL_Surface* temp = IMG_Load( "worms.png" );
 	if ( temp == NULL )
@@ -22,4 +22,9 @@ Worm::Worm( SDL_Renderer* renderer, World* world )
 Worm::~Worm()
 {
 	SDL_DestroyTexture( world->GetComponent<Sprite>( wormId ).texture );
+}
+
+void Worm::Update()
+{
+	//Add input and delta by using singletons
 }

@@ -12,6 +12,7 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 
 	isRunning = true;
 	world = std::make_unique<World>( renderer );
+	worm = std::make_unique<Worm>( renderer, world.get() );
 }
 
 void Game::InitSDL( const std::string& title, const int width, const int height )
@@ -47,6 +48,7 @@ void Game::InitImGui()
 void Game::Update()
 {
 	world->Update();
+	worm->Update();//Should add some WormManager in the future
 }
 
 void Game::HandleEvents()
@@ -80,7 +82,6 @@ void Game::Render()
 	// Rendering
 	SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
 	SDL_RenderClear( renderer );
-	SDL_SetRenderDrawColor( renderer, 0, 0, 255, 255 );
 
 	world->Render();
 

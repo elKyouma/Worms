@@ -5,6 +5,7 @@
 #include "ECS/Components.h"
 #include "ECS/World.h"
 #include "ExceptionHandling/SDL_Exception.h"
+#include "Worm.h"
 
 class Game
 {
@@ -16,7 +17,7 @@ public:
 	void Render();
 	void Clean();
 
-	inline bool IsRunning() { return isRunning; }
+	inline bool IsRunning() const { return isRunning; }
 private:
 	void InitSDL( const std::string& title, const int width, const int height );
 	void InitImGui();
@@ -25,6 +26,7 @@ private:
 	SDL_Renderer* renderer = NULL;
 	ImGuiIO* io = NULL;
 	std::unique_ptr<World> world;
+	std::unique_ptr<Worm> worm;
 	bool isRunning = false;
 };
 
