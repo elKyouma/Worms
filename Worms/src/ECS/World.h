@@ -6,7 +6,7 @@
 class World
 {
 public:
-	World();
+	World( SDL_Renderer* renderer );
 	World( const World& ) = delete;
 	World( World&& ) = delete;
 
@@ -24,6 +24,10 @@ public:
 
 
 	void Update();
+	void Render();
+
+private:
+	SDL_Renderer* renderer;
 private:
 	EntityManager entManager{};
 	ComponentManager comManager{};

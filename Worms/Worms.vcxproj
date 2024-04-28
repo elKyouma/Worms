@@ -126,6 +126,8 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>\src\</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>\src\</AdditionalUsingDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -159,6 +161,7 @@
     <ClCompile Include="src\EntryPoint.cpp" />
     <ClCompile Include="src\ECS\SystemManager.cpp" />
     <ClCompile Include="src\ECS\World.cpp" />
+    <ClCompile Include="src\Worm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game.h" />
@@ -173,6 +176,7 @@
     <ClInclude Include="src\ECS\SystemManager.h" />
     <ClInclude Include="src\ExceptionHandling\SDL_Exception.h" />
     <ClInclude Include="src\ECS\World.h" />
+    <ClInclude Include="src\Worm.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="worms.png" />

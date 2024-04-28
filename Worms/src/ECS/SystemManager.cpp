@@ -6,6 +6,12 @@ void SystemManager::Update()
 		systems[i]->Update();
 }
 
+void SystemManager::Render()
+{
+	for ( uint8_t i = 0; i < amountOfSystems; i++ )
+		systems[i]->Render();
+}
+
 void SystemManager::OnSignatureChange( const EntityId e, const Signature signature )
 {
 	for ( uint8_t i = 0; i < amountOfSystems; i++ )

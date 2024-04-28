@@ -18,12 +18,13 @@ public:
 
 	inline bool IsRunning() { return isRunning; }
 private:
+	void InitSDL( const std::string& title, const int width, const int height );
+	void InitImGui();
+
 	SDL_Window* window = NULL;
 	SDL_Renderer* renderer = NULL;
 	ImGuiIO* io = NULL;
 	std::unique_ptr<World> world;
 	bool isRunning = false;
-	Sprite sprite;
-
 };
 

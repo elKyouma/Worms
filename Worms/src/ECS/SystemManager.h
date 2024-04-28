@@ -9,9 +9,10 @@ class SystemManager
 public:
 	SystemManager( ComponentManager& componentManager ) : componentManager( componentManager ) {}
 	void Update();
+	void Render();
 
-	template<typename Sys>
-	void RegisterSystem();
+	template<typename Sys, typename... Args>
+	void RegisterSystem( Args&&... params );
 
 	void OnSignatureChange( const EntityId e, const Signature signature );
 	void UnsubscribeEntity( const EntityId e );
@@ -24,8 +25,8 @@ private:
 	ComponentManager& componentManager;
 };
 
-template<typename Sys>
-inline void SystemManager::RegisterSystem()
+template<typename Sys, typename... Args>
+inline void SystemManager::RegisterSystem( Args&&... params )
 {
-	systems[amountOfSystems++] = new Sys{ componentManager };
+	systems[amountOfSystems++] = new Sys{ componentManager, std::forward<Args>( params )... };
 }
