@@ -162,6 +162,7 @@
     <ClCompile Include="src\EntryPoint.cpp" />
     <ClCompile Include="src\ECS\SystemManager.cpp" />
     <ClCompile Include="src\ECS\World.cpp" />
+    <ClCompile Include="src\Utils.cpp" />
     <ClCompile Include="src\Worm.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +180,7 @@
     <ClInclude Include="src\ExceptionHandling\SDL_Exception.h" />
     <ClInclude Include="src\ECS\World.h" />
     <ClInclude Include="src\Input.h" />
+    <ClInclude Include="src\Utils.h" />
     <ClInclude Include="src\Worm.h" />
   </ItemGroup>
   <ItemGroup>
