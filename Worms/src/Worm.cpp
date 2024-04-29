@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 #include "ExceptionHandling/SDL_Exception.h"
 #include "Input.h"
+#include "Utils.h"
 #include "Worm.h"
 
 Worm::Worm( SDL_Renderer* renderer, World* world ) : world( world )
@@ -11,12 +11,8 @@ Worm::Worm( SDL_Renderer* renderer, World* world ) : world( world )
 	Sprite& spriteComponent = world->AddComponent<Sprite>( wormId );
 	motion = &world->AddComponent<Motion>( wormId );
 
-	SDL_Surface* temp = IMG_Load( "worms.png" );
-	if ( temp == NULL )
-		printf( "IMG_Load: %s\n", IMG_GetError() );
-	spriteComponent.texture = SDL_CreateTextureFromSurface( renderer, temp );
+	spriteComponent.texture = IMG_LoadTexture( renderer, "worms.png" );
 	SDL_CHECK( spriteComponent.texture );
-	SDL_FreeSurface( temp );
 }
 
 Worm::~Worm()
