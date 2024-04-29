@@ -1,4 +1,5 @@
 #pragma once
+#include "../Camera.h"
 #include "Components.h"
 #include "System.h"
 
@@ -26,9 +27,10 @@ public:
 class SpriteRenderer : public System
 {
 public:
-	SpriteRenderer( ComponentManager& componentManager, SDL_Renderer* renderer )
+	SpriteRenderer( ComponentManager& componentManager, SDL_Renderer* renderer, Camera& camera )
 		: System( componentManager ),
-		renderer( renderer )
+		renderer( renderer ),
+		camera( camera )
 	{
 		systemSignature.set( componentManager.GetComponentId<Position>(), true );
 		systemSignature.set( componentManager.GetComponentId<Sprite>(), true );
@@ -49,8 +51,8 @@ public:
 			spriteImage.h = size.y;
 
 			SDL_Rect destination;
-			destination.x = positions.GetData( ent ).x;
-			destination.y = positions.GetData( ent ).y;
+			destination.x = positions.GetData( ent ).x - camera.x;
+			destination.y = positions.GetData( ent ).y - camera.y;
 			destination.w = size.x;
 			destination.h = size.y;
 
@@ -61,4 +63,5 @@ public:
 
 private:
 	SDL_Renderer* renderer;
+	Camera& camera;
 };

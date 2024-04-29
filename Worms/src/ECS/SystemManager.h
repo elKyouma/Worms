@@ -26,7 +26,7 @@ private:
 };
 
 template<typename Sys, typename... Args>
-inline void SystemManager::RegisterSystem( Args&&... params )
+void SystemManager::RegisterSystem( Args&&... params )
 {
 	systems[amountOfSystems++] = new Sys{ componentManager, std::forward<Args>( params )... };
 }

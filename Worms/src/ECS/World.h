@@ -16,6 +16,11 @@ public:
 	EntityId CopyEntity( const EntityId toCopy );
 
 	template<typename Component>
+	void RegisterComponent();
+	template<typename System, typename... Args>
+	void RegisterSystem( Args&&... params );
+
+	template<typename Component>
 	Component& AddComponent( const EntityId ent );
 	template<typename Component>
 	Component& GetComponent( const EntityId ent );
@@ -33,6 +38,18 @@ private:
 	ComponentManager comManager{};
 	SystemManager sysManager{ comManager };
 };
+
+template<typename Component>
+inline void World::RegisterComponent()
+{
+	comManager.RegisterComponent<Component>();
+}
+
+template<typename System, typename... Args>
+inline void World::RegisterSystem( Args&&... params )
+{
+	sysManager.RegisterSystem<System>( std::forward<Args>( params )... );
+}
 
 template<typename Component>
 Component& World::AddComponent( const EntityId ent )

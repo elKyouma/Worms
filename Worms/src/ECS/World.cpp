@@ -4,11 +4,6 @@
 
 World::World( SDL_Renderer* renderer ) : renderer( renderer )
 {
-	comManager.RegisterComponent<Position>();
-	comManager.RegisterComponent<Sprite>();
-	comManager.RegisterComponent<Motion>();
-	sysManager.RegisterSystem<Movement>();
-	sysManager.RegisterSystem<SpriteRenderer>( renderer );
 }
 
 EntityId World::CreateEntity()

@@ -13,6 +13,12 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 
 	isRunning = true;
 	world = std::make_unique<World>( renderer );
+	world->RegisterComponent<Position>();
+	world->RegisterComponent<Sprite>();
+	world->RegisterComponent<Motion>();
+	world->RegisterSystem<Movement>();
+	world->RegisterSystem<SpriteRenderer>( renderer, camera );
+
 	worm = std::make_unique<Worm>( renderer, world.get() );
 	map = std::make_unique<Map>( renderer, world.get() );
 }
@@ -51,6 +57,7 @@ void Game::Update()
 {
 	world->Update();
 	worm->Update();//Should add some WormManager in the future
+	//camera.x += 0.03f;
 }
 
 void Game::HandleInputs( const SDL_Event& ev )

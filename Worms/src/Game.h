@@ -2,6 +2,7 @@
 #include <imgui.h>
 #include <SDL2/SDL.h> /* macOS- and GNU/Linux-specific */
 #include <string>
+#include "Camera.h"
 #include "ECS/Components.h"
 #include "ECS/World.h"
 #include "ExceptionHandling/SDL_Exception.h"
@@ -31,6 +32,7 @@ private:
 	std::unique_ptr<World> world;
 	std::unique_ptr<Worm> worm;
 	std::unique_ptr<Map> map;
+	Camera camera{ };
 	bool isRunning = false;
 };
 

@@ -8,5 +8,6 @@ SDL_Texture* IMG_LoadTexture( SDL_Renderer* renderer, const char* file )
 		texture = SDL_CreateTextureFromSurface( renderer, surface );
 		SDL_FreeSurface( surface );
 	}
+
 	return texture;
 }
