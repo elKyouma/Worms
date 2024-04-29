@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\ExceptionHandling\AppException.cpp" />
     <ClCompile Include="src\ECS\ComponentManager.cpp" />
@@ -164,6 +165,7 @@
     <ClCompile Include="src\Worm.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Map.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\ExceptionHandling\AppException.h" />
     <ClInclude Include="src\ECS\ComponentManager.h" />
@@ -180,6 +182,7 @@
     <ClInclude Include="src\Worm.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="map.png" />
     <Image Include="worms.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -45,14 +45,14 @@ public:
 			SDL_Rect spriteImage;
 			spriteImage.x = 0;
 			spriteImage.y = 0;
-			spriteImage.w = 64;//size.x;
-			spriteImage.h = 64;//size.y;
+			spriteImage.w = size.x;
+			spriteImage.h = size.y;
 
 			SDL_Rect destination;
 			destination.x = positions.GetData( ent ).x;
 			destination.y = positions.GetData( ent ).y;
-			destination.w = 64;
-			destination.h = 64;
+			destination.w = size.x;
+			destination.h = size.y;
 
 			SDL_RenderDrawRect( renderer, &spriteImage );
 			SDL_RenderCopy( renderer, sprites.GetData( ent ).texture, &spriteImage, &destination );

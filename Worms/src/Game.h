@@ -5,6 +5,7 @@
 #include "ECS/Components.h"
 #include "ECS/World.h"
 #include "ExceptionHandling/SDL_Exception.h"
+#include "Map.h"
 #include "Worm.h"
 
 class Game
@@ -29,6 +30,7 @@ private:
 	ImGuiIO* io = NULL;
 	std::unique_ptr<World> world;
 	std::unique_ptr<Worm> worm;
+	std::unique_ptr<Map> map;
 	bool isRunning = false;
 };
 

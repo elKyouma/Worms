@@ -42,6 +42,9 @@
     <ClCompile Include="src\Worm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ECS\EntityManager.h">
@@ -86,9 +89,15 @@
     <ClInclude Include="src\Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="worms.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="map.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

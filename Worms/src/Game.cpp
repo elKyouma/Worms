@@ -14,6 +14,7 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	isRunning = true;
 	world = std::make_unique<World>( renderer );
 	worm = std::make_unique<Worm>( renderer, world.get() );
+	map = std::make_unique<Map>( renderer, world.get() );
 }
 
 void Game::InitSDL( const std::string& title, const int width, const int height )
