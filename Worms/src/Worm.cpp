@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "ExceptionHandling/SDL_Exception.h"
+#include "Input.h"
 #include "Worm.h"
 
 Worm::Worm( SDL_Renderer* renderer, World* world ) : world( world )
@@ -9,7 +10,6 @@ Worm::Worm( SDL_Renderer* renderer, World* world ) : world( world )
 	world->AddComponent<Position>( wormId );
 	Sprite& spriteComponent = world->AddComponent<Sprite>( wormId );
 	motion = &world->AddComponent<Motion>( wormId );
-	motion->v_y = 0.05;
 
 	SDL_Surface* temp = IMG_Load( "worms.png" );
 	if ( temp == NULL )
@@ -27,4 +27,6 @@ Worm::~Worm()
 void Worm::Update()
 {
 	//Add input and delta by using singletons
+	motion->v_y = Input::Get().vertical * 0.05f;
+	motion->v_x = Input::Get().horizontal * 0.05f;
 }

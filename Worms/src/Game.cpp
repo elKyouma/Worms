@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 #include "Game.h"
 #include "imgui_impl_sdl2.h"
+#include "Input.h"
 
 Game::Game() {}
 
@@ -51,6 +52,32 @@ void Game::Update()
 	worm->Update();//Should add some WormManager in the future
 }
 
+void Game::HandleInputs( const SDL_Event& ev )
+{
+	switch ( ev.key.keysym.scancode )
+	{
+	case SDL_SCANCODE_W: Input::Get().vertical = -1.f; break;
+	case SDL_SCANCODE_S: Input::Get().vertical = 1.f; break;
+	case SDL_SCANCODE_A: Input::Get().horizontal = -1.f; break;
+	case SDL_SCANCODE_D: Input::Get().horizontal = 1.f; break;
+	}
+}
+
+void Game::ResetInputs( const SDL_Event& ev )
+{
+	switch ( ev.key.keysym.scancode )
+	{
+	case SDL_SCANCODE_W:
+	case SDL_SCANCODE_S:
+		Input::Get().vertical = 0.f;
+		break;
+	case SDL_SCANCODE_A:
+	case SDL_SCANCODE_D:
+		Input::Get().horizontal = 0.f;
+		break;
+	}
+}
+
 void Game::HandleEvents()
 {
 	SDL_Event ev;
@@ -62,7 +89,14 @@ void Game::HandleEvents()
 		case SDL_QUIT:
 			isRunning = false;
 			break;
+		case SDL_KEYUP:
+			ResetInputs( ev );
+			break;
+		case SDL_KEYDOWN:
+			HandleInputs( ev );
+			break;
 		}
+
 	}
 }
 

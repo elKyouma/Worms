@@ -6,7 +6,7 @@
             "title": "Create WormManager class for choosing active worm"
         },
         {
-            "done": false,
+            "done": true,
             "title": "Create Input Signleton for easy access to inputs"
         },
         {
@@ -30,7 +30,7 @@
             "title": "Integrate shooting with moving character"
         },
         {
-            "done": false,
+            "done": true,
             "title": "Character movement"
         },
         {
