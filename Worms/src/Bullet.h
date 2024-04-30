@@ -14,6 +14,7 @@ public:
 private:
 	EntityId bulletId;
 	RigidBody* rigidBody;
+	Position* position;
 	World* world;
 };
 

@@ -21,7 +21,7 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	world->RegisterSystem<Movement>();
 	world->RegisterSystem<SpriteRenderer>( renderer, camera );
 
-	physicsWorld = std::make_unique<b2World>(b2Vec2(0, -9.811));
+	physicsWorld = std::make_unique<b2World>(b2Vec2(0, 9.811));
 
 	worm = std::make_unique<Worm>( renderer, world.get() );
 	bullet = std::make_unique<Bullet>(renderer, world.get(), physicsWorld.get());
@@ -61,7 +61,9 @@ void Game::InitImGui()
 void Game::Update()
 {
 	world->Update();
+	physicsWorld->Step(Time::deltaTime, 8, 3);
 	worm->Update();//Should add some WormManager in the future
+	bullet->Update();
 	camera.Update();
 }
 
