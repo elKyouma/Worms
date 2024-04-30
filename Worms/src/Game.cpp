@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "imgui_impl_sdl2.h"
 #include "Input.h"
+#include "Time.h"
 
 Game::Game() {}
 
@@ -60,44 +61,6 @@ void Game::Update()
 	camera.Update();
 }
 
-void Game::HandleInputs( const SDL_Event& ev )
-{
-	switch ( ev.key.keysym.scancode )
-	{
-	case SDL_SCANCODE_W: Input::Get().vertical = -1.f; break;
-	case SDL_SCANCODE_S: Input::Get().vertical = 1.f; break;
-	case SDL_SCANCODE_A: Input::Get().horizontal = -1.f; break;
-	case SDL_SCANCODE_D: Input::Get().horizontal = 1.f; break;
-	case SDL_SCANCODE_UP: Input::Get().camera_vertical = -1.f; break;
-	case SDL_SCANCODE_DOWN: Input::Get().camera_vertical = 1.f; break;
-	case SDL_SCANCODE_LEFT: Input::Get().camera_horizontal = -1.f; break;
-	case SDL_SCANCODE_RIGHT: Input::Get().camera_horizontal = 1.f; break;
-
-	}
-}
-
-void Game::ResetInputs( const SDL_Event& ev )
-{
-	switch ( ev.key.keysym.scancode )
-	{
-	case SDL_SCANCODE_W:
-	case SDL_SCANCODE_S:
-		Input::Get().vertical = 0.f;
-		break;
-	case SDL_SCANCODE_A:
-	case SDL_SCANCODE_D:
-		Input::Get().horizontal = 0.f;
-		break;
-	case SDL_SCANCODE_UP:
-	case SDL_SCANCODE_DOWN:
-		Input::Get().camera_vertical = 0.f;
-		break;
-	case SDL_SCANCODE_LEFT:
-	case SDL_SCANCODE_RIGHT:
-		Input::Get().camera_horizontal = 0.f;
-		break;
-	}
-}
 
 void Game::HandleEvents()
 {
@@ -111,10 +74,10 @@ void Game::HandleEvents()
 			isRunning = false;
 			break;
 		case SDL_KEYUP:
-			ResetInputs( ev );
+			Input::Get().UpdateInputsUp( ev );
 			break;
 		case SDL_KEYDOWN:
-			HandleInputs( ev );
+			Input::Get().UpdateInputsDown( ev );
 			break;
 		}
 

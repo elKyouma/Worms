@@ -51,10 +51,10 @@ public:
 			spriteImage.h = size.y;
 
 			SDL_Rect destination;
-			destination.x = positions.GetData( ent ).x - camera.X();
-			destination.y = positions.GetData( ent ).y - camera.Y();
-			destination.w = size.x * camera.Zoom();
-			destination.h = size.y * camera.Zoom();
+			destination.x = static_cast<int>(positions.GetData( ent ).x - camera.X());
+			destination.y = static_cast<int>(positions.GetData( ent ).y - camera.Y());
+			destination.w = static_cast<int>(size.x * camera.Zoom());
+			destination.h = static_cast<int>(size.y * camera.Zoom());
 
 			SDL_RenderDrawRect( renderer, &spriteImage );
 			SDL_RenderCopy( renderer, sprites.GetData( ent ).texture, &spriteImage, &destination );

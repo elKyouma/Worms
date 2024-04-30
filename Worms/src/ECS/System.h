@@ -13,7 +13,7 @@ public:
 	bool CheckIfSubscribed( const EntityId ent ) const { return subscribed.find( ent ) != subscribed.end(); }
 	void Subscribe( const EntityId ent ) { subscribed.insert( ent ); }
 	void Unsubscribe( const EntityId ent ) { subscribed.erase( ent ); }
-	uint16_t AmountOfEnttiesInSystem() const { return subscribed.size(); }
+	uint16_t AmountOfEnttiesInSystem() const { return static_cast<uint16_t>(subscribed.size()); }
 
 protected:
 	Signature systemSignature;

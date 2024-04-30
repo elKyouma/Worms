@@ -23,6 +23,6 @@ Worm::~Worm()
 void Worm::Update()
 {
 	//Add input and delta by using singletons
-	motion->v_y = Input::Get().vertical * 0.05f;
-	motion->v_x = Input::Get().horizontal * 0.05f;
+	motion->v_y = Input::Get().Vertical() * 0.05f;
+	motion->v_x = Input::Get().Horizontal() * 0.05f;
 }

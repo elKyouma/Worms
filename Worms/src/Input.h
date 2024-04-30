@@ -1,4 +1,5 @@
 #pragma once
+#include "SDL2/SDL.h"
 
 class Input
 {
@@ -12,14 +13,21 @@ public:
 		return input;
 	}
 
+	void UpdateInputsDown( const SDL_Event& ev );
+	void UpdateInputsUp( const SDL_Event& ev );
+
+	float Horizontal() const { return horizontal; }
+	float Vertical() const { return vertical; }
+
+	float CameraHorizontal() const { return camera_horizontal; }
+	float CameraVertical() const { return camera_vertical; }
+
+private:
 	float horizontal;
 	float vertical;
 
 	float camera_horizontal;
 	float camera_vertical;
-
-
-private:
 	Input() = default;
 
 };

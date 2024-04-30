@@ -21,8 +21,6 @@ public:
 
 	inline bool IsRunning() const { return isRunning; }
 private:
-	void HandleInputs( const SDL_Event& ev );
-	void ResetInputs( const SDL_Event& ev );
 	void InitSDL( const std::string& title, const int width, const int height );
 	void InitImGui();
 
