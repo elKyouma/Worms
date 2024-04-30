@@ -14,5 +14,7 @@ private:
 	EntityId wormId;
 	Motion* motion;
 	World* world;
+
+	static constexpr float WORM_SPEED = 200.f;
 };
 

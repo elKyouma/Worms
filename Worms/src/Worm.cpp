@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include "ExceptionHandling/SDL_Exception.h"
 #include "Input.h"
+#include "Time.h"
 #include "Utils.h"
 #include "Worm.h"
 
@@ -23,6 +24,6 @@ Worm::~Worm()
 void Worm::Update()
 {
 	//Add input and delta by using singletons
-	motion->v_y = Input::Get().Vertical() * 0.05f;
-	motion->v_x = Input::Get().Horizontal() * 0.05f;
+	motion->v_y = Input::Get().Vertical() * Time::deltaTime * WORM_SPEED;
+	motion->v_x = Input::Get().Horizontal() * Time::deltaTime * WORM_SPEED;
 }

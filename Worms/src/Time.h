@@ -1,12 +1,19 @@
 #pragma once
+#include <SDL2/SDL.h>
 
 namespace Time
 {
-	static float deltaTime = 0.f;
+	extern double deltaTime;
 
 	class Timer
 	{
 	public:
+		Timer();
+		double Reset();
+		double Measure();
+
 	private:
+		uint64_t lastTime = 0;
+		double deltaTime = 0.0;
 	};
 };

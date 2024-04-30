@@ -35,6 +35,7 @@ private:
 	std::unique_ptr<Bullet> bullet;
 	std::unique_ptr<Map> map;
 	Camera camera{ };
+
 	bool isRunning = false;
 };
 

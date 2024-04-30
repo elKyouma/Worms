@@ -57,6 +57,9 @@
     <ClCompile Include="src\Bullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Time.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ECS\EntityManager.h">
@@ -130,6 +133,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
+    <None Include=".editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include=".editorconfig" />
   </ItemGroup>
 </Project>
