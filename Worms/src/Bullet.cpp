@@ -20,7 +20,7 @@ Bullet::Bullet( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : 
 
 	static b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
-	bodyDef.linearVelocity = b2Vec2( 5, -1 );
+	bodyDef.linearVelocity = b2Vec2( 5, 1 );
 	rigidBody->body = physicsWorld->CreateBody(&bodyDef);
 	
 	static b2FixtureDef fixtureDef;
@@ -43,6 +43,6 @@ Bullet::~Bullet()
 
 void Bullet::Update()
 {
-	position->x = rigidBody->body->GetPosition().x * 100;
-	position->y = rigidBody->body->GetPosition().y * 100;
+	position->x = rigidBody->body->GetPosition().x ;
+	position->y = rigidBody->body->GetPosition().y ;
 }
