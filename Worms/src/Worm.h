@@ -15,6 +15,6 @@ private:
 	Motion* motion;
 	World* world;
 
-	static constexpr float WORM_SPEED = 200.f;
+	static constexpr float WORM_SPEED = 2.f;
 };
 

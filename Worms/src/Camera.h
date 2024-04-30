@@ -16,6 +16,6 @@ private:
 	float zoom = 1.f;
 	bool inputs_enabled = true;
 
-	static constexpr float CAMERA_SPEED = 200.f;
+	static constexpr float CAMERA_SPEED = 2.f;
 };
 
