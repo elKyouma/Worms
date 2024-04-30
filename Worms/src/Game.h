@@ -8,6 +8,7 @@
 #include "ExceptionHandling/SDL_Exception.h"
 #include "Map.h"
 #include "Worm.h"
+#include "box2d/b2_world.h"
 
 class Game
 {
@@ -24,6 +25,7 @@ private:
 	void InitSDL( const std::string& title, const int width, const int height );
 	void InitImGui();
 
+	b2World* physicsWorld = NULL;
 	SDL_Window* window = NULL;
 	SDL_Renderer* renderer = NULL;
 	ImGuiIO* io = NULL;

@@ -17,8 +17,11 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	world->RegisterComponent<Position>();
 	world->RegisterComponent<Sprite>();
 	world->RegisterComponent<Motion>();
+	world->RegisterComponent<RigidBody>();
 	world->RegisterSystem<Movement>();
 	world->RegisterSystem<SpriteRenderer>( renderer, camera );
+
+	physicsWorld = new b2World(b2Vec2(0, -9.811));
 
 	worm = std::make_unique<Worm>( renderer, world.get() );
 	map = std::make_unique<Map>( renderer, world.get() );
