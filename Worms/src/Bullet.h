@@ -8,10 +8,9 @@
 class Bullet
 {
 public:
-	Bullet(SDL_Renderer* renderer, World* world);
+	Bullet(SDL_Renderer* renderer, World* world, b2World* physicsWorld);
 	~Bullet();
 	void Update();
-
 private:
 	EntityId bulletId;
 	RigidBody* rigidBody;

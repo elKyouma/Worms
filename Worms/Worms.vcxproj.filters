@@ -128,4 +128,8 @@
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="imgui.ini" />
+    <None Include=".editorconfig" />
+  </ItemGroup>
 </Project>
