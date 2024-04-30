@@ -15,6 +15,10 @@ public:
 	float horizontal;
 	float vertical;
 
+	float camera_horizontal;
+	float camera_vertical;
+
+
 private:
 	Input() = default;
 

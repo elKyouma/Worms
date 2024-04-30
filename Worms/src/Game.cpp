@@ -57,7 +57,7 @@ void Game::Update()
 {
 	world->Update();
 	worm->Update();//Should add some WormManager in the future
-	//camera.x += 0.03f;
+	camera.Update();
 }
 
 void Game::HandleInputs( const SDL_Event& ev )
@@ -68,6 +68,11 @@ void Game::HandleInputs( const SDL_Event& ev )
 	case SDL_SCANCODE_S: Input::Get().vertical = 1.f; break;
 	case SDL_SCANCODE_A: Input::Get().horizontal = -1.f; break;
 	case SDL_SCANCODE_D: Input::Get().horizontal = 1.f; break;
+	case SDL_SCANCODE_UP: Input::Get().camera_vertical = -1.f; break;
+	case SDL_SCANCODE_DOWN: Input::Get().camera_vertical = 1.f; break;
+	case SDL_SCANCODE_LEFT: Input::Get().camera_horizontal = -1.f; break;
+	case SDL_SCANCODE_RIGHT: Input::Get().camera_horizontal = 1.f; break;
+
 	}
 }
 
@@ -82,6 +87,14 @@ void Game::ResetInputs( const SDL_Event& ev )
 	case SDL_SCANCODE_A:
 	case SDL_SCANCODE_D:
 		Input::Get().horizontal = 0.f;
+		break;
+	case SDL_SCANCODE_UP:
+	case SDL_SCANCODE_DOWN:
+		Input::Get().camera_vertical = 0.f;
+		break;
+	case SDL_SCANCODE_LEFT:
+	case SDL_SCANCODE_RIGHT:
+		Input::Get().camera_horizontal = 0.f;
 		break;
 	}
 }
@@ -126,7 +139,6 @@ void Game::Render()
 	SDL_RenderClear( renderer );
 
 	world->Render();
-
 	ImGui::Render();
 	SDL_RenderSetScale( renderer, io->DisplayFramebufferScale.x, io->DisplayFramebufferScale.y );
 	ImGui_ImplSDLRenderer2_RenderDrawData( ImGui::GetDrawData() );
