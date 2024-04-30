@@ -54,6 +54,9 @@
     <ClCompile Include="src\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Bullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\Time.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -113,6 +116,9 @@
     <ClInclude Include="src\Time.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Bullet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="worms.png">
@@ -121,6 +127,13 @@
     <Image Include="map.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="placeHolderBullet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="imgui.ini" />
+    <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />

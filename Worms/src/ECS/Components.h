@@ -1,5 +1,6 @@
 #pragma once
-#include "SDL2/SDL.h"
+#include <SDL2/SDL.h>
+#include <box2d/b2_body.h>
 
 struct Position
 {
@@ -14,4 +15,9 @@ struct Motion
 struct Sprite
 {
 	SDL_Texture* texture;
+};
+
+struct RigidBody
+{
+	b2Body* body;
 };

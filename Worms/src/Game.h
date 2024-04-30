@@ -8,6 +8,8 @@
 #include "ExceptionHandling/SDL_Exception.h"
 #include "Map.h"
 #include "Worm.h"
+#include "Bullet.h"
+#include "box2d/b2_world.h"
 
 class Game
 {
@@ -26,9 +28,11 @@ private:
 
 	SDL_Window* window = NULL;
 	SDL_Renderer* renderer = NULL;
-	ImGuiIO* io = NULL;
+	ImGuiIO* io = 0;
 	std::unique_ptr<World> world;
+	std::unique_ptr<b2World> physicsWorld;
 	std::unique_ptr<Worm> worm;
+	std::unique_ptr<Bullet> bullet;
 	std::unique_ptr<Map> map;
 	Camera camera{ };
 

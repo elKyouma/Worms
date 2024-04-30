@@ -10,7 +10,7 @@
             "title": "Create Input Signleton for easy access to inputs"
         },
         {
-            "done": false,
+            "done": true,
             "title": "Integrate Box2D"
         },
         {
@@ -22,7 +22,7 @@
             "title": "Add debug option for collider visualization"
         },
         {
-            "done": false,
+            "done": true,
             "title": "Shooting from screen center"
         },
         {
