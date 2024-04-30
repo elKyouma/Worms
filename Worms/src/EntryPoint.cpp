@@ -2,6 +2,7 @@
 
 #include <stdio.h> /* printf and fprintf */
 #include "Game.h"
+#include "Time.h"
 
 /* Sets constants */
 #define WIDTH 800
@@ -10,6 +11,7 @@
 int WinMain( int argc, char** argv )
 {
 	std::unique_ptr<Game> game = std::make_unique<Game>();
+	Time::Timer timer{};
 
 	try
 	{
@@ -17,6 +19,7 @@ int WinMain( int argc, char** argv )
 
 		while ( game->IsRunning() )
 		{
+			Time::deltaTime = timer.Reset();
 			game->HandleEvents();
 			game->Update();
 			game->Render();
