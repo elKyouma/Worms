@@ -4,12 +4,12 @@ void Input::UpdateInputsDown( const SDL_Event& ev )
 {
 	switch ( ev.key.keysym.scancode )
 	{
-	case SDL_SCANCODE_W: vertical = -1.f; break;
-	case SDL_SCANCODE_S: vertical = 1.f; break;
+	case SDL_SCANCODE_W: vertical = 1.f; break;
+	case SDL_SCANCODE_S: vertical = -1.f; break;
 	case SDL_SCANCODE_A: horizontal = -1.f; break;
 	case SDL_SCANCODE_D: horizontal = 1.f; break;
-	case SDL_SCANCODE_UP: camera_vertical = -1.f; break;
-	case SDL_SCANCODE_DOWN: camera_vertical = 1.f; break;
+	case SDL_SCANCODE_UP: camera_vertical = 1.f; break;
+	case SDL_SCANCODE_DOWN: camera_vertical = -1.f; break;
 	case SDL_SCANCODE_LEFT: camera_horizontal = -1.f; break;
 	case SDL_SCANCODE_RIGHT: camera_horizontal = 1.f; break;
 

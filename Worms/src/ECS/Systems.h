@@ -52,7 +52,7 @@ public:
 
 			SDL_Rect destination;
 			destination.x = static_cast<int>(positions.GetData( ent ).x - camera.X());
-			destination.y = static_cast<int>(positions.GetData( ent ).y - camera.Y());
+			destination.y = static_cast<int>(-positions.GetData( ent ).y + camera.Y());
 			destination.w = static_cast<int>(size.x * camera.Zoom());
 			destination.h = static_cast<int>(size.y * camera.Zoom());
 
