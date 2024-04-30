@@ -36,6 +36,7 @@ private:
 	std::unique_ptr<Map> map;
 	Camera camera{ };
 
+	bool toggleColliders = false;
 	bool isRunning = false;
 };
 

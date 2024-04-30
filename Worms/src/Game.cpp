@@ -100,7 +100,11 @@ void Game::Render()
 	ImGui::BeginMainMenuBar();
 	ImGui::MenuItem( "Game" );
 	ImGui::MenuItem( "Editors" );
-	ImGui::MenuItem( "Debug" );
+	if ( ImGui::BeginMenu( "Debug" ) )
+	{
+		ImGui::Checkbox( "Toggle colliders", &toggleColliders );
+		ImGui::EndMenu();
+	}
 	ImGui::EndMainMenuBar();
 
 	// Rendering
