@@ -27,3 +27,24 @@ void Worm::Update()
 	motion->v_y = Input::Get().Vertical() * Time::deltaTime * WORM_SPEED;
 	motion->v_x = Input::Get().Horizontal() * Time::deltaTime * WORM_SPEED;
 }
+
+void WormTeam::addWorm( Worm* worm )
+{
+	_worms.push_back( worm );
+}
+
+void WormTeam::removeWorm( Worm* worm )
+{
+	_worms.erase( std::remove_if( _worms.begin(), _worms.end(), [worm] ( Worm* current ) {return worm == current; } ) );
+}
+
+int WormTeam::Size() const
+{
+	return _worms.size();
+}
+
+WormTeam::~WormTeam() {
+	for ( auto& worm : _worms )
+		delete worm;
+	_worms.clear();
+}
