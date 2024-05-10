@@ -23,11 +23,8 @@ public:
 	float CameraHorizontal() const { return camera_horizontal; }
 	float CameraVertical() const { return camera_vertical; }
 
-	bool ChangeWorm() { return change_worm; }
-	bool ChangeTeam() { return change_team; }
-
-	//bool ChangeWorm() { if ( change_worm ) { change_worm = false; return true; } else return false; }
-	//bool ChangeTeam() { if ( change_team ) { change_team = false; return true; } else return false; }
+	bool ChangeWorm() { if ( change_worm ) { change_worm = false; return true; } else return false; }
+	bool ChangeTeam() { if ( change_team ) { change_team = false; return true; } else return false; }
 
 private:
 	float horizontal;

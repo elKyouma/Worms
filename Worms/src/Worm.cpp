@@ -41,7 +41,7 @@ void WormTeam::removeWorm( Worm* worm )
 
 void WormTeam::changeActiveWorm()
 {
-	if ( !_worms.empty() ) return;
+	if ( _worms.empty() ) return;
 
 	_activeWorm += 1;
 	if ( _activeWorm == _worms.size() )
