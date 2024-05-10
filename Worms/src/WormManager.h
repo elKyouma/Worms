@@ -8,12 +8,16 @@ public:
 	WormManager( const WormManager& ) = delete;
 	WormManager( WormManager&& ) = delete;
 
-	void addTeam(int size);
+	void createTeam(int size);
+	void deleteTeam( WormTeam* team);
+	void Update();
 
 	~WormManager();
 private:
+	void ChangeTeam();
+	void ChangeActiveWorm();
 	SDL_Renderer* _renderer = NULL;
 	World* _world = NULL;
 	std::vector<WormTeam*> _teams;
-	WormTeam* _activeTeam = nullptr;
+	int _activeTeam = 0;
 };
