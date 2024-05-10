@@ -43,7 +43,7 @@ WormManager::~WormManager() {
 
 void WormManager::ChangeTeam()
 {
-	if ( !_teams.empty() ) return;
+	if ( _teams.empty() ) return;
 
 	_activeTeam += 1;
 	if ( _activeTeam == _teams.size() )
@@ -52,6 +52,6 @@ void WormManager::ChangeTeam()
 
 void WormManager::ChangeActiveWorm()
 {
-	if ( !_teams.empty() ) return;
+	if ( _teams.empty() ) return;
 	_teams[_activeTeam]->changeActiveWorm();
 }
