@@ -24,7 +24,8 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	physicsWorld = std::make_unique<b2World>(b2Vec2(0, -9.811));
 
 	wormManager = std::make_unique<WormManager>( renderer, world.get() );
-	wormManager->addTeam( 2 );
+	wormManager->createTeam( 4 );
+	wormManager->createTeam( 4 );
 	bullet = std::make_unique<Bullet>(renderer, world.get(), physicsWorld.get());
 	map = std::make_unique<Map>( renderer, world.get() );
 }
@@ -63,7 +64,7 @@ void Game::Update()
 {
 	world->Update();
 	physicsWorld->Step(Time::deltaTime, 8, 3);
-	//worm->Update();//Should add some WormManager in the future
+	wormManager->Update();//Should add some WormManager in the future
 	bullet->Update();
 	camera.Update();
 }

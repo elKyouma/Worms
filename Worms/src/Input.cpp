@@ -12,7 +12,8 @@ void Input::UpdateInputsDown( const SDL_Event& ev )
 	case SDL_SCANCODE_DOWN: camera_vertical = -1.f; break;
 	case SDL_SCANCODE_LEFT: camera_horizontal = -1.f; break;
 	case SDL_SCANCODE_RIGHT: camera_horizontal = 1.f; break;
-
+	case SDL_SCANCODE_TAB: change_worm = true; break;
+	case SDL_SCANCODE_T: change_team = true; break;
 	}
 }
 
@@ -36,5 +37,7 @@ void Input::UpdateInputsUp( const SDL_Event& ev )
 	case SDL_SCANCODE_RIGHT:
 		Input::Get().camera_horizontal = 0.f;
 		break;
+	case SDL_SCANCODE_TAB: change_worm = false; break;
+	case SDL_SCANCODE_T: change_team = false; break;
 	}
 }
