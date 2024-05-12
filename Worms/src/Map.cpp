@@ -10,10 +10,7 @@
 Map::Map( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : world( world )
 {
 	mapId = world->CreateEntity();
-	pos = &world->AddComponent<Position>( mapId );
-	pos->x = -1;
-	pos->y = 2;
-	Sprite& sprite = world->AddComponent<Sprite>( mapId );
+	pos = &world->AddComponent<Position>( mapId, { -1, 2 } );
 
 	physTex = IMG_LoadPhysicTexture( renderer, "map.png" );
 	if ( physTex.has_value() )
@@ -35,7 +32,7 @@ Map::Map( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : world(
 		fixtureDef.shape = &shape;
 		rb.body->CreateFixture( &fixtureDef );
 
-		sprite.texture = physTex.value().texture;
+		world->AddComponent<Sprite>( mapId, { physTex.value().texture } );
 	}
 	//else
 		//TODO return error

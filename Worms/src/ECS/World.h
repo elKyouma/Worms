@@ -23,6 +23,8 @@ public:
 	template<typename Component>
 	Component& AddComponent( const EntityId ent );
 	template<typename Component>
+	Component& AddComponent( const EntityId ent, const Component&& component );
+	template<typename Component>
 	Component& GetComponent( const EntityId ent );
 	template<typename Component>
 	Component RemoveComponent( const EntityId ent );
@@ -57,6 +59,14 @@ Component& World::AddComponent( const EntityId ent )
 	Signature newSign = entManager.AddToSignature( ent, comManager.GetComponentId<Component>() );
 	sysManager.OnSignatureChange( ent, newSign );
 	return comManager.AddComponent<Component>( ent );
+}
+
+template<typename Component>
+inline Component& World::AddComponent( const EntityId ent, const Component&& component )
+{
+	Signature newSign = entManager.AddToSignature( ent, comManager.GetComponentId<Component>() );
+	sysManager.OnSignatureChange( ent, newSign );
+	return comManager.AddComponent<Component>( ent, std::move( component ) );
 }
 
 template<typename Component>

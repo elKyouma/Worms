@@ -9,11 +9,10 @@ Worm::Worm( SDL_Renderer* renderer, World* world ) : world( world )
 {
 	wormId = world->CreateEntity();
 	world->AddComponent<Position>( wormId );
-	Sprite& spriteComponent = world->AddComponent<Sprite>( wormId );
 	motion = &world->AddComponent<Motion>( wormId );
 
+	Sprite& spriteComponent = world->AddComponent<Sprite>( wormId );
 	spriteComponent.texture = IMG_LoadTexture( renderer, "worms.png" );
-
 	SDL_CHECK( spriteComponent.texture );
 }
 
