@@ -28,8 +28,8 @@ Map::Map( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : world(
 		shape.CreateLoop( &physTex.value().points[0][0], physTex.value().points[0].size() );
 
 		static b2FixtureDef fixtureDef;
-		fixtureDef.density = 1;
 		fixtureDef.shape = &shape;
+		fixtureDef.friction = 1;
 		rb.body->CreateFixture( &fixtureDef );
 
 		world->AddComponent<Sprite>( mapId, { physTex.value().texture } );
