@@ -2,6 +2,8 @@
 #include <imgui.h>
 #include <SDL2/SDL.h> /* macOS- and GNU/Linux-specific */
 #include <string>
+#include "box2d/b2_world.h"
+#include "Bullet.h"
 #include "Camera.h"
 #include "ECS/Components.h"
 #include "ECS/World.h"
@@ -9,8 +11,6 @@
 #include "Map.h"
 #include "Worm.h"
 #include "WormManager.h"
-#include "Bullet.h"
-#include "box2d/b2_world.h"
 
 class Game
 {

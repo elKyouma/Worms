@@ -21,13 +21,13 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	world->RegisterSystem<Movement>();
 	world->RegisterSystem<SpriteRenderer>( renderer, camera );
 
-	physicsWorld = std::make_unique<b2World>(b2Vec2(0, -9.811));
+	physicsWorld = std::make_unique<b2World>( b2Vec2( 0, -9.811 ) );
 
 	wormManager = std::make_unique<WormManager>( renderer, world.get() );
 	wormManager->createTeam( 4 );
 	wormManager->createTeam( 4 );
-	bullet = std::make_unique<Bullet>(renderer, world.get(), physicsWorld.get());
-	map = std::make_unique<Map>( renderer, world.get() );
+	bullet = std::make_unique<Bullet>( renderer, world.get(), physicsWorld.get() );
+	map = std::make_unique<Map>( renderer, world.get(), physicsWorld.get() );
 }
 
 void Game::InitSDL( const std::string& title, const int width, const int height )
@@ -63,8 +63,8 @@ void Game::InitImGui()
 void Game::Update()
 {
 	world->Update();
-	physicsWorld->Step(Time::deltaTime, 8, 3);
-	wormManager->Update();//Should add some WormManager in the future
+	physicsWorld->Step( Time::deltaTime, 8, 3 );
+	wormManager->Update();
 	bullet->Update();
 	camera.Update();
 }
@@ -110,6 +110,7 @@ void Game::Render()
 	SDL_RenderClear( renderer );
 
 	world->Render();
+	map->Update( renderer );
 	ImGui::Render();
 	SDL_RenderSetScale( renderer, io->DisplayFramebufferScale.x, io->DisplayFramebufferScale.y );
 	ImGui_ImplSDLRenderer2_RenderDrawData( ImGui::GetDrawData() );

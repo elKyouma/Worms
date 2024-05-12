@@ -13,6 +13,7 @@ Worm::Worm( SDL_Renderer* renderer, World* world ) : world( world )
 	motion = &world->AddComponent<Motion>( wormId );
 
 	spriteComponent.texture = IMG_LoadTexture( renderer, "worms.png" );
+
 	SDL_CHECK( spriteComponent.texture );
 }
 
