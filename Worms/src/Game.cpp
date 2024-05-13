@@ -23,7 +23,7 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 
 	physicsWorld = std::make_unique<b2World>( b2Vec2( 0, -9.811 ) );
 
-	wormManager = std::make_unique<WormManager>( renderer, world.get() );
+	wormManager = std::make_unique<WormManager>( renderer, world.get(), physicsWorld.get() );
 	wormManager->createTeam( 4 );
 	wormManager->createTeam( 4 );
 	bullet = std::make_unique<Bullet>( renderer, world.get(), physicsWorld.get() );
