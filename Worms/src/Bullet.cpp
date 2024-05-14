@@ -1,4 +1,4 @@
-#include <box2d/b2_circle_shape.h>
+#include <box2d/b2_polygon_shape.h>
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_world.h>
 #include <SDL2/SDL.h>
@@ -26,9 +26,8 @@ Bullet::Bullet( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : 
 
 	static b2FixtureDef fixtureDef;
 
-	b2CircleShape collider;
-	collider.m_radius = 0.25;
-	collider.m_p.Set( 0, 0 );
+	b2PolygonShape collider;
+	collider.SetAsBox( 0.2, 0.2 );
 
 	fixtureDef.shape = &collider;
 	fixtureDef.density = 1;
@@ -36,7 +35,6 @@ Bullet::Bullet( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : 
 
 	rigidBody->body->CreateFixture( &fixtureDef );
 	rigidBody->body->ApplyLinearImpulse( { 0.5, 0.4 }, { position->x, position->y }, true );
-
 }
 
 Bullet::~Bullet()
