@@ -1,4 +1,5 @@
 #pragma once
+#include <optional>
 #include "ComponentManager.h"
 #include "EntityManager.h"
 #include "SystemManager.h"
@@ -26,6 +27,8 @@ public:
 	Component& AddComponent( const EntityId ent, const Component&& component );
 	template<typename Component>
 	Component& GetComponent( const EntityId ent );
+	template<typename Component>
+	std::optional<std::reference_wrapper<Component>> TryGetComponent( const EntityId ent );
 	template<typename Component>
 	Component RemoveComponent( const EntityId ent );
 
@@ -73,6 +76,12 @@ template<typename Component>
 Component& World::GetComponent( const EntityId ent )
 {
 	return comManager.GetComponent<Component>( ent );
+}
+
+template<typename Component>
+std::optional<std::reference_wrapper<Component>> World::TryGetComponent( const EntityId ent )
+{
+	return comManager.TryGetComponent<Component>( ent );
 }
 
 template<typename Component>

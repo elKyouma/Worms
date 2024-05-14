@@ -15,6 +15,16 @@ TEST_F( WorldTest, CreateObjectAndThenDeleteIt )
 	world.DestroyEntity( e1 );
 }
 
+TEST_F( WorldTest, TryGetComponentThatDoesntExist )
+{
+	SDL_Renderer* renderer = SDL_CreateRenderer( SDL_CreateWindow( "", 0, 0, 0, 0, 0 ), 0, 0 );
+	World world{ renderer };
+	world.RegisterComponent<Position>();
+	auto comp = world.TryGetComponent<Position>( 4 );
+	EXPECT_FALSE( comp.has_value() );
+}
+
+
 TEST_F( WorldTest, CreateObjectAndUseSystem )
 {
 	SDL_Renderer* renderer = SDL_CreateRenderer( SDL_CreateWindow( "", 0, 0, 0, 0, 0 ), 0, 0 );
