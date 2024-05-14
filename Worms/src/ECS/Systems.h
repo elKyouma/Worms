@@ -2,6 +2,7 @@
 #include "../Camera.h"
 #include "Components.h"
 #include "System.h"
+#include <box2d/b2_fixture.h>
 
 class Movement : public System
 {
@@ -58,6 +59,34 @@ public:
 
 			SDL_RenderDrawRect( renderer, &spriteImage );
 			SDL_RenderCopy( renderer, sprites.GetData( ent ).texture, &spriteImage, &destination );
+		}
+	}
+
+private:
+	SDL_Renderer* renderer;
+	Camera& camera;
+};
+
+
+class ColliderRenderer : public System
+{
+public:
+	ColliderRenderer( ComponentManager& componentManager, SDL_Renderer* renderer, Camera& camera )
+		: System( componentManager ),
+		renderer( renderer ),
+		camera( camera )
+	{
+		systemSignature.set( componentManager.GetComponentId<Position>(), true );
+		systemSignature.set( componentManager.GetComponentId<Sprite>(), true );
+	}
+
+	virtual void Render() override
+	{
+		auto& positions = componentManager.GetComponentArray<Position>();
+		auto& rigidBodies = componentManager.GetComponentArray<RigidBody>();
+		for ( EntityId ent : subscribed )
+		{
+			
 		}
 	}
 
