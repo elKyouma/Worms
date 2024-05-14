@@ -2,17 +2,18 @@
 class Camera
 {
 public:
-	float X() { return x; };
-	float Y() { return y; };
+	float X() { return _x; };
+	float Y() { return _y; };
 	float Zoom() { return zoom; };
 
 	void Update();
-	void ChangeX( float deltaX ) { x += deltaX; }
-	void ChangeY( float deltaY ) { y += deltaY; }
+	void ChangePosition( float x, float y );
+	void ChangeX( float deltaX ) { _x += deltaX; }
+	void ChangeY( float deltaY ) { _y += deltaY; }
 	void ChangeZoom( float delta ) { zoom += delta; }
 private:
-	float x = 0.f;
-	float y = 0.f;
+	float _x = 2.f;
+	float _y = -1.f;
 	float zoom = 1.f;
 	bool inputs_enabled = true;
 

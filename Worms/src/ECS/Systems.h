@@ -51,8 +51,8 @@ public:
 			spriteImage.h = size.y;
 
 			SDL_Rect destination;
-			destination.x = static_cast<int>(100.0 * (positions.GetData( ent ).x - camera.X()));
-			destination.y = static_cast<int>(100.0 * (-positions.GetData( ent ).y + camera.Y()));
+			destination.x = static_cast<int>(400 + 100.0 * (positions.GetData( ent ).x - camera.X()));
+			destination.y = static_cast<int>(300 - 100.0 * (positions.GetData( ent ).y - camera.Y()));
 			destination.w = static_cast<int>(size.x * camera.Zoom());
 			destination.h = static_cast<int>(size.y * camera.Zoom());
 

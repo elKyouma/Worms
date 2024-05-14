@@ -9,14 +9,19 @@ class WorldTest : public ::testing::Test
 
 TEST_F( WorldTest, CreateObjectAndThenDeleteIt )
 {
-	World world{};
+	SDL_Renderer* renderer = SDL_CreateRenderer( SDL_CreateWindow( "", 0, 0, 0, 0, 0 ), 0, 0 );
+	World world{ renderer };
 	EntityId e1 = world.CreateEntity();
 	world.DestroyEntity( e1 );
 }
 
 TEST_F( WorldTest, CreateObjectAndUseSystem )
 {
-	World world{};
+	SDL_Renderer* renderer = SDL_CreateRenderer( SDL_CreateWindow( "", 0, 0, 0, 0, 0 ), 0, 0 );
+	World world{ renderer };
+	world.RegisterComponent<Position>();
+	world.RegisterComponent<Motion>();
+	world.RegisterSystem<Movement>();
 	EntityId e1 = world.CreateEntity();
 	EntityId e2 = world.CreateEntity();
 	world.AddComponent<Position>( e1 );

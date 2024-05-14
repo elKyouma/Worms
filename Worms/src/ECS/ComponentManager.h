@@ -23,6 +23,8 @@ public:
 
 	template<typename T>
 	T& AddComponent( const EntityId ent );
+	template<typename T>
+	T& AddComponent( const EntityId ent, const T&& );
 	void AddComponents( const EntityId ent, const Signature sign );
 
 	template<typename T>
@@ -81,6 +83,12 @@ template<typename T>
 T& ComponentManager::AddComponent( const EntityId ent )
 {
 	return GetComponentArray<T>().AddData( ent );
+}
+
+template<typename T>
+T& ComponentManager::AddComponent( const EntityId ent, const T&& data )
+{
+	return GetComponentArray<T>().AddData( ent, std::move( data ) );
 }
 
 template<typename T>

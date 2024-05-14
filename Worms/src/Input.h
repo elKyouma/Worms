@@ -1,5 +1,6 @@
 #pragma once
 #include "SDL2/SDL.h"
+#include "WormManager.h"
 
 class Input
 {
@@ -22,12 +23,18 @@ public:
 	float CameraHorizontal() const { return camera_horizontal; }
 	float CameraVertical() const { return camera_vertical; }
 
+	bool ChangeWorm() { if ( change_worm ) { change_worm = false; return true; } else return false; }
+	bool ChangeTeam() { if ( change_team ) { change_team = false; return true; } else return false; }
+
 private:
 	float horizontal;
 	float vertical;
 
 	float camera_horizontal;
 	float camera_vertical;
+
+	bool change_worm;
+	bool change_team;
 	Input() = default;
 
 };

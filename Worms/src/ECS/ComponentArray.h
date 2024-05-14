@@ -16,6 +16,7 @@ class ComponentArray : public IComponentArray
 {
 public:
 	Data& AddData( const EntityId ent );
+	Data& AddData( const EntityId ent, const Data&& data );
 	void AddDataNoReturn( const EntityId ent );
 	Data& GetData( const EntityId ent );
 	Data& GetDataAtIndex( const EntityId ent );
@@ -44,6 +45,20 @@ Data& ComponentArray<Data>::AddData( const EntityId ent )
 	indexToEntity[amountOfComponents] = ent;
 
 	return components[amountOfComponents++];
+}
+
+template<typename Data>
+inline Data& ComponentArray<Data>::AddData( const EntityId ent, const Data&& data )
+{
+	if ( amountOfComponents == MAX_ENTITIES )
+		ECS_THROW( "Entities overflow" );
+
+	entityToIndex[ent] = amountOfComponents;
+	indexToEntity[amountOfComponents] = ent;
+	components[amountOfComponents] = data;
+	amountOfComponents++;
+
+	return components[amountOfComponents - 1];
 }
 
 template<typename Data>
