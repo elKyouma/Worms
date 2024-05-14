@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\b2ColliderDraw.cpp" />
     <ClCompile Include="src\Bullet.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Input.cpp" />
@@ -169,8 +170,10 @@
     <ClCompile Include="src\Utils.cpp" />
     <ClCompile Include="src\Worm.cpp" />
     <ClCompile Include="src\WormManager.cpp" />
+    <ClCompile Include="src\WormTeam.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\b2ColliderDraw.h" />
     <ClInclude Include="src\Bullet.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Map.h" />
@@ -191,6 +194,7 @@
     <ClInclude Include="src\Utils.h" />
     <ClInclude Include="src\Worm.h" />
     <ClInclude Include="src\WormManager.h" />
+    <ClInclude Include="src\WormTeam.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="map.png" />
