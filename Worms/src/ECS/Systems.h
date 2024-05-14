@@ -2,7 +2,6 @@
 #include "../Camera.h"
 #include "Components.h"
 #include "System.h"
-#include <box2d/b2_fixture.h>
 
 class Movement : public System
 {
