@@ -23,7 +23,6 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 
 	physicsWorld = std::make_unique<b2World>( b2Vec2( 0, -9.811 ) );
 	b2DebugDraw = std::make_unique<b2ColliderDraw>( renderer, camera );
-	b2DebugDraw->SetFlags( b2Draw::e_shapeBit );
 	physicsWorld->SetDebugDraw( b2DebugDraw.get() );
 
 	wormManager = std::make_unique<WormManager>( renderer, world.get() );

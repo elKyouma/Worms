@@ -21,9 +21,9 @@ void b2ColliderDraw::DrawPolygon( const b2Vec2* vertices, int32 vertexCount, con
 
 void b2ColliderDraw::DrawSegment( const b2Vec2& p1, const b2Vec2& p2, const b2Color& color )
 {
-	SDL_Point point1( SCREEN_WIDTH/2 + 100.0 * (p1.x - camera.X()), SCREEN_HEIGHT/2 - 100.0 * (p1.y - camera.Y()));
+	SDL_Point point1( SCREEN_WIDTH / 2 + 100.0 * (p1.x - camera.X()), SCREEN_HEIGHT / 2 - 100.0 * (p1.y - camera.Y()) );
 	SDL_Point point2( SCREEN_WIDTH / 2 + 100.0 * (p2.x - camera.X()), SCREEN_HEIGHT / 2 - 100.0 * (p2.y - camera.Y()) );
 	SDL_SetRenderDrawColor( renderer, 0, 255, 0, 255 );
 	SDL_RenderDrawLine( renderer, point1.x, point1.y, point2.x, point2.y );
-	
+
 }

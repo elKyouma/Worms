@@ -7,7 +7,7 @@
 class b2ColliderDraw : public b2Draw
 {
 public:
-	b2ColliderDraw( SDL_Renderer* renderer, Camera& camera ) : renderer( renderer ), camera(camera) {}
+	b2ColliderDraw( SDL_Renderer* renderer, Camera& camera ) : renderer( renderer ), camera( camera ) { SetFlags(b2Draw::e_shapeBit); }
 
 	void DrawPolygon( const b2Vec2* vertices, int32 vertexCount, const b2Color& color ) override;
 	void DrawSolidPolygon( const b2Vec2* vertices, int32 vertexCount, const b2Color& color ) override {}
