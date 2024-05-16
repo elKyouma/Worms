@@ -65,31 +65,3 @@ private:
 	SDL_Renderer* renderer;
 	Camera& camera;
 };
-
-
-class ColliderRenderer : public System
-{
-public:
-	ColliderRenderer( ComponentManager& componentManager, SDL_Renderer* renderer, Camera& camera )
-		: System( componentManager ),
-		renderer( renderer ),
-		camera( camera )
-	{
-		systemSignature.set( componentManager.GetComponentId<Position>(), true );
-		systemSignature.set( componentManager.GetComponentId<Sprite>(), true );
-	}
-
-	virtual void Render() override
-	{
-		auto& positions = componentManager.GetComponentArray<Position>();
-		auto& rigidBodies = componentManager.GetComponentArray<RigidBody>();
-		for ( EntityId ent : subscribed )
-		{
-			
-		}
-	}
-
-private:
-	SDL_Renderer* renderer;
-	Camera& camera;
-};
