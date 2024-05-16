@@ -22,6 +22,9 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	world->RegisterSystem<SpriteRenderer>( renderer, camera );
 
 	physicsWorld = std::make_unique<b2World>( b2Vec2( 0, -9.811 ) );
+	b2DebugDraw = std::make_unique<b2ColliderDraw>( renderer, camera );
+	b2DebugDraw->SetFlags( b2Draw::e_shapeBit );
+	physicsWorld->SetDebugDraw( b2DebugDraw.get() );
 
 	wormManager = std::make_unique<WormManager>( renderer, world.get() );
 	wormManager->createTeam( 4 );
@@ -118,6 +121,8 @@ void Game::Render()
 	ImGui::Render();
 	SDL_RenderSetScale( renderer, io->DisplayFramebufferScale.x, io->DisplayFramebufferScale.y );
 	ImGui_ImplSDLRenderer2_RenderDrawData( ImGui::GetDrawData() );
+	if ( toggleColliders )
+		physicsWorld->DebugDraw();
 	SDL_RenderPresent( renderer );
 }
 

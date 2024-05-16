@@ -1,12 +1,13 @@
 #pragma once
 #include <box2d/b2_draw.h>
+#include <SDL2/SDL_render.h>
 #include <SDL2/SDL.h>
 #include "Camera.h"
 
 class b2ColliderDraw : public b2Draw
 {
 public:
-	b2ColliderDraw( SDL_Renderer* renderer, Camera& camera ) : renderer( renderer ), camera( camera ) {}
+	b2ColliderDraw( SDL_Renderer* renderer, Camera& camera ) : renderer( renderer ), camera(camera) {}
 
 	void DrawPolygon( const b2Vec2* vertices, int32 vertexCount, const b2Color& color ) override;
 	void DrawSolidPolygon( const b2Vec2* vertices, int32 vertexCount, const b2Color& color ) override {}

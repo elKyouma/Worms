@@ -27,7 +27,8 @@ Bullet::Bullet( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : 
 	static b2FixtureDef fixtureDef;
 
 	b2PolygonShape collider;
-	collider.SetAsBox( 0.2, 0.2 );
+	b2Vec2 points[4] = { {-0.2, 0.2}, {-0.2, -0.2}, {0.2, -0.2}, {0.2, 0.2} };
+	collider.Set( points, 4 );
 
 	fixtureDef.shape = &collider;
 	fixtureDef.density = 1;

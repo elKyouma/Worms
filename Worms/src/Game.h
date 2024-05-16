@@ -11,6 +11,7 @@
 #include "Map.h"
 #include "Worm.h"
 #include "WormManager.h"
+#include "b2ColliderDraw.h"
 
 class Game
 {
@@ -35,6 +36,7 @@ private:
 	std::unique_ptr<Bullet> bullet;
 	std::unique_ptr<Map> map;
 	std::unique_ptr<WormManager> wormManager;
+	std::unique_ptr<b2ColliderDraw> b2DebugDraw;
 	Camera camera{ };
 
 	bool toggleColliders = false;
