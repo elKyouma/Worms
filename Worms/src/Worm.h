@@ -4,6 +4,7 @@
 #include "ECS/Components.h"
 #include "ECS/Systems.h"
 #include "ECS/World.h"
+#include "Tags.h"
 
 class Worm
 {
@@ -11,6 +12,8 @@ public:
 	Worm( SDL_Renderer* renderer, World* world, b2World* physicsWorld );
 	~Worm();
 	void Update();
+	void Activate();
+	void Disactivate();
 
 private:
 	EntityId wormId;
@@ -18,6 +21,8 @@ private:
 	Position* pos;
 	World* world;
 
-	static constexpr float WORM_SPEED = 2.f;
+	PhysicsInfo physicsInfo;
+
+	static constexpr float WORM_SPEED = 5.f;
 };
 

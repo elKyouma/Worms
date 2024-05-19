@@ -94,6 +94,8 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>\src\</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>\src\</AdditionalUsingDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -110,6 +112,8 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>\src\</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>\src\</AdditionalUsingDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -144,6 +148,8 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>\src\</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>\src\</AdditionalUsingDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -188,6 +194,7 @@
     <ClInclude Include="src\ExceptionHandling\SDL_Exception.h" />
     <ClInclude Include="src\ECS\World.h" />
     <ClInclude Include="src\Input.h" />
+    <ClInclude Include="src\Tags.h" />
     <ClInclude Include="src\Time.h" />
     <ClInclude Include="src\Utils.h" />
     <ClInclude Include="src\Worm.h" />
