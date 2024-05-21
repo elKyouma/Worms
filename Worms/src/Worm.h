@@ -1,20 +1,29 @@
 #pragma once
+#include <box2d/b2_world.h>
+
 #include "ECS/Components.h"
 #include "ECS/Systems.h"
 #include "ECS/World.h"
+#include "Tags.h"
 
 class Worm
 {
 public:
-	Worm( SDL_Renderer* renderer, World* world );
+	Worm( SDL_Renderer* renderer, World* world, b2World* physicsWorld );
 	~Worm();
 	void Update();
-
+	void Activate();
+	void Disactivate();
 private:
 	EntityId wormId;
-	Motion* motion;
+	RigidBody* rb;
+	Position* pos;
 	World* world;
 
-	static constexpr float WORM_SPEED = 2.f;
+	PhysicsInfo physicsInfo;
+
+	static constexpr float WORM_SPEED = 5.f;
+	void First( b2Contact* contact );
+	void Second( b2Contact* contact );
 };
 

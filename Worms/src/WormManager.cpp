@@ -1,14 +1,15 @@
 #include "WormManager.h"
+
 #include "Input.h"
 
-WormManager::WormManager( SDL_Renderer* renderer, World* world )
-	: _renderer(renderer), _world(world), _teams() {}
+WormManager::WormManager( SDL_Renderer* renderer, World* world, b2World* physicsWorld )
+	: _renderer( renderer ), _world( world ), _teams(), physicsWorld( physicsWorld ) {}
 
 void WormManager::createTeam( int size )
 {
 	WormTeam* newTeam = new WormTeam;
 	for ( int i = 0; i < size; i++ ) {
-		newTeam->addWorm( new Worm( _renderer, _world ));
+		newTeam->addWorm( new Worm( _renderer, _world, physicsWorld ) );
 	}
 	_teams.push_back( newTeam );
 }
@@ -21,9 +22,9 @@ void WormManager::deleteTeam( WormTeam* team )
 
 void WormManager::Update()
 {
-	if (Input::Get().ChangeWorm())
+	if ( Input::Get().ChangeWorm() )
 		ChangeActiveWorm();
-	if (Input::Get().ChangeTeam())
+	if ( Input::Get().ChangeTeam() )
 		ChangeTeam();
 
 	_teams[_activeTeam]->Update();
