@@ -51,7 +51,7 @@ void Bullet::Update()
 	position->x = rigidBody->body->GetPosition().x;
 	position->y = rigidBody->body->GetPosition().y;
 
-	ImGui::Begin( "XD" );
-	ImGui::SliderFloat2( "Pozycja terenu", (float*)&rigidBody->body->GetPosition(), -25.f, 25.f );
-	ImGui::End();
+	//ImGui::Begin( "XD" );
+	//ImGui::SliderFloat2( "Pozycja terenu", (float*)&rigidBody->body->GetPosition(), -25.f, 25.f );
+	//ImGui::End();
 }

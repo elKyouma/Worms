@@ -14,16 +14,20 @@ public:
 	void Update();
 	void Activate();
 	void Disactivate();
+	bool IsGrounded() const;
+
 private:
 	EntityId wormId;
 	RigidBody* rb;
 	Position* pos;
 	World* world;
 
+	bool grounded = false;
+	bool active = false;
+
 	PhysicsInfo physicsInfo;
 
-	static constexpr float WORM_SPEED = 5.f;
-	void First( b2Contact* contact );
-	void Second( b2Contact* contact );
+	static constexpr float WORM_SPEED = 3.f;
+	static constexpr float JUMP_FORCE = 2.5f;
 };
 
