@@ -12,10 +12,12 @@
 
 Worm::Worm( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : world( world )
 {
-	physicsInfo.tag = PhysicsTag::WORM;
 
 	wormId = world->CreateEntity();
 	pos = &world->AddComponent<Position>( wormId, { 2, 1 } );
+
+	physicsInfo.tag = PhysicsTag::WORM;
+	physicsInfo.id = wormId;
 
 	Sprite& spriteComponent = world->AddComponent<Sprite>( wormId );
 	spriteComponent.texture = IMG_LoadTexture( renderer, "worms.png" );
@@ -40,8 +42,8 @@ Worm::Worm( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : worl
 	fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(&physicsInfo);
 	rb->body->CreateFixture( &fixtureDef );
 
-	ContactManager::Get().AddEvent( wormId, CollisionType::BEGIN, [&] ( b2Contact* ) { rb->body->SetGravityScale( 1 ); } );
-	ContactManager::Get().AddEvent( wormId, CollisionType::END, [&] ( b2Contact* ) { rb->body->SetGravityScale( 1 ); } );
+	ContactManager::Get().AddEvent( wormId, CollisionType::BEGIN, [&] ( b2Contact* ) { grounded = true; } );
+	ContactManager::Get().AddEvent( wormId, CollisionType::END, [&] ( b2Contact* ) { grounded = false; } );
 }
 
 Worm::~Worm()
@@ -51,22 +53,32 @@ Worm::~Worm()
 
 void Worm::Update()
 {
-	//Input::Get().Vertical() * WORM_SPEED
-	rb->body->SetBullet( true );
-	//rb->body->SetLinearVelocity( { Input::Get().Horizontal() * WORM_SPEED, rb->body->GetLinearVelocity().y } );
-	if ( abs( rb->body->GetLinearVelocity().x ) < 2 )
-		rb->body->ApplyForce( { Input::Get().Horizontal() * WORM_SPEED * 10, 0.f }, { 0.f,0.f }, true );
-	if ( Input::Get().Vertical() > 0.f && rb->body->GetLinearVelocity().y < 0.04 )
-		rb->body->ApplyLinearImpulse( { 0.f, 0.5f }, { 0.f,0.f }, true );
-	//rb->body->ApplyForceToCenter( { Input::Get().Horizontal() * WORM_SPEED, Input::Get().Vertical() * WORM_SPEED }, true );
 	pos->x = rb->body->GetPosition().x;
 	pos->y = rb->body->GetPosition().y;
+
+	if ( !active ) return;
+
+	if ( abs( rb->body->GetLinearVelocity().x ) < 2 )
+		rb->body->ApplyForce( { Input::Get().Horizontal() * WORM_SPEED * 10, 0.f }, { 0.f,0.f }, true );
+
+	if ( IsGrounded() && Input::Get().Vertical() > 0.f && rb->body->GetLinearVelocity().y < 0.4 )
+	{
+		grounded = false;
+		rb->body->ApplyLinearImpulse( { 0.f, JUMP_FORCE / 10.f }, { 0.f,0.f }, true );
+	}
 }
 
 void Worm::Activate()
 {
+	active = true;
 }
 
 void Worm::Disactivate()
 {
+	active = false;
+}
+
+bool Worm::IsGrounded() const
+{
+	return grounded;
 }
