@@ -156,6 +156,7 @@
     <ClCompile Include="src\b2ColliderDraw.cpp" />
     <ClCompile Include="src\Bullet.cpp" />
     <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\ContactManager.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\Game.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="src\b2ColliderDraw.h" />
     <ClInclude Include="src\Bullet.h" />
     <ClInclude Include="src\Camera.h" />
+    <ClInclude Include="src\ContactManager.h" />
     <ClInclude Include="src\Map.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\ExceptionHandling\AppException.h" />
@@ -190,6 +192,8 @@
     <ClInclude Include="src\ExceptionHandling\SDL_Exception.h" />
     <ClInclude Include="src\ECS\World.h" />
     <ClInclude Include="src\Input.h" />
+    <ClInclude Include="src\Tags.h" />
+    <ClInclude Include="src\TagsAndLayers.hpp" />
     <ClInclude Include="src\Time.h" />
     <ClInclude Include="src\Utils.h" />
     <ClInclude Include="src\Worm.h" />

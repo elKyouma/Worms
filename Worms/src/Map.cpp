@@ -7,10 +7,12 @@
 #include "Map.h"
 #include "Utils.h"
 
+#include "imgui.h"
+
 Map::Map( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : world( world )
 {
 	mapId = world->CreateEntity();
-	pos = &world->AddComponent<Position>( mapId, { -1, 2 } );
+	pos = &world->AddComponent<Position>( mapId, { 1.5f, -1.f } );
 
 	physTex = IMG_LoadPhysicTexture( renderer, "map.png" );
 	if ( physTex.has_value() )
@@ -20,8 +22,12 @@ Map::Map( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : world(
 
 		RigidBody& rb = world->AddComponent<RigidBody>( mapId );
 		static b2BodyDef bodyDef;
-		bodyDef.type = b2_staticBody;
-		bodyDef.position = { pos->x, pos->y };
+		bodyDef.type = b2_kinematicBody;
+		SDL_Point size;
+		SDL_QueryTexture( physTex.value().texture, NULL, NULL, &size.x, &size.y );
+
+		bodyDef.position = { pos->x - size.x / 200.f, pos->y + size.y / 200.f };
+
 		rb.body = physicsWorld->CreateBody( &bodyDef );
 
 		static b2ChainShape shape;
@@ -45,5 +51,9 @@ Map::~Map()
 
 void Map::Update( SDL_Renderer* renderer )
 {
-	DrawPolygon( renderer, physTex.value().points, { pos->x, pos->y } );
+	bool open;
+	ImGui::Begin( "XD" );
+	ImGui::SliderFloat2( "Pozycja terenu", (float*)pos, -5.f, 5.f );
+	//world->GetComponent<RigidBody>( mapId ).body->SetTransform( { pos->x, pos->y }, 0 );
+	ImGui::End();
 }
