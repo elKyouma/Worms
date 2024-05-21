@@ -7,7 +7,6 @@
 #include "Map.h"
 #include "Utils.h"
 
-#include "imgui.h"
 
 Map::Map( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : world( world )
 {
@@ -22,7 +21,7 @@ Map::Map( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : world(
 
 		RigidBody& rb = world->AddComponent<RigidBody>( mapId );
 		static b2BodyDef bodyDef;
-		bodyDef.type = b2_kinematicBody;
+		bodyDef.type = b2_staticBody;
 		SDL_Point size;
 		SDL_QueryTexture( physTex.value().texture, NULL, NULL, &size.x, &size.y );
 
@@ -51,9 +50,4 @@ Map::~Map()
 
 void Map::Update( SDL_Renderer* renderer )
 {
-	bool open;
-	ImGui::Begin( "XD" );
-	ImGui::SliderFloat2( "Pozycja terenu", (float*)pos, -5.f, 5.f );
-	//world->GetComponent<RigidBody>( mapId ).body->SetTransform( { pos->x, pos->y }, 0 );
-	ImGui::End();
 }
