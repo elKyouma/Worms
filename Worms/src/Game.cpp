@@ -16,6 +16,7 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	isRunning = true;
 	world = std::make_unique<World>( renderer );
 	world->RegisterComponent<Position>();
+	world->RegisterComponent<Rotation>();
 	world->RegisterComponent<Sprite>();
 	world->RegisterComponent<Motion>();
 	world->RegisterComponent<RigidBody>();

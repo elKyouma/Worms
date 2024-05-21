@@ -21,3 +21,8 @@ struct RigidBody
 {
 	b2Body* body;
 };
+
+struct Rotation
+{
+	float degree;
+};
