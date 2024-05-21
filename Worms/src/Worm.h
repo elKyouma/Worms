@@ -14,7 +14,6 @@ public:
 	void Update();
 	void Activate();
 	void Disactivate();
-
 private:
 	EntityId wormId;
 	RigidBody* rb;
@@ -24,5 +23,7 @@ private:
 	PhysicsInfo physicsInfo;
 
 	static constexpr float WORM_SPEED = 5.f;
+	void First( b2Contact* contact );
+	void Second( b2Contact* contact );
 };
 

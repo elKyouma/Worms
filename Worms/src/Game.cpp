@@ -1,5 +1,6 @@
 #include <imgui_impl_sdlrenderer2.h>
 #include <SDL2/SDL.h>
+#include "ContactManager.h"
 #include "Game.h"
 #include "imgui_impl_sdl2.h"
 #include "Input.h"
@@ -22,6 +23,7 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	world->RegisterSystem<SpriteRenderer>( renderer, camera );
 
 	physicsWorld = std::make_unique<b2World>( b2Vec2( 0, -9.811 ) );
+	physicsWorld->SetContactListener( &ContactManager::Get() );
 
 	wormManager = std::make_unique<WormManager>( renderer, world.get(), physicsWorld.get() );
 	wormManager->createTeam( 4 );
