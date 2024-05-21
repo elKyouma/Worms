@@ -2,7 +2,7 @@
     "name": "Worms",
     "todos": [
         {
-            "done": false,
+            "done": true,
             "title": "Create WormManager class for choosing active worm"
         },
         {
@@ -18,7 +18,7 @@
             "title": "Add test map"
         },
         {
-            "done": false,
+            "done": true,
             "title": "Add debug option for collider visualization"
         },
         {
