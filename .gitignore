@@ -364,3 +364,5 @@ FodyWeavers.xsd
 
 Worms/src/logs.txt 
 Worms/src/imgui.ini
+Worms/Worms.vcxproj
+Worms/Worms.vcxproj.filters
