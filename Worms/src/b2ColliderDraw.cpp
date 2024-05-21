@@ -3,20 +3,24 @@
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
-void b2ColliderDraw::DrawPolygon( const b2Vec2* vertices, int32 vertexCount, const b2Color& color )
+
+void b2ColliderDraw::DrawSolidPolygon( const b2Vec2* vertices, int32 vertexCount, const b2Color& color )
 {
-	SDL_Point* points = new SDL_Point[vertexCount];
+	SDL_Point* points = new SDL_Point[vertexCount + 1];
 	for ( int i = 0; i < vertexCount; i++ )
 	{
 		points[i].x = static_cast<int>(SCREEN_WIDTH / 2 + 100.0 * (vertices[i].x - camera.X()));
 		points[i].y = static_cast<int>(SCREEN_HEIGHT / 2 - 100.0 * (vertices[i].y - camera.Y()));
 	}
+	points[vertexCount].x = static_cast<int>(SCREEN_WIDTH / 2 + 100.0 * (vertices[0].x - camera.X()));
+	points[vertexCount].y = static_cast<int>(SCREEN_HEIGHT / 2 - 100.0 * (vertices[0].y - camera.Y()));
 
 	SDL_SetRenderDrawColor( renderer, 0, 255, 0, 255 );
 
-	SDL_RenderDrawLines( renderer, points, vertexCount );
+	SDL_RenderDrawLines( renderer, points, vertexCount + 1);
 
 	delete[] points;
+
 }
 
 void b2ColliderDraw::DrawSegment( const b2Vec2& p1, const b2Vec2& p2, const b2Color& color )
