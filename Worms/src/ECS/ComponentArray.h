@@ -1,5 +1,6 @@
 #pragma once
 #include <array>
+#include <optional>
 #include <unordered_map>
 #include "ECS_Types.h"
 
@@ -19,6 +20,7 @@ public:
 	Data& AddData( const EntityId ent, const Data&& data );
 	void AddDataNoReturn( const EntityId ent );
 	Data& GetData( const EntityId ent );
+	std::optional<std::reference_wrapper<Data>> TryGetData( const EntityId ent );
 	Data& GetDataAtIndex( const EntityId ent );
 	void SetData( const EntityId ent, const Data& data );
 	void EraseData( const EntityId ent );
@@ -73,6 +75,16 @@ Data& ComponentArray<Data>::GetData( const EntityId ent )
 	auto it = entityToIndex.find( ent );
 	if ( it == entityToIndex.end() )
 		ECS_THROW( "You are trying to access component that doesn't exist" );
+	EntityId index = it->second;
+	return components[index];
+}
+
+template<typename Data>
+std::optional<std::reference_wrapper<Data>>  ComponentArray<Data>::TryGetData( const EntityId ent )
+{
+	auto it = entityToIndex.find( ent );
+	if ( it == entityToIndex.end() )
+		return{};
 	EntityId index = it->second;
 	return components[index];
 }

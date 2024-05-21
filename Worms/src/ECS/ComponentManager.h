@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <optional>
 #include <sstream>
 #include "ComponentArray.h"
 #include "ECS_Types.h"
@@ -17,6 +18,9 @@ public:
 
 	template<typename T>
 	T& GetComponent( const EntityId ent );
+
+	template<typename T>
+	std::optional<std::reference_wrapper<T>> TryGetComponent( const EntityId ent );
 
 	template<typename T>
 	uint8_t GetComponentId() const;
@@ -68,6 +72,12 @@ template<typename T>
 T& ComponentManager::GetComponent( const EntityId ent )
 {
 	return GetComponentArray<T>().GetData( ent );
+}
+
+template<typename T>
+std::optional<std::reference_wrapper<T>> ComponentManager::TryGetComponent( const EntityId ent )
+{
+	return GetComponentArray<T>().TryGetData( ent );
 }
 
 template<typename T>
