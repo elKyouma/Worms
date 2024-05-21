@@ -2,7 +2,7 @@
     "name": "Worms",
     "todos": [
         {
-            "done": false,
+            "done": true,
             "title": "Create WormManager class for choosing active worm"
         },
         {
@@ -18,7 +18,7 @@
             "title": "Add test map"
         },
         {
-            "done": false,
+            "done": true,
             "title": "Add debug option for collider visualization"
         },
         {
@@ -36,6 +36,34 @@
         {
             "done": false,
             "title": "Character movement with physics"
+        },
+        {
+            "done": false,
+            "title": "add health bars"
+        },
+        {
+            "done": false,
+            "title": "health system"
+        },
+        {
+            "done": false,
+            "title": "terrain destruction"
+        },
+        {
+            "done": false,
+            "title": "camera shake"
+        },
+        {
+            "done": false,
+            "title": "sprite effects"
+        },
+        {
+            "done": false,
+            "title": "camer follow active worms"
+        },
+        {
+            "done": false,
+            "title": "power bar"
         }
     ]
 }
