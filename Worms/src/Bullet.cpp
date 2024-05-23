@@ -11,6 +11,7 @@ Bullet::Bullet( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : 
 {
 	bulletId = world->CreateEntity();
 	position = &world->AddComponent<Position>( bulletId, { 0, 2 } );
+	rotation = &world->AddComponent<Rotation>( bulletId, { 0 } );
 
 	Sprite& spriteComponent = world->AddComponent<Sprite>( bulletId );
 	spriteComponent.texture = IMG_LoadTexture( renderer, "placeHolderBullet.png" );
@@ -50,7 +51,7 @@ void Bullet::Update()
 {
 	position->x = rigidBody->body->GetPosition().x;
 	position->y = rigidBody->body->GetPosition().y;
-
+	rotation->degree = rigidBody->body->GetAngle() * 180 / M_PI;
 	//ImGui::Begin( "XD" );
 	//ImGui::SliderFloat2( "Pozycja terenu", (float*)&rigidBody->body->GetPosition(), -25.f, 25.f );
 	//ImGui::End();

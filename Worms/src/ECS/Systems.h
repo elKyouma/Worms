@@ -44,11 +44,6 @@ public:
 		{
 			SDL_Point size;
 			SDL_QueryTexture( sprites.GetData( ent ).texture, NULL, NULL, &size.x, &size.y );
-			SDL_Rect spriteImage;
-			spriteImage.x = 0;
-			spriteImage.y = 0;
-			spriteImage.w = size.x;
-			spriteImage.h = size.y;
 
 			SDL_Rect destination;
 			destination.x = static_cast<int>(400 + 100.0 * (positions.GetData( ent ).x - camera.X()) - size.x / 2);
@@ -56,8 +51,11 @@ public:
 			destination.w = static_cast<int>(size.x * camera.Zoom());
 			destination.h = static_cast<int>(size.y * camera.Zoom());
 
-			SDL_RenderDrawRect( renderer, &spriteImage );
-			SDL_RenderCopy( renderer, sprites.GetData( ent ).texture, &spriteImage, &destination );
+			auto angle = componentManager.TryGetComponent<Rotation>( ent );
+			if ( angle.has_value() )
+				SDL_RenderCopyEx( renderer, sprites.GetData( ent ).texture, NULL, &destination, -angle.value().get().degree, NULL, SDL_RendererFlip::SDL_FLIP_NONE );
+			else
+				SDL_RenderCopy( renderer, sprites.GetData( ent ).texture, NULL, &destination );
 		}
 	}
 
