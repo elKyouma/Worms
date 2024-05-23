@@ -1,15 +1,14 @@
 #pragma once
 #include <box2d/b2_world.h>
-
+#include "GameObject.h"
 #include "ECS/Components.h"
 #include "ECS/Systems.h"
-#include "ECS/World.h"
 #include "Tags.h"
 
-class Worm
+class Worm : public GameObject
 {
 public:
-	Worm( SDL_Renderer* renderer, World* world, b2World* physicsWorld );
+	Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld );
 	~Worm();
 	void Update();
 	void Activate();
@@ -17,10 +16,8 @@ public:
 	bool IsGrounded() const;
 
 private:
-	EntityId wormId;
 	RigidBody* rb;
 	Position* pos;
-	World* world;
 
 	bool grounded = false;
 	bool active = false;

@@ -12,7 +12,7 @@ public:
 	virtual void Render() {};
 	EntityId getId() { return objectId; }
 
-private:
+protected:
 	EntityId objectId;
 	World* world;
 	SDL_Renderer* renderer;

@@ -1,4 +1,5 @@
 #pragma once
+#include <SDL2/SDL.h>
 #include <optional>
 #include "ComponentManager.h"
 #include "EntityManager.h"

@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\b2ColliderDraw.cpp" />
     <ClCompile Include="src\Projectille.cpp" />
     <ClCompile Include="src\Camera.cpp" />
@@ -176,6 +177,7 @@
     <ClCompile Include="Trigger.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\b2ColliderDraw.h" />
     <ClInclude Include="src\Projectille.h" />
     <ClInclude Include="src\Camera.h" />

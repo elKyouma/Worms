@@ -1,20 +1,18 @@
 #pragma once
+#include "GameObject.h"
 #include "ECS/Components.h"
-#include "ECS/World.h"
 
-class Weapon
+class Weapon : public GameObject
 {
 public:
-	Weapon( SDL_Renderer* renderer, World* world, EntityId parentId );
+	Weapon( SDL_Renderer* newRenderer, World* newWorld, EntityId parentId );
 	~Weapon();
 	void Update();
 	void Use();
 
 private:
-	EntityId weaponId;
 	EntityId parentId;
 	Position* pos;
 	Rotation* rot;
-	World* world;
 };
 

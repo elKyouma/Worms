@@ -1,22 +1,19 @@
 #pragma once
+#include "GameObject.h"
 #include "ECS/Components.h"
 #include "ECS/Systems.h"
-#include "ECS/World.h"
 
 
 
-class Projectille
+class Projectille : public GameObject
 {
 public:
-
-	Projectille( SDL_Renderer* renderer, World* world, b2World* physicsWorld );
+	Projectille( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld );
 	~Projectille();
 	void Update();
 private:
-	EntityId projectilletId;
 	RigidBody* rigidBody;
 	Position* position;
 	Rotation* rotation;
-	World* world;
 };
 
