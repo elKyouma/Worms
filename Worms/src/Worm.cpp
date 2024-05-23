@@ -34,12 +34,21 @@ Worm::Worm( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : worl
 
 	static b2PolygonShape shape;
 	shape.SetAsBox( 0.1, 0.2 );
+	static b2PolygonShape groundedShape;
+	groundedShape.SetAsBox( 0.1, 0.23 );
+	groundedShape.m_centroid = { 0.f, -1.5f };
+
+	static b2FixtureDef groundFixture;
+	groundFixture.shape = &groundedShape;
+	groundFixture.isSensor = true;
+	groundFixture.userData.pointer = reinterpret_cast<uintptr_t>(&physicsInfo);
+	rb->body->CreateFixture( &groundFixture );
 
 	static b2FixtureDef fixtureDef;
 	fixtureDef.shape = &shape;
 	fixtureDef.friction = 1;
 	fixtureDef.density = 1;
-	fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(&physicsInfo);
+	//fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(&physicsInfo);
 	rb->body->CreateFixture( &fixtureDef );
 
 	ContactManager::Get().AddEvent( wormId, CollisionType::BEGIN, [&] ( b2Contact* ) { grounded = true; } );

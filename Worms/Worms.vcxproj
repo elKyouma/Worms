@@ -173,7 +173,7 @@
     <ClCompile Include="src\Worm.cpp" />
     <ClCompile Include="src\WormManager.cpp" />
     <ClCompile Include="src\WormTeam.cpp" />
-    <ClCompile Include="Trigger.cpp" />
+    <ClCompile Include="src\Collider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\b2ColliderDraw.h" />
@@ -202,7 +202,7 @@
     <ClInclude Include="src\Worm.h" />
     <ClInclude Include="src\WormManager.h" />
     <ClInclude Include="src\WormTeam.h" />
-    <ClInclude Include="Trigger.h" />
+    <ClInclude Include="src\Collider.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="map.png" />
