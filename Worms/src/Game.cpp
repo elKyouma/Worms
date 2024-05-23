@@ -70,8 +70,9 @@ void Game::Update()
 	world->Update();
 	physicsWorld->Step( Time::deltaTime, 8, 3 );
 	wormManager->Update();
-	bullet->Update();
 	camera.Update();
+	map->Update( renderer );
+
 }
 
 
@@ -119,7 +120,8 @@ void Game::Render()
 	SDL_RenderClear( renderer );
 
 	world->Render();
-	map->Update( renderer );
+	bullet->Update();
+
 	ImGui::Render();
 	SDL_RenderSetScale( renderer, io->DisplayFramebufferScale.x, io->DisplayFramebufferScale.y );
 	ImGui_ImplSDLRenderer2_RenderDrawData( ImGui::GetDrawData() );

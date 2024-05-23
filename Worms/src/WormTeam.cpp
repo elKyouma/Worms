@@ -3,6 +3,8 @@
 void WormTeam::addWorm( Worm* worm )
 {
 	_worms.push_back( worm );
+	if ( _worms.size() == 1 )
+		_worms[0]->Activate();
 }
 
 void WormTeam::removeWorm( Worm* worm )
@@ -15,9 +17,12 @@ void WormTeam::changeActiveWorm()
 {
 	if ( _worms.empty() ) return;
 
-	_activeWorm += 1;
+	_worms[_activeWorm]->Disactivate();
+	_activeWorm++;
 	if ( _activeWorm == _worms.size() )
 		_activeWorm = 0;
+
+	_worms[_activeWorm]->Activate();
 }
 
 Worm* WormTeam::getActiveWorm()
@@ -32,7 +37,8 @@ int WormTeam::Size() const
 
 void WormTeam::Update()
 {
-	_worms[_activeWorm]->Update();
+	for ( auto& worm : _worms )
+		worm->Update();
 }
 
 WormTeam::~WormTeam() {

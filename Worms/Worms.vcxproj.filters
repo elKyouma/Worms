@@ -140,10 +140,13 @@
     <ClInclude Include="src\WormTeam.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\ContactManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tags.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ContactManager.h">
+    <ClInclude Include="src\TagsAndLayers.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
