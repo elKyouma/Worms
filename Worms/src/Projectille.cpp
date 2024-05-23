@@ -3,20 +3,20 @@
 #include <box2d/b2_world.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include "Bullet.h"
+#include "Projectille.h"
 #include "ExceptionHandling/SDL_Exception.h"
 #include "imgui.h"
 
-Bullet::Bullet( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : world( world )
+Projectille::Projectille( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : world( world )
 {
-	bulletId = world->CreateEntity();
-	position = &world->AddComponent<Position>( bulletId, { 0, 2 } );
+	projectilletId = world->CreateEntity();
+	position = &world->AddComponent<Position>( projectilletId, { 0, 2 } );
 
-	Sprite& spriteComponent = world->AddComponent<Sprite>( bulletId );
+	Sprite& spriteComponent = world->AddComponent<Sprite>( projectilletId );
 	spriteComponent.texture = IMG_LoadTexture( renderer, "placeHolderBullet.png" );
 	SDL_CHECK( spriteComponent.texture );
 
-	rigidBody = &world->AddComponent<RigidBody>( bulletId );
+	rigidBody = &world->AddComponent<RigidBody>( projectilletId );
 
 
 	static b2BodyDef bodyDef;
@@ -41,12 +41,12 @@ Bullet::Bullet( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : 
 	//rigidBody->body->ApplyLinearImpulse( { 0.5, 0.4 }, { position->x, position->y }, true );
 }
 
-Bullet::~Bullet()
+Projectille::~Projectille()
 {
-	SDL_DestroyTexture( world->GetComponent<Sprite>( bulletId ).texture );
+	SDL_DestroyTexture( world->GetComponent<Sprite>( projectilletId ).texture );
 }
 
-void Bullet::Update()
+void Projectille::Update()
 {
 	position->x = rigidBody->body->GetPosition().x;
 	position->y = rigidBody->body->GetPosition().y;

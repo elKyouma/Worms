@@ -5,14 +5,14 @@
 
 
 
-class Bullet
+class Projectille
 {
 public:
-	Bullet(SDL_Renderer* renderer, World* world, b2World* physicsWorld);
-	~Bullet();
+	Projectille(SDL_Renderer* renderer, World* world, b2World* physicsWorld);
+	~Projectille();
 	void Update();
 private:
-	EntityId bulletId;
+	EntityId projectilletId;
 	RigidBody* rigidBody;
 	Position* position;
 	World* world;

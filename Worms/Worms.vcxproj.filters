@@ -54,7 +54,7 @@
     <ClCompile Include="src\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Bullet.cpp">
+    <ClCompile Include="src\Projectille.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Time.cpp">
@@ -70,6 +70,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ContactManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Weapon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -128,7 +131,7 @@
     <ClInclude Include="src\Time.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Bullet.h">
+    <ClInclude Include="src\Projectille.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\WormManager.h">
@@ -149,6 +152,9 @@
     <ClInclude Include="src\TagsAndLayers.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Weapon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="worms.png">
@@ -158,6 +164,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="placeHolderBullet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="placeHolderWeapon.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
