@@ -33,14 +33,14 @@ void Weapon::Update()
 	}
 	else
 	{
-		ImGui::End();
 		if ( force )
 		{
-			//new projectille
+			projectilles.emplace_back();
+			projectilles.back() = std::make_unique<Projectille>( renderer, world );
+			projectilles.back()->Initialise( pos->x, pos->y, force * cos( rot->degree * M_PI / 180 ), force * sin( rot->degree * M_PI / 180 ) );
 		}
 		force = 0;
 	}
-
 }
 
 

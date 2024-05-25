@@ -8,7 +8,8 @@
 class Projectille : public GameObject
 {
 public:
-	Projectille( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld );
+	Projectille( SDL_Renderer* newRenderer, World* newWorld );
+	void Initialise( float posX, float posY, float vX, float vY );
 	~Projectille();
 	void Update();
 private:

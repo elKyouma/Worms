@@ -34,7 +34,6 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	wormManager = std::make_unique<WormManager>( renderer, world.get(), physicsWorld.get() );
 	wormManager->createTeam( 4 );
 	wormManager->createTeam( 4 );
-	bullet = std::make_unique<Projectille>( renderer, world.get(), physicsWorld.get() );
 	map = std::make_unique<Map>( renderer, world.get(), physicsWorld.get() );
 	weapon = std::make_unique<Weapon>( renderer, world.get());
 }
@@ -126,7 +125,6 @@ void Game::Render()
 	SDL_RenderClear( renderer );
 
 	world->Render();
-	bullet->Update();
 
 	ImGui::Render();
 	SDL_RenderSetScale( renderer, io->DisplayFramebufferScale.x, io->DisplayFramebufferScale.y );

@@ -16,7 +16,7 @@ private:
 	EntityId parentId;
 	Position* pos;
 	Rotation* rot;
-	std::vector<Projectille> projectilles;
+	std::vector<std::unique_ptr<Projectille>> projectilles;
 	float force = 0;
 };
 

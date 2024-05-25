@@ -6,23 +6,9 @@
 #include "ExceptionHandling/SDL_Exception.h"
 #include "Game/Weapon/Projectille.h"
 
-Projectille::Projectille( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld )
+Projectille::Projectille( SDL_Renderer* newRenderer, World* newWorld )
 {
-	Initialise( newRenderer, newWorld );
-	position = &world->AddComponent<Position>( objectId, { 0, 2 } );
-	rotation = &world->AddComponent<Rotation>( objectId, { 0 } );
-
-	Sprite& spriteComponent = world->AddComponent<Sprite>( objectId );
-	spriteComponent.texture = IMG_LoadTexture( renderer, "placeHolderBullet.png" );
-	SDL_CHECK( spriteComponent.texture );
-
-	rigidBody = &world->AddComponent<RigidBody>( objectId );
-
-	b2CircleShape shape;
-	shape.m_radius = 0.1;
-	collider = std::make_unique<Collider>( ColliderFactory::Get().CreateDynamicBody( &shape, { position->x, position->y } ) );
-	collider->SetContinuous( true );
-	rigidBody->body = collider->GetBody();
+	GameObject::Initialise( newRenderer, newWorld );
 }
 
 Projectille::~Projectille()
@@ -35,4 +21,24 @@ void Projectille::Update()
 	position->x = rigidBody->body->GetPosition().x;
 	position->y = rigidBody->body->GetPosition().y;
 	rotation->degree = rigidBody->body->GetAngle() * 180 / M_PI;
+}
+
+void Projectille::Initialise( float posX, float posY, float vX, float vY )
+{
+	position = &world->AddComponent<Position>( objectId, { posX, posY } );
+
+	Sprite& spriteComponent = world->AddComponent<Sprite>( objectId );
+	spriteComponent.texture = IMG_LoadTexture( renderer, "placeHolderBullet.png" );
+	SDL_CHECK( spriteComponent.texture );
+
+	rotation = &world->AddComponent<Rotation>( objectId, { 0 } );
+
+	rigidBody = &world->AddComponent<RigidBody>( objectId );
+
+	b2CircleShape shape;
+	shape.m_radius = 0.1;
+	collider = std::make_unique<Collider>( ColliderFactory::Get().CreateDynamicBody( &shape, { position->x, position->y } ) );
+	collider->SetContinuous( true );
+	collider->SetVelocity( b2Vec2( vX, vY ) );
+	rigidBody->body = collider->GetBody();
 }
