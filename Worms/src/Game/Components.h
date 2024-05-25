@@ -26,3 +26,8 @@ struct Rotation
 {
 	float degree;
 };
+
+struct Health
+{
+	int value;
+};
