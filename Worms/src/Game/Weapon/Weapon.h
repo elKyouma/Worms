@@ -10,7 +10,6 @@ public:
 	Weapon( SDL_Renderer* newRenderer, World* newWorld );
 	~Weapon();
 	void Update();
-	void Use();
 	void SetParent( EntityId newParent ) { parentId = newParent; }
 
 private:
@@ -18,5 +17,6 @@ private:
 	Position* pos;
 	Rotation* rot;
 	std::vector<Projectille> projectilles;
+	float force = 0;
 };
 

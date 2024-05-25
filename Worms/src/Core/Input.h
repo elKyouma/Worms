@@ -25,6 +25,8 @@ public:
 	bool ChangeWorm() { if ( change_worm ) { change_worm = false; return true; } else return false; }
 	bool ChangeTeam() { if ( change_team ) { change_team = false; return true; } else return false; }
 
+	bool UseAction() { return use_action; }
+
 private:
 	float horizontal;
 	float vertical;

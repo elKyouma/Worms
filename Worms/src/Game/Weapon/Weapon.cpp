@@ -25,11 +25,22 @@ void Weapon::Update()
 
 	pos->x -=  0.1 * cos(rot->degree * M_PI / 180);
 	pos->y -=  0.1 * sin( rot->degree * M_PI / 180 );
-}
 
-void Weapon::Use( )
-{
-	
+	if ( Input::Get().UseAction() )
+	{
+		if( force < 10.0 )
+			force += 1 * Time::deltaTime;
+	}
+	else
+	{
+		ImGui::End();
+		if ( force )
+		{
+			//new projectille
+		}
+		force = 0;
+	}
+
 }
 
 
