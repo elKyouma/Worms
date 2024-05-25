@@ -63,3 +63,26 @@ private:
 	SDL_Renderer* renderer;
 	Camera& camera;
 };
+
+class PhysicsSynchronizer : public System
+{
+public:
+	PhysicsSynchronizer ( ComponentManager& componentManager)
+		: System( componentManager )
+	{
+		systemSignature.set( componentManager.GetComponentId<Position>(), true );
+		systemSignature.set( componentManager.GetComponentId<RigidBody>(), true );
+	}
+
+	virtual void Update() override
+	{
+		auto& positions = componentManager.GetComponentArray<Position>();
+		auto& rigidBody = componentManager.GetComponentArray<RigidBody>();
+		for ( EntityId ent : subscribed )
+		{
+			positions.GetData( ent ).x = rigidBody.GetData( ent ).body->GetPosition().x;
+			positions.GetData( ent ).y = rigidBody.GetData( ent ).body->GetPosition().y;
+		}
+	}
+private:
+};

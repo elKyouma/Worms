@@ -23,6 +23,7 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	world->RegisterComponent<RigidBody>();
 	world->RegisterSystem<Movement>();
 	world->RegisterSystem<SpriteRenderer>( renderer, camera );
+	world->RegisterSystem<PhysicsSynchronizer>();
 
 	physicsWorld = std::make_unique<b2World>( b2Vec2( 0, -9.811 ) );
 	b2DebugDraw = std::make_unique<b2ColliderDraw>( renderer, camera );
