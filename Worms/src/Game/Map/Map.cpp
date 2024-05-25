@@ -16,14 +16,26 @@ Map::Map( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : world(
 	physTex = IMG_LoadPhysicTexture( renderer, "map.png" );
 	if ( physTex.has_value() )
 	{
-		for ( int i = 0; i < physTex.value().points.size(); i++ )
-			physTex.value().points[i] = DouglasPeucker( physTex.value().points[i], 0.02 );
 
 		RigidBody& rb = world->AddComponent<RigidBody>( mapId );
 		SDL_Point size;
 		SDL_QueryTexture( physTex.value().texture, NULL, NULL, &size.x, &size.y );
 
+		for ( auto& points : physTex.value().points )
+		{
+			points = DouglasPeucker( points, 0.02 );
+			for ( auto& point : points ) {
+				point.x -= size.x / 200.f;
+				point.y += size.y / 200.f;
+			}
+		}
+
+		bodyDef.position = { pos->x, pos->y };
+
+		rb.body = physicsWorld->CreateBody( &bodyDef );
+    
 		b2ChainShape shape;
+    
 		shape.CreateLoop( &physTex.value().points[0][0], physTex.value().points[0].size() );
 		rb.body = ColliderFactory::Get().CreateStaticBody( &shape, { pos->x - size.x / 200.f, pos->y + size.y / 200.f } ).GetBody();
 

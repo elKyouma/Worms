@@ -22,6 +22,7 @@ Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld )
 	SDL_CHECK( spriteComponent.texture );
 
 	b2PolygonShape shape;
+  
 	shape.SetAsBox( 0.1, 0.2 );
 	b2PolygonShape groundShape;
 	groundShape.SetAsBox( 0.1, 0.05, { 0.f, -0.25f }, 0.f );
@@ -51,6 +52,8 @@ void Worm::Update()
 {
 	pos->x = rb->body->GetPosition().x;
 	pos->y = rb->body->GetPosition().y;
+
+	healthBar->Update();
 
 	if ( !active ) return;
 
