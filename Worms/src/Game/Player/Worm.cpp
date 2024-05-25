@@ -23,7 +23,6 @@ Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld )
 
 	rb = &world->AddComponent<RigidBody>( objectId );
 	static b2BodyDef bodyDef;
-	//bodyDef.type = b2_kinematicBody;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position = { pos->x, pos->y };
 	bodyDef.fixedRotation = true;
@@ -42,6 +41,8 @@ Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld )
 
 	ContactManager::Get().AddEvent( objectId, CollisionType::BEGIN, [&] ( b2Contact* ) { grounded = true; } );
 	ContactManager::Get().AddEvent( objectId, CollisionType::END, [&] ( b2Contact* ) { grounded = false; } );
+
+	healthBar = std::make_unique<HealthBar>(newRenderer, newWorld, &objectId, 100 );
 }
 
 Worm::~Worm()
@@ -53,6 +54,8 @@ void Worm::Update()
 {
 	pos->x = rb->body->GetPosition().x;
 	pos->y = rb->body->GetPosition().y;
+
+	healthBar->Update();
 
 	if ( !active ) return;
 

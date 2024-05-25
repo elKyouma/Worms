@@ -4,6 +4,8 @@
 #include "Game/Components.h"
 #include "Game/Systems.h"
 #include "Game/Tags.h"
+#include "Game/Player/HealthBar.h"
+#include <memory>
 
 class Worm : public GameObject
 {
@@ -18,6 +20,7 @@ public:
 private:
 	RigidBody* rb;
 	Position* pos;
+	std::unique_ptr<HealthBar> healthBar;
 
 	bool grounded = false;
 	bool active = false;

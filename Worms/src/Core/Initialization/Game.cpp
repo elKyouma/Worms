@@ -17,6 +17,7 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	world = std::make_unique<World>( renderer );
 	world->RegisterComponent<Position>();
 	world->RegisterComponent<Rotation>();
+	world->RegisterComponent<Health>();
 	world->RegisterComponent<Sprite>();
 	world->RegisterComponent<Motion>();
 	world->RegisterComponent<RigidBody>();
