@@ -20,7 +20,7 @@ Projectille::Projectille( SDL_Renderer* newRenderer, World* newWorld, b2World* p
 
 	b2CircleShape shape;
 	shape.m_radius = 0.1;
-	collider = std::make_unique<Collider>( ColliderFactory::Get().CreateDynamic( &shape, { position->x, position->y } ) );
+	collider = std::make_unique<Collider>( ColliderFactory::Get().CreateDynamicBody( &shape, { position->x, position->y } ) );
 	collider->SetContinuous( true );
 	rigidBody->body = collider->GetBody();
 }

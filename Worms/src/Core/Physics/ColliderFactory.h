@@ -18,10 +18,15 @@ public:
 		return factory;
 	}
 
-	Collider CreateTrigger( b2Shape* shape, b2Vec2 position, PhysicsInfo info = {}, Position* parent = NULL );
-	Collider CreateDynamic( b2Shape* shape, b2Vec2 position, PhysicsInfo info = {}, Position* parent = NULL );
-	Collider CreateKinetic( b2Shape* shape, b2Vec2 position, PhysicsInfo info = {}, Position* parent = NULL );
-	Collider CreateStatic( b2Shape* shape, b2Vec2 position, PhysicsInfo info = {} );
+	Collider CreateTriggerBody( b2Shape* shape, b2Vec2 position, const PhysicsInfo& info = {} );
+	Collider CreateDynamicBody( b2Shape* shape, b2Vec2 position, const PhysicsInfo& info = {} );
+	Collider CreateKineticBody( b2Shape* shape, b2Vec2 position, const PhysicsInfo& info = {} );
+	Collider CreateStaticBody( b2Shape* shape, b2Vec2 position, const PhysicsInfo& info = {} );
+
+	void CreateTriggerFixture( b2Body* body, b2Shape* shape, const PhysicsInfo& info = {} );
+	void CreateDynamicFixture( b2Body* body, b2Shape* shape, const PhysicsInfo& info = {} );
+	void CreateKineticFixture( b2Body* shape, b2Shape* body, const PhysicsInfo& info = {} );
+	void CreateStaticFixture( b2Body* body, b2Shape* shape, const PhysicsInfo& info = {} );
 
 private:
 	ColliderFactory() = default;

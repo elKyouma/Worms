@@ -12,9 +12,6 @@ class ColliderFactory;
 class Collider
 {
 public:
-	void SetParent( Position& pos, const b2Vec2 offset );
-	void SetPosition( Position pos );
-
 	void AddOnColliderEnter( std::function<void( b2Contact* )> callback ) const;
 	void AddOnCollider( std::function<void( b2Contact* )> callback ) const;
 	void AddOnColliderExit( std::function<void( b2Contact* )> callback ) const;
@@ -35,17 +32,11 @@ public:
 
 	b2Body* GetBody();
 
-	void Update();
-
 private:
 	PhysicsInfo physicsInfo;
 	b2Body* body;
-	Position* parent = NULL;
-
-	b2Vec2 offset;
-	Position pos;
 
 	friend ColliderFactory;
-	Collider( b2Body*, b2Vec2 offset = {}, Position* parent = NULL );;
+	Collider( b2Body* );
 };
 

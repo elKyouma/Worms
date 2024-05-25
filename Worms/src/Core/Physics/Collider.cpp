@@ -1,17 +1,6 @@
 #include "core/Physics/Collider.h"
 #include "core/Physics/ContactManager.h"
 
-void Collider::SetParent( Position& parent, const b2Vec2 offset )
-{
-	this->parent = &parent;
-	this->offset = offset;
-}
-
-void Collider::SetPosition( Position pos )
-{
-	this->pos = pos;
-}
-
 void Collider::AddOnColliderEnter( std::function<void( b2Contact* )> callback ) const
 {
 	ContactManager::Get().AddEvent( physicsInfo.id, CollisionType::BEGIN, callback );
@@ -82,21 +71,7 @@ b2Body* Collider::GetBody()
 	return body;
 }
 
-
-void Collider::Update()
-{
-	if ( parent != NULL && body->GetType() )
-	{
-		pos.x = parent->x + offset.x;
-		pos.y = parent->y + offset.y;
-		body->SetTransform( { pos.x, pos.y }, 0 );
-	}
-}
-
-Collider::Collider( b2Body* body, b2Vec2 offset, Position* parent )
+Collider::Collider( b2Body* body )
 {
 	this->body = body;
-	this->parent = parent;
-	this->offset = offset;
-	Update();
 }

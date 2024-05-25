@@ -25,7 +25,7 @@ Map::Map( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : world(
 
 		b2ChainShape shape;
 		shape.CreateLoop( &physTex.value().points[0][0], physTex.value().points[0].size() );
-		rb.body = ColliderFactory::Get().CreateStatic( &shape, { pos->x - size.x / 200.f, pos->y + size.y / 200.f } ).GetBody();
+		rb.body = ColliderFactory::Get().CreateStaticBody( &shape, { pos->x - size.x / 200.f, pos->y + size.y / 200.f } ).GetBody();
 
 		world->AddComponent<Sprite>( mapId, { physTex.value().texture } );
 	}

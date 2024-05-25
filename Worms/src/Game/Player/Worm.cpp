@@ -17,18 +17,26 @@ Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld )
 	physicsInfo.tag = PhysicsTag::WORM;
 	physicsInfo.id = objectId;
 
-
 	Sprite& spriteComponent = world->AddComponent<Sprite>( objectId );
 	spriteComponent.texture = IMG_LoadTexture( renderer, "worms.png" );
 	SDL_CHECK( spriteComponent.texture );
 
 	b2PolygonShape shape;
 	shape.SetAsBox( 0.1, 0.2 );
+	b2PolygonShape groundShape;
+	groundShape.SetAsBox( 0.1, 0.05, { 0.f, -0.25f }, 0.f );
 
-	collider = std::make_unique<Collider>( ColliderFactory::Get().CreateDynamic( &shape, { pos->x, pos->y }, physicsInfo ) );
-	collider->AddOnColliderEnter( [&] ( b2Contact* ) { grounded = true; } );
-	collider->AddOnColliderEnter( [&] ( b2Contact* ) { grounded = false; } );
+	collider = std::make_unique<Collider>( ColliderFactory::Get().CreateDynamicBody( &shape, { pos->x, pos->y } ) );
 	collider->FreezeRotation();
+	ColliderFactory::Get().CreateTriggerFixture( collider->GetBody(), &groundShape, physicsInfo );
+	ContactManager::Get().AddEvent( objectId, CollisionType::BEGIN,
+									[&] ( b2Contact* ) {
+										grounded = true;
+									} );
+	ContactManager::Get().AddEvent( objectId, CollisionType::END,
+									[&] ( b2Contact* ) {
+										grounded = false;
+									} );
 
 	rb = &world->AddComponent<RigidBody>( objectId );
 	rb->body = collider->GetBody();
