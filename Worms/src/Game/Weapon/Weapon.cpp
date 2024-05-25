@@ -37,7 +37,10 @@ void Weapon::Update()
 		{
 			projectilles.emplace_back();
 			projectilles.back() = std::make_unique<Projectille>( renderer, world );
-			projectilles.back()->Initialise( pos->x, pos->y, force * cos( rot->degree * M_PI / 180 ), force * sin( rot->degree * M_PI / 180 ) );
+			projectilles.back()->Initialise( pos->x - 0.5 * cos( rot->degree * M_PI / 180 ),
+											 pos->y - 0.5 * sin( rot->degree * M_PI / 180 ),
+											 -force * cos( rot->degree * M_PI / 180 ), 
+											 -force * sin( rot->degree * M_PI / 180 ) );
 		}
 		force = 0;
 	}

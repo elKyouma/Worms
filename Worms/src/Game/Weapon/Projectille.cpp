@@ -18,9 +18,6 @@ Projectille::~Projectille()
 
 void Projectille::Update()
 {
-	position->x = rigidBody->body->GetPosition().x;
-	position->y = rigidBody->body->GetPosition().y;
-	rotation->degree = rigidBody->body->GetAngle() * 180 / M_PI;
 }
 
 void Projectille::Initialise( float posX, float posY, float vX, float vY )
