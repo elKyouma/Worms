@@ -3,16 +3,17 @@
 #include <SDL2/SDL.h> /* macOS- and GNU/Linux-specific */
 #include <string>
 #include "box2d/b2_world.h"
-#include "Game/Weapon/Projectille.h"
 #include "Core/Camera.h"
-#include "Game/Components.h"
+#include "Core/Physics/b2ColliderDraw.h"
 #include "ECS/World.h"
 #include "ExceptionHandling/SDL_Exception.h"
+#include "Game/Components.h"
 #include "Game/Map/Map.h"
 #include "Game/Player/Worm.h"
 #include "Game/Player/WormManager.h"
-#include "Core/Physics/b2ColliderDraw.h"
 #include "Game/Weapon/Weapon.h"
+#include "Game/Weapon/Projectille.h"
+
 
 class Game
 {

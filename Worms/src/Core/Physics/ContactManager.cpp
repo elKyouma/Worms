@@ -76,6 +76,21 @@ void ContactManager::DeleteEvent( const EntityId entId, const CollisionType type
 	}
 }
 
+void ContactManager::ClearEvent( const EntityId entId, const CollisionType type )
+{
+	auto& evts = GetEvents( type );
+	auto iterator = evts.find( entId );
+	if ( iterator == evts.end() )
+	{
+		//Throw error
+	}
+	else
+	{
+		auto& vec = evts[entId];
+		vec.clear();
+	}
+}
+
 EventMap& ContactManager::GetEvents( const CollisionType type )
 {
 	switch ( type )

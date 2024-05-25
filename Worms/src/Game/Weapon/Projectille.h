@@ -1,5 +1,7 @@
 #pragma once
+#include <memory>
 #include "Core/GameObject.h"
+#include "Core/Physics/Collider.h"
 #include "Game/Components.h"
 #include "Game/Systems.h"
 
@@ -13,5 +15,6 @@ private:
 	RigidBody* rigidBody;
 	Position* position;
 	Rotation* rotation;
+	std::unique_ptr<Collider> collider;
 };
 

@@ -1,10 +1,11 @@
 #include <imgui_impl_sdlrenderer2.h>
 #include <SDL2/SDL.h>
+#include "Core/Input.h"
+#include "Core/Physics/ColliderFactory.h"
 #include "Core/Physics/ContactManager.h"
+#include "Core/Time.h"
 #include "Game.h"
 #include "imgui_impl_sdl2.h"
-#include "Core/Input.h"
-#include "Core/Time.h"
 
 Game::Game() {}
 
@@ -23,10 +24,12 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	world->RegisterSystem<Movement>();
 	world->RegisterSystem<SpriteRenderer>( renderer, camera );
 
+
 	physicsWorld = std::make_unique<b2World>( b2Vec2( 0, -9.811 ) );
 	b2DebugDraw = std::make_unique<b2ColliderDraw>( renderer, camera );
 	physicsWorld->SetDebugDraw( b2DebugDraw.get() );
 	physicsWorld->SetContactListener( &ContactManager::Get() );
+	ColliderFactory::Get().Init( physicsWorld.get() );
 
 	wormManager = std::make_unique<WormManager>( renderer, world.get(), physicsWorld.get() );
 	wormManager->createTeam( 4 );
