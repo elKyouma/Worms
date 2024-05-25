@@ -34,6 +34,8 @@ private:
 
 	bool change_worm;
 	bool change_team;
+
+	bool use_action;
 	Input() = default;
 
 };

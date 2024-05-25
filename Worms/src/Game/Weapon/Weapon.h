@@ -1,6 +1,9 @@
 #pragma once
+#include <vector>
 #include "Core/GameObject.h"
 #include "Game/Components.h"
+#include "Game/Weapon/Projectille.h"
+
 class Weapon : public GameObject
 {
 public:
@@ -14,5 +17,6 @@ private:
 	EntityId parentId;
 	Position* pos;
 	Rotation* rot;
+	std::vector<Projectille> projectilles;
 };
 

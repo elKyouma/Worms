@@ -18,8 +18,6 @@ Weapon::Weapon( SDL_Renderer* newRenderer, World* newWorld )
 }
 void Weapon::Update()
 {
-	SDL_Point size;
-	SDL_QueryTexture( world->GetComponent<Sprite>( objectId ).texture, NULL, NULL, &size.x, &size.y );
 	pos->x = world->GetComponent<Position>( parentId ).x;
 	pos->y = world->GetComponent<Position>( parentId ).y;
 
@@ -27,8 +25,6 @@ void Weapon::Update()
 
 	pos->x -=  0.1 * cos(rot->degree * M_PI / 180);
 	pos->y -=  0.1 * sin( rot->degree * M_PI / 180 );
-	
-
 }
 
 void Weapon::Use( )
