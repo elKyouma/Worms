@@ -35,6 +35,7 @@ public:
 
 	void AddEvent( const EntityId entId, const CollisionType, std::function<void( b2Contact* )> );
 	void DeleteEvent( const EntityId entId, const CollisionType, std::function<void( b2Contact* )> );
+	void ClearEvent( const EntityId entId, const CollisionType );
 
 private:
 	ContactManager() = default;

@@ -1,12 +1,12 @@
-#include "Game/Player/Worm.h"
 #include <box2d/b2_contact.h>
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_polygon_shape.h>
-#include "Core/Physics/ContactManager.h"
-#include "ExceptionHandling/SDL_Exception.h"
 #include "Core/Input.h"
+#include "Core/Physics/ContactManager.h"
 #include "Core/Time.h"
 #include "Core/Utils.h"
+#include "ExceptionHandling/SDL_Exception.h"
+#include "Game/Player/Worm.h"
 
 Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld )
 {
@@ -21,28 +21,26 @@ Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld )
 	spriteComponent.texture = IMG_LoadTexture( renderer, "worms.png" );
 	SDL_CHECK( spriteComponent.texture );
 
-	rb = &world->AddComponent<RigidBody>( objectId );
-	static b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
-	bodyDef.position = { pos->x, pos->y };
-	bodyDef.fixedRotation = true;
-	bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
-	rb->body = physicsWorld->CreateBody( &bodyDef );
-
-	static b2PolygonShape shape;
+	b2PolygonShape shape;
+  
 	shape.SetAsBox( 0.1, 0.2 );
+	b2PolygonShape groundShape;
+	groundShape.SetAsBox( 0.1, 0.05, { 0.f, -0.25f }, 0.f );
 
-	static b2FixtureDef fixtureDef;
-	fixtureDef.shape = &shape;
-	fixtureDef.friction = 1;
-	fixtureDef.density = 1;
-	fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(&physicsInfo);
-	rb->body->CreateFixture( &fixtureDef );
+	collider = std::make_unique<Collider>( ColliderFactory::Get().CreateDynamicBody( &shape, { pos->x, pos->y } ) );
+	collider->FreezeRotation();
+	ColliderFactory::Get().CreateTriggerFixture( collider->GetBody(), &groundShape, physicsInfo );
+	ContactManager::Get().AddEvent( objectId, CollisionType::BEGIN,
+									[&] ( b2Contact* ) {
+										grounded = true;
+									} );
+	ContactManager::Get().AddEvent( objectId, CollisionType::END,
+									[&] ( b2Contact* ) {
+										grounded = false;
+									} );
 
-	ContactManager::Get().AddEvent( objectId, CollisionType::BEGIN, [&] ( b2Contact* ) { grounded = true; } );
-	ContactManager::Get().AddEvent( objectId, CollisionType::END, [&] ( b2Contact* ) { grounded = false; } );
-
-	healthBar = std::make_unique<HealthBar>(newRenderer, newWorld, &objectId, 100 );
+	rb = &world->AddComponent<RigidBody>( objectId );
+	rb->body = collider->GetBody();
 }
 
 Worm::~Worm()

@@ -92,8 +92,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>\src\</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>\src\</AdditionalUsingDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>
+      </AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -108,8 +109,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>\src\</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>\src\</AdditionalUsingDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>
+      </AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -124,7 +126,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -143,7 +145,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
     </ClCompile>
@@ -165,11 +167,37 @@
     <None Include="imgui.ini" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Core\Physics\Collider.cpp" />
+    <ClCompile Include="src\Core\Camera.cpp" />
+    <ClCompile Include="src\Core\GameObject.cpp" />
+    <ClCompile Include="src\Core\Initialization\EntryPoint.cpp" />
+    <ClCompile Include="src\Core\Initialization\Game.cpp" />
+    <ClCompile Include="src\Core\Input.cpp" />
+    <ClCompile Include="src\Core\Physics\b2ColliderDraw.cpp" />
+    <ClCompile Include="src\Core\Physics\ColliderFactory.cpp" />
+    <ClCompile Include="src\Core\Physics\ContactManager.cpp" />
+    <ClCompile Include="src\Core\Time.cpp" />
+    <ClCompile Include="src\Core\Utils.cpp" />
+    <ClCompile Include="src\ECS\ComponentManager.cpp" />
+    <ClCompile Include="src\ECS\EntityManager.cpp" />
+    <ClCompile Include="src\ECS\SystemManager.cpp" />
+    <ClCompile Include="src\ECS\World.cpp" />
+    <ClCompile Include="src\ExceptionHandling\AppException.cpp" />
+    <ClCompile Include="src\Game\Map\Map.cpp" />
+    <ClCompile Include="src\Game\Player\Worm.cpp" />
+    <ClCompile Include="src\Game\Player\WormManager.cpp" />
+    <ClCompile Include="src\Game\Player\WormTeam.cpp" />
+    <ClCompile Include="src\Game\Weapon\Projectille.cpp" />
+    <ClCompile Include="src\Game\Weapon\Weapon.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Core\Physics\Collider.h" />
     <ClInclude Include="src\Core\Camera.h" />
     <ClInclude Include="src\Core\GameObject.h" />
     <ClInclude Include="src\Core\Initialization\Game.h" />
     <ClInclude Include="src\Core\Input.h" />
     <ClInclude Include="src\Core\Physics\b2ColliderDraw.h" />
+    <ClInclude Include="src\Core\Physics\ColliderFactory.h" />
     <ClInclude Include="src\Core\Physics\ContactManager.h" />
     <ClInclude Include="src\Core\Time.h" />
     <ClInclude Include="src\Core\Utils.h" />
@@ -193,30 +221,6 @@
     <ClInclude Include="src\Game\TagsAndLayers.h" />
     <ClInclude Include="src\Game\Weapon\Projectille.h" />
     <ClInclude Include="src\Game\Weapon\Weapon.h" />
-    <ClInclude Include="Trigger.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\Core\Camera.cpp" />
-    <ClCompile Include="src\Core\GameObject.cpp" />
-    <ClCompile Include="src\Core\Initialization\EntryPoint.cpp" />
-    <ClCompile Include="src\Core\Initialization\Game.cpp" />
-    <ClCompile Include="src\Core\Input.cpp" />
-    <ClCompile Include="src\Core\Physics\b2ColliderDraw.cpp" />
-    <ClCompile Include="src\Core\Physics\ContactManager.cpp" />
-    <ClCompile Include="src\Core\Time.cpp" />
-    <ClCompile Include="src\Core\Utils.cpp" />
-    <ClCompile Include="src\ECS\ComponentManager.cpp" />
-    <ClCompile Include="src\ECS\EntityManager.cpp" />
-    <ClCompile Include="src\ECS\SystemManager.cpp" />
-    <ClCompile Include="src\ECS\World.cpp" />
-    <ClCompile Include="src\ExceptionHandling\AppException.cpp" />
-    <ClCompile Include="src\Game\Map\Map.cpp" />
-    <ClCompile Include="src\Game\Player\Worm.cpp" />
-    <ClCompile Include="src\Game\Player\WormManager.cpp" />
-    <ClCompile Include="src\Game\Player\WormTeam.cpp" />
-    <ClCompile Include="src\Game\Weapon\Projectille.cpp" />
-    <ClCompile Include="src\Game\Weapon\Weapon.cpp" />
-    <ClCompile Include="Trigger.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
