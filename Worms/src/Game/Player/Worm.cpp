@@ -39,6 +39,7 @@ Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld )
 										grounded = false;
 									} );
 
+	healthBar = std::make_unique<HealthBar>( newRenderer, newWorld, objectId, 100 );
 	rb = &world->AddComponent<RigidBody>( objectId );
 	rb->body = collider->GetBody();
 }

@@ -3,7 +3,7 @@
 #include "ExceptionHandling/SDL_Exception.h"
 #include "ECS/World.h"
 
-HealthBar::HealthBar( SDL_Renderer* renderer, World* world, EntityId* newParentId, int health)
+HealthBar::HealthBar( SDL_Renderer* renderer, World* world, EntityId newParentId, int health)
 {
 	Initialise( renderer, world );
 
@@ -19,7 +19,7 @@ HealthBar::HealthBar( SDL_Renderer* renderer, World* world, EntityId* newParentI
 
 void HealthBar::Update()
 {
-	Position parentPosition = world->GetComponent<Position>( *parentId );
+	Position parentPosition = world->GetComponent<Position>( parentId );
 	position->x = parentPosition.x;
 	position->y = parentPosition.y + 0.3;
 }

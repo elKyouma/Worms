@@ -5,10 +5,10 @@
 class HealthBar : GameObject
 {
 public:
-	HealthBar( SDL_Renderer* renderer, World* world, EntityId* newParentId, int health );
+	HealthBar( SDL_Renderer* renderer, World* world, EntityId newParentId, int health );
 	void Update();
 private:
-	EntityId* parentId;
+	EntityId parentId;
 	Position* position;
 	Health* hp;
 };
