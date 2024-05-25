@@ -1,9 +1,7 @@
 #pragma once
-#include "GameObject.h"
-#include "ECS/Components.h"
-#include "ECS/Systems.h"
-
-
+#include "Core/GameObject.h"
+#include "Game/Components.h"
+#include "Game/Systems.h"
 
 class Projectille : public GameObject
 {

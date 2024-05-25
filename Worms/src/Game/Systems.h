@@ -1,7 +1,7 @@
 #pragma once
-#include "../Camera.h"
-#include "Components.h"
-#include "System.h"
+#include "Core/Camera.h"
+#include "Game/Components.h"
+#include "ECS/System.h"
 
 class Movement : public System
 {

@@ -1,4 +1,4 @@
-#include "WormTeam.h"
+#include "Game/Player/WormTeam.h"
 
 void WormTeam::addWorm( Worm* worm )
 {

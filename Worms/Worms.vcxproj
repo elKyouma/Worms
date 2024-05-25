@@ -124,8 +124,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>\src\</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>\src\</AdditionalUsingDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src/</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>
+      </AdditionalUsingDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -142,8 +143,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>\src\</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>\src\</AdditionalUsingDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src/</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>
+      </AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -153,60 +155,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\GameObject.cpp" />
-    <ClCompile Include="src\b2ColliderDraw.cpp" />
-    <ClCompile Include="src\Projectille.cpp" />
-    <ClCompile Include="src\Camera.cpp" />
-    <ClCompile Include="src\ContactManager.cpp" />
-    <ClCompile Include="src\Input.cpp" />
-    <ClCompile Include="src\Map.cpp" />
-    <ClCompile Include="src\Game.cpp" />
-    <ClCompile Include="src\ExceptionHandling\AppException.cpp" />
-    <ClCompile Include="src\ECS\ComponentManager.cpp" />
-    <ClCompile Include="src\ECS\EntityManager.cpp" />
-    <ClCompile Include="src\ECS\Systems.h" />
-    <ClCompile Include="src\EntryPoint.cpp" />
-    <ClCompile Include="src\ECS\SystemManager.cpp" />
-    <ClCompile Include="src\ECS\World.cpp" />
-    <ClCompile Include="src\Time.cpp" />
-    <ClCompile Include="src\Utils.cpp" />
-    <ClCompile Include="src\Weapon.cpp" />
-    <ClCompile Include="src\Worm.cpp" />
-    <ClCompile Include="src\WormManager.cpp" />
-    <ClCompile Include="src\WormTeam.cpp" />
-    <ClCompile Include="Trigger.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\GameObject.h" />
-    <ClInclude Include="src\b2ColliderDraw.h" />
-    <ClInclude Include="src\Projectille.h" />
-    <ClInclude Include="src\Camera.h" />
-    <ClInclude Include="src\ContactManager.h" />
-    <ClInclude Include="src\Map.h" />
-    <ClInclude Include="src\Game.h" />
-    <ClInclude Include="src\ExceptionHandling\AppException.h" />
-    <ClInclude Include="src\ECS\ComponentManager.h" />
-    <ClInclude Include="src\ECS\System.h" />
-    <ClInclude Include="src\ExceptionHandling\ECS_Exception.h" />
-    <ClInclude Include="src\ECS\ComponentArray.h" />
-    <ClInclude Include="src\ECS\ECS_Types.h" />
-    <ClInclude Include="src\ECS\EntityManager.h" />
-    <ClInclude Include="src\ECS\Components.h" />
-    <ClInclude Include="src\ECS\SystemManager.h" />
-    <ClInclude Include="src\ExceptionHandling\SDL_Exception.h" />
-    <ClInclude Include="src\ECS\World.h" />
-    <ClInclude Include="src\Input.h" />
-    <ClInclude Include="src\Tags.h" />
-    <ClInclude Include="src\TagsAndLayers.hpp" />
-    <ClInclude Include="src\Time.h" />
-    <ClInclude Include="src\Utils.h" />
-    <ClInclude Include="src\Weapon.h" />
-    <ClInclude Include="src\Worm.h" />
-    <ClInclude Include="src\WormManager.h" />
-    <ClInclude Include="src\WormTeam.h" />
-    <ClInclude Include="Trigger.h" />
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="map.png" />
     <Image Include="placeHolderBullet.png" />
     <Image Include="placeHolderWeapon.png" />
@@ -215,6 +163,60 @@
   <ItemGroup>
     <None Include=".editorconfig" />
     <None Include="imgui.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Core\Camera.h" />
+    <ClInclude Include="src\Core\GameObject.h" />
+    <ClInclude Include="src\Core\Initialization\Game.h" />
+    <ClInclude Include="src\Core\Input.h" />
+    <ClInclude Include="src\Core\Physics\b2ColliderDraw.h" />
+    <ClInclude Include="src\Core\Physics\ContactManager.h" />
+    <ClInclude Include="src\Core\Time.h" />
+    <ClInclude Include="src\Core\Utils.h" />
+    <ClInclude Include="src\ECS\ComponentArray.h" />
+    <ClInclude Include="src\ECS\ComponentManager.h" />
+    <ClInclude Include="src\ECS\ECS_Types.h" />
+    <ClInclude Include="src\ECS\EntityManager.h" />
+    <ClInclude Include="src\ECS\System.h" />
+    <ClInclude Include="src\ECS\SystemManager.h" />
+    <ClInclude Include="src\ECS\World.h" />
+    <ClInclude Include="src\ExceptionHandling\AppException.h" />
+    <ClInclude Include="src\ExceptionHandling\ECS_Exception.h" />
+    <ClInclude Include="src\ExceptionHandling\SDL_Exception.h" />
+    <ClInclude Include="src\Game\Components.h" />
+    <ClInclude Include="src\Game\Map\Map.h" />
+    <ClInclude Include="src\Game\Player\Worm.h" />
+    <ClInclude Include="src\Game\Player\WormManager.h" />
+    <ClInclude Include="src\Game\Player\WormTeam.h" />
+    <ClInclude Include="src\Game\Systems.h" />
+    <ClInclude Include="src\Game\Tags.h" />
+    <ClInclude Include="src\Game\TagsAndLayers.h" />
+    <ClInclude Include="src\Game\Weapon\Projectille.h" />
+    <ClInclude Include="src\Game\Weapon\Weapon.h" />
+    <ClInclude Include="Trigger.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Core\Camera.cpp" />
+    <ClCompile Include="src\Core\GameObject.cpp" />
+    <ClCompile Include="src\Core\Initialization\EntryPoint.cpp" />
+    <ClCompile Include="src\Core\Initialization\Game.cpp" />
+    <ClCompile Include="src\Core\Input.cpp" />
+    <ClCompile Include="src\Core\Physics\b2ColliderDraw.cpp" />
+    <ClCompile Include="src\Core\Physics\ContactManager.cpp" />
+    <ClCompile Include="src\Core\Time.cpp" />
+    <ClCompile Include="src\Core\Utils.cpp" />
+    <ClCompile Include="src\ECS\ComponentManager.cpp" />
+    <ClCompile Include="src\ECS\EntityManager.cpp" />
+    <ClCompile Include="src\ECS\SystemManager.cpp" />
+    <ClCompile Include="src\ECS\World.cpp" />
+    <ClCompile Include="src\ExceptionHandling\AppException.cpp" />
+    <ClCompile Include="src\Game\Map\Map.cpp" />
+    <ClCompile Include="src\Game\Player\Worm.cpp" />
+    <ClCompile Include="src\Game\Player\WormManager.cpp" />
+    <ClCompile Include="src\Game\Player\WormTeam.cpp" />
+    <ClCompile Include="src\Game\Weapon\Projectille.cpp" />
+    <ClCompile Include="src\Game\Weapon\Weapon.cpp" />
+    <ClCompile Include="Trigger.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

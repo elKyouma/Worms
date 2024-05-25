@@ -1,6 +1,5 @@
-#include "WormManager.h"
-
-#include "Input.h"
+#include "Game/Player/WormManager.h"
+#include "Core/Input.h"
 
 WormManager::WormManager( SDL_Renderer* renderer, World* world, b2World* physicsWorld )
 	: _renderer( renderer ), _world( world ), _teams(), physicsWorld( physicsWorld ) {}

@@ -1,13 +1,12 @@
-#include "Worm.h"
-
+#include "Game/Player/Worm.h"
 #include <box2d/b2_contact.h>
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_polygon_shape.h>
-#include "ContactManager.h"
+#include "Core/Physics/ContactManager.h"
 #include "ExceptionHandling/SDL_Exception.h"
-#include "Input.h"
-#include "Time.h"
-#include "Utils.h"
+#include "Core/Input.h"
+#include "Core/Time.h"
+#include "Core/Utils.h"
 
 Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld )
 {

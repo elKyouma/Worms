@@ -1,4 +1,4 @@
-#include "Input.h"
+#include "Core/Input.h"
 
 void Input::UpdateInputsDown( const SDL_Event& ev )
 {

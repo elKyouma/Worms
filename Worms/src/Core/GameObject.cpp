@@ -1,4 +1,4 @@
-#include "GameObject.h"
+#include "Core/GameObject.h"
 
 void GameObject::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 {

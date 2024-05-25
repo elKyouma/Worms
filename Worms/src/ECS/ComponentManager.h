@@ -4,7 +4,6 @@
 #include <optional>
 #include <sstream>
 #include "ComponentArray.h"
-#include "ECS_Types.h"
 
 
 class ComponentManager

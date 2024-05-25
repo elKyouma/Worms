@@ -1,9 +1,9 @@
 #pragma once
 #include <SDL2/SDL.h>
 #include <optional>
-#include "ComponentManager.h"
-#include "EntityManager.h"
-#include "SystemManager.h"
+#include "ECS/ComponentManager.h"
+#include "ECS/EntityManager.h"
+#include "ECS/SystemManager.h"
 
 class World
 {

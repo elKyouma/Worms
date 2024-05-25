@@ -3,7 +3,7 @@
 #include <box2d/b2_world.h>
 #include <SDL2/SDL_image.h>
 #include "ExceptionHandling/SDL_Exception.h"
-#include "Projectille.h"
+#include "Game/Weapon/Projectille.h"
 
 Projectille::Projectille( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld )
 {

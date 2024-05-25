@@ -1,5 +1,5 @@
-#include "ContactManager.h"
-#include "Tags.h"
+#include "Core/Physics/ContactManager.h"
+#include "Game/Tags.h"
 
 void ContactManager::BeginContact( b2Contact* contact )
 {

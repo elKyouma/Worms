@@ -1,9 +1,9 @@
 #pragma once
 #include <box2d/b2_world.h>
-#include "GameObject.h"
-#include "ECS/Components.h"
-#include "ECS/Systems.h"
-#include "Tags.h"
+#include "Core/GameObject.h"
+#include "Game/Components.h"
+#include "Game/Systems.h"
+#include "Game/Tags.h"
 
 class Worm : public GameObject
 {

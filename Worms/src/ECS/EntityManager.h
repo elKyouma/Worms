@@ -2,7 +2,7 @@
 #include <array>
 #include <bitset>
 #include <queue>
-#include "ECS_Types.h"
+#include "ECS/ECS_Types.h"
 
 class EntityManager
 {

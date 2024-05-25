@@ -2,7 +2,7 @@
 
 #include <stdio.h> /* printf and fprintf */
 #include "Game.h"
-#include "Time.h"
+#include "Core/Time.h"
 
 /* Sets constants */
 #define WIDTH 800

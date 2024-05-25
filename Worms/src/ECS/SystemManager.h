@@ -1,8 +1,8 @@
 #pragma once
 #include <array>
-#include "ComponentManager.h"
-#include "ECS_Types.h"
-#include "System.h"
+#include "ECS/ComponentManager.h"
+#include "ECS/ECS_Types.h"
+#include "ECS/System.h"
 
 class SystemManager
 {

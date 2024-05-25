@@ -1,7 +1,7 @@
 #pragma once
 #include <set>
-#include "ComponentManager.h"
-#include "ECS_Types.h"
+#include "ECS/ComponentManager.h"
+#include "ECS/ECS_Types.h"
 
 class System
 {

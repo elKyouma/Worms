@@ -1,7 +1,6 @@
 #pragma once
-#include "GameObject.h"
-#include "ECS/Components.h"
-
+#include "Core/GameObject.h"
+#include "Game/Components.h"
 class Weapon : public GameObject
 {
 public:

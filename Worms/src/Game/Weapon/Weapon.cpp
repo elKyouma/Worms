@@ -1,4 +1,4 @@
-#include "Weapon.h"
+#include "Game/Weapon/Weapon.h"
 #include "SDL2/SDL_image.h"
 #include "ExceptionHandling/SDL_Exception.h"
 
