@@ -16,8 +16,6 @@ Map::Map( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : world(
 	physTex = IMG_LoadPhysicTexture( renderer, "map.png" );
 	if ( physTex.has_value() )
 	{
-		for ( int i = 0; i < physTex.value().points.size(); i++ )
-			physTex.value().points[i] = DouglasPeucker( physTex.value().points[i], 0.02 );
 
 		RigidBody& rb = world->AddComponent<RigidBody>( mapId );
 		static b2BodyDef bodyDef;
@@ -25,7 +23,16 @@ Map::Map( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : world(
 		SDL_Point size;
 		SDL_QueryTexture( physTex.value().texture, NULL, NULL, &size.x, &size.y );
 
-		bodyDef.position = { pos->x - size.x / 200.f, pos->y + size.y / 200.f };
+		for ( auto& points : physTex.value().points )
+		{
+			points = DouglasPeucker( points, 0.02 );
+			for ( auto& point : points ) {
+				point.x -= size.x / 200.f;
+				point.y += size.y / 200.f;
+			}
+		}
+
+		bodyDef.position = { pos->x, pos->y };
 
 		rb.body = physicsWorld->CreateBody( &bodyDef );
 
