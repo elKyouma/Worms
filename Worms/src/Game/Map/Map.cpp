@@ -2,10 +2,10 @@
 #include "box2d/b2_fixture.h"
 #include "box2d/b2_polygon_shape.h"
 #include "box2d/b2_world.h"
-#include "ECS/Components.h"
+#include "Game/Components.h"
 #include "ExceptionHandling/SDL_Exception.h"
-#include "Map.h"
-#include "Utils.h"
+#include "Game/Map/Map.h"
+#include "Core/Utils.h"
 
 
 Map::Map( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : world( world )

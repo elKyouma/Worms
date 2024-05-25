@@ -2,7 +2,7 @@
 #include <array>
 #include <optional>
 #include <unordered_map>
-#include "ECS_Types.h"
+#include "ECS/ECS_Types.h"
 
 class IComponentArray
 {

@@ -1,29 +1,27 @@
-#include "Worm.h"
-
+#include "Game/Player/Worm.h"
 #include <box2d/b2_contact.h>
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_polygon_shape.h>
-#include <SDL2/SDL.h>
-#include "ContactManager.h"
+#include "Core/Physics/ContactManager.h"
 #include "ExceptionHandling/SDL_Exception.h"
-#include "Input.h"
-#include "Time.h"
-#include "Utils.h"
+#include "Core/Input.h"
+#include "Core/Time.h"
+#include "Core/Utils.h"
 
-Worm::Worm( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : world( world )
+Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld )
 {
-
-	wormId = world->CreateEntity();
-	pos = &world->AddComponent<Position>( wormId, { 2, 1 } );
+	Initialise( newRenderer, newWorld );
+	objectId = world->CreateEntity();
+	pos = &world->AddComponent<Position>( objectId, { 2, 1 } );
 
 	physicsInfo.tag = PhysicsTag::WORM;
-	physicsInfo.id = wormId;
+	physicsInfo.id = objectId;
 
-	Sprite& spriteComponent = world->AddComponent<Sprite>( wormId );
+	Sprite& spriteComponent = world->AddComponent<Sprite>( objectId );
 	spriteComponent.texture = IMG_LoadTexture( renderer, "worms.png" );
 	SDL_CHECK( spriteComponent.texture );
 
-	rb = &world->AddComponent<RigidBody>( wormId );
+	rb = &world->AddComponent<RigidBody>( objectId );
 	static b2BodyDef bodyDef;
 	//bodyDef.type = b2_kinematicBody;
 	bodyDef.type = b2_dynamicBody;
@@ -51,13 +49,13 @@ Worm::Worm( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : worl
 	//fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(&physicsInfo);
 	rb->body->CreateFixture( &fixtureDef );
 
-	ContactManager::Get().AddEvent( wormId, CollisionType::BEGIN, [&] ( b2Contact* ) { grounded = true; } );
-	ContactManager::Get().AddEvent( wormId, CollisionType::END, [&] ( b2Contact* ) { grounded = false; } );
+	ContactManager::Get().AddEvent( objectId, CollisionType::BEGIN, [&] ( b2Contact* ) { grounded = true; } );
+	ContactManager::Get().AddEvent( objectId, CollisionType::END, [&] ( b2Contact* ) { grounded = false; } );
 }
 
 Worm::~Worm()
 {
-	SDL_DestroyTexture( world->GetComponent<Sprite>( wormId ).texture );
+	SDL_DestroyTexture( world->GetComponent<Sprite>( objectId ).texture );
 }
 
 void Worm::Update()

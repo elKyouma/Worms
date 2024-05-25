@@ -1,7 +1,6 @@
 #pragma once
 #include <box2d/b2_world.h>
-#include "Worm.h"
-#include "WormTeam.h"
+#include "Game/Player/WormTeam.h"
 
 class WormManager
 {

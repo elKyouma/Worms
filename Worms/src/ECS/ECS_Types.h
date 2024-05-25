@@ -2,7 +2,7 @@
 #include <bitset>
 #include <cstdint>
 #include <exception>
-#include "../ExceptionHandling/ECS_Exception.h"
+#include "ExceptionHandling/ECS_Exception.h"
 
 #define MAX_COMPONENTS 32
 #define MAX_ENTITIES 1000

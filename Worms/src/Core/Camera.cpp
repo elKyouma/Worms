@@ -1,6 +1,6 @@
-#include "Camera.h"
-#include "Input.h"
-#include "Time.h"
+#include "Core/Camera.h"
+#include "Core/Input.h"
+#include "Core/Time.h"
 
 void Camera::Update()
 {

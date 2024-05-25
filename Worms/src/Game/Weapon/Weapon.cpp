@@ -1,17 +1,17 @@
-#include "Weapon.h"
+#include "Game/Weapon/Weapon.h"
 #include "SDL2/SDL_image.h"
 #include "ExceptionHandling/SDL_Exception.h"
 
-Weapon::Weapon( SDL_Renderer* renderer, World* world, EntityId parentId ) : world(world), parentId(parentId)
+Weapon::Weapon( SDL_Renderer* newRenderer, World* newWorld, EntityId parentId ) : parentId(parentId)
 {
-	weaponId = world->CreateEntity();
-	pos = &world->AddComponent<Position>( weaponId, { 
+	Initialise( newRenderer, newWorld );
+	pos = &world->AddComponent<Position>( objectId, { 
 		world->GetComponent<Position>(parentId).x, 
 		world->GetComponent<Position>( parentId ).y });
 
-	rot = &world->AddComponent<Rotation>( weaponId, { 0 });
+	rot = &world->AddComponent<Rotation>( objectId, { 0 });
 
-	Sprite& spriteComponent = world->AddComponent<Sprite>( weaponId );
+	Sprite& spriteComponent = world->AddComponent<Sprite>( objectId );
 	spriteComponent.texture = IMG_LoadTexture( renderer, "placeHolderWeapon.png" );
 	SDL_CHECK( spriteComponent.texture );
 
@@ -30,5 +30,5 @@ void Weapon::Use( )
 
 Weapon::~Weapon()
 {
-	SDL_DestroyTexture( world->GetComponent<Sprite>( weaponId ).texture );
+	SDL_DestroyTexture( world->GetComponent<Sprite>( objectId ).texture );
 }

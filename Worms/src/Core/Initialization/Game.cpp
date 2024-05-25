@@ -1,10 +1,10 @@
 #include <imgui_impl_sdlrenderer2.h>
 #include <SDL2/SDL.h>
-#include "ContactManager.h"
+#include "Core/Physics/ContactManager.h"
 #include "Game.h"
 #include "imgui_impl_sdl2.h"
-#include "Input.h"
-#include "Time.h"
+#include "Core/Input.h"
+#include "Core/Time.h"
 
 Game::Game() {}
 

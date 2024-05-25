@@ -1,5 +1,5 @@
 #pragma once
-#include "Worm.h"
+#include "Game/Player/Worm.h"
 
 class WormTeam
 {

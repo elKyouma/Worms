@@ -1,6 +1,6 @@
-#include "Components.h"
-#include "Systems.h"
-#include "World.h"
+#include "Game/Components.h"
+#include "Game/Systems.h"
+#include "ECS/World.h"
 
 World::World( SDL_Renderer* renderer ) : renderer( renderer )
 {
