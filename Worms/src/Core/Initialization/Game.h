@@ -12,6 +12,7 @@
 #include "Game/Player/Worm.h"
 #include "Game/Player/WormManager.h"
 #include "Core/Physics/b2ColliderDraw.h"
+#include "Game/Weapon/Weapon.h"
 
 class Game
 {
@@ -37,6 +38,7 @@ private:
 	std::unique_ptr<Map> map;
 	std::unique_ptr<WormManager> wormManager;
 	std::unique_ptr<b2ColliderDraw> b2DebugDraw;
+	std::unique_ptr<Weapon> weapon;
 	Camera camera{ };
 
 	bool toggleColliders = false;

@@ -4,10 +4,11 @@
 class Weapon : public GameObject
 {
 public:
-	Weapon( SDL_Renderer* newRenderer, World* newWorld, EntityId parentId );
+	Weapon( SDL_Renderer* newRenderer, World* newWorld );
 	~Weapon();
 	void Update();
 	void Use();
+	void SetParent( EntityId newParent ) { parentId = newParent; }
 
 private:
 	EntityId parentId;

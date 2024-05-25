@@ -10,7 +10,7 @@ public:
 	void Initialise( SDL_Renderer* newRenderer, World* newWorld );
 	virtual void Update() {};
 	virtual void Render() {};
-	EntityId getId() { return objectId; }
+	EntityId GetId() { return objectId; }
 
 protected:
 	EntityId objectId;

@@ -2,12 +2,10 @@
 #include "SDL2/SDL_image.h"
 #include "ExceptionHandling/SDL_Exception.h"
 
-Weapon::Weapon( SDL_Renderer* newRenderer, World* newWorld, EntityId parentId ) : parentId(parentId)
+Weapon::Weapon( SDL_Renderer* newRenderer, World* newWorld )
 {
 	Initialise( newRenderer, newWorld );
-	pos = &world->AddComponent<Position>( objectId, { 
-		world->GetComponent<Position>(parentId).x, 
-		world->GetComponent<Position>( parentId ).y });
+	pos = &world->AddComponent<Position>( objectId, { 0, 0 } );
 
 	rot = &world->AddComponent<Rotation>( objectId, { 0 });
 

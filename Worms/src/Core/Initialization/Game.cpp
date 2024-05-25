@@ -33,6 +33,7 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	wormManager->createTeam( 4 );
 	bullet = std::make_unique<Projectille>( renderer, world.get(), physicsWorld.get() );
 	map = std::make_unique<Map>( renderer, world.get(), physicsWorld.get() );
+	weapon = std::make_unique<Weapon>( renderer, world.get());
 }
 
 void Game::InitSDL( const std::string& title, const int width, const int height )
@@ -70,6 +71,8 @@ void Game::Update()
 	world->Update();
 	physicsWorld->Step( Time::deltaTime, 8, 3 );
 	wormManager->Update();
+	weapon->SetParent( wormManager->GetActiveWormId() );
+	weapon->Update();
 	camera.Update();
 	map->Update( renderer );
 
