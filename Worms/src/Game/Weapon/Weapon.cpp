@@ -28,8 +28,8 @@ void Weapon::Update()
 
 	if ( Input::Get().UseAction() )
 	{
-		if( force < 10.0 )
-			force += 1 * Time::deltaTime;
+		if( force < 2.0 )
+			force += 0.25 * Time::deltaTime;
 	}
 	else
 	{
@@ -37,7 +37,10 @@ void Weapon::Update()
 		{
 			projectilles.emplace_back();
 			projectilles.back() = std::make_unique<Projectille>( renderer, world );
-			projectilles.back()->Initialise( pos->x, pos->y, force * cos( rot->degree * M_PI / 180 ), force * sin( rot->degree * M_PI / 180 ) );
+ 			projectilles.back()->Initialise( pos->x - 0.5 * cos( rot->degree * M_PI / 180 ),
+											 pos->y - 0.5 * sin( rot->degree * M_PI / 180 ),
+											 -force * cos( rot->degree * M_PI / 180 ), 
+											 -force * sin( rot->degree * M_PI / 180 ) );
 		}
 		force = 0;
 	}
