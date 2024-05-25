@@ -1,12 +1,12 @@
-#include "Game/Player/Worm.h"
 #include <box2d/b2_contact.h>
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_polygon_shape.h>
-#include "Core/Physics/ContactManager.h"
-#include "ExceptionHandling/SDL_Exception.h"
 #include "Core/Input.h"
+#include "Core/Physics/ContactManager.h"
 #include "Core/Time.h"
 #include "Core/Utils.h"
+#include "ExceptionHandling/SDL_Exception.h"
+#include "Game/Player/Worm.h"
 
 Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld )
 {
@@ -17,40 +17,21 @@ Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld )
 	physicsInfo.tag = PhysicsTag::WORM;
 	physicsInfo.id = objectId;
 
+
 	Sprite& spriteComponent = world->AddComponent<Sprite>( objectId );
 	spriteComponent.texture = IMG_LoadTexture( renderer, "worms.png" );
 	SDL_CHECK( spriteComponent.texture );
 
-	rb = &world->AddComponent<RigidBody>( objectId );
-	static b2BodyDef bodyDef;
-	//bodyDef.type = b2_kinematicBody;
-	bodyDef.type = b2_dynamicBody;
-	bodyDef.position = { pos->x, pos->y };
-	bodyDef.fixedRotation = true;
-	bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
-	rb->body = physicsWorld->CreateBody( &bodyDef );
-
-	static b2PolygonShape shape;
+	b2PolygonShape shape;
 	shape.SetAsBox( 0.1, 0.2 );
-	static b2PolygonShape groundedShape;
-	groundedShape.SetAsBox( 0.1, 0.23 );
-	groundedShape.m_centroid = { 0.f, -1.5f };
 
-	static b2FixtureDef groundFixture;
-	groundFixture.shape = &groundedShape;
-	groundFixture.isSensor = true;
-	groundFixture.userData.pointer = reinterpret_cast<uintptr_t>(&physicsInfo);
-	rb->body->CreateFixture( &groundFixture );
+	collider = std::make_unique<Collider>( ColliderFactory::Get().CreateDynamic( &shape, { pos->x, pos->y }, physicsInfo ) );
+	collider->AddOnColliderEnter( [&] ( b2Contact* ) { grounded = true; } );
+	collider->AddOnColliderEnter( [&] ( b2Contact* ) { grounded = false; } );
+	collider->FreezeRotation();
 
-	static b2FixtureDef fixtureDef;
-	fixtureDef.shape = &shape;
-	fixtureDef.friction = 1;
-	fixtureDef.density = 1;
-	//fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(&physicsInfo);
-	rb->body->CreateFixture( &fixtureDef );
-
-	ContactManager::Get().AddEvent( objectId, CollisionType::BEGIN, [&] ( b2Contact* ) { grounded = true; } );
-	ContactManager::Get().AddEvent( objectId, CollisionType::END, [&] ( b2Contact* ) { grounded = false; } );
+	rb = &world->AddComponent<RigidBody>( objectId );
+	rb->body = collider->GetBody();
 }
 
 Worm::~Worm()

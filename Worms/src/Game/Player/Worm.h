@@ -1,6 +1,9 @@
 #pragma once
 #include <box2d/b2_world.h>
+#include <memory>
 #include "Core/GameObject.h"
+#include "Core/Physics/Collider.h"
+#include "Core/Physics/ColliderFactory.h"
 #include "Game/Components.h"
 #include "Game/Systems.h"
 #include "Game/Tags.h"
@@ -18,6 +21,7 @@ public:
 private:
 	RigidBody* rb;
 	Position* pos;
+	std::unique_ptr<Collider> collider = NULL;
 
 	bool grounded = false;
 	bool active = false;
