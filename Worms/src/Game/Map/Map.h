@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include "Core/Utils.h"
 #include "ECS/World.h"
+#include "Game/Components.h"
 
 class Map
 {

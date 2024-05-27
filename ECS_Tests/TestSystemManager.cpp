@@ -1,6 +1,6 @@
 #include "pch.h"
+#include "game/Systems.h"
 #include "SystemManager.cpp"
-#include "Systems.h"
 
 class TestSystemManager : public ::testing::Test
 {
