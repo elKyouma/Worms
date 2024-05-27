@@ -176,11 +176,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\**\*.cpp" />
-    <ClCompile Include="Terminal.cpp" />
+    <ClCompile Include="src\Terminal\Terminal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="Terminal.h" />
+    <ClInclude Include="src\Terminal\Terminal.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
