@@ -1,6 +1,6 @@
 #pragma once
-#include <SDL2/SDL.h>
 #include <optional>
+#include <SDL2/SDL.h>
 #include "ECS/ComponentManager.h"
 #include "ECS/EntityManager.h"
 #include "ECS/SystemManager.h"
@@ -48,12 +48,14 @@ private:
 template<typename Component>
 inline void World::RegisterComponent()
 {
+	LOG( "Registered " + (std::string)typeid(Component).name() + " Component" );
 	comManager.RegisterComponent<Component>();
 }
 
 template<typename System, typename... Args>
 inline void World::RegisterSystem( Args&&... params )
 {
+	LOG( "Registered " + (std::string)typeid(System).name() + " System" );
 	sysManager.RegisterSystem<System>( std::forward<Args>( params )... );
 }
 

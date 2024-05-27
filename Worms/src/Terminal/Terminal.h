@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <vector>
 
 enum LogLevel
 {
@@ -26,7 +27,8 @@ public:
 	void Render();
 
 private:
-	std::string logFile;
+	std::string logFile = "logs.txt";
+	std::vector<std::string> Lines;
 
 	std::string getCurrentTime();
 	std::string getLogLevelString( LogLevel level );

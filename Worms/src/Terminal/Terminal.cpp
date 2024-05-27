@@ -5,8 +5,8 @@
 
 void Terminal::Log( const std::string& message, LogLevel level ) {
 	std::string logMessage = getCurrentTime() + " [" + getLogLevelString( level ) + "] " + message;
-
-	std::ofstream ofs( logFile, std::ios_base::app );
+	Lines.push_back( logMessage );
+	std::ofstream ofs( logFile );
 	if ( ofs ) {
 		ofs << logMessage << std::endl;
 	}
@@ -20,6 +20,8 @@ void Terminal::Render()
 {
 	bool open = true;
 	ImGui::Begin( "Terminal", &open );
+	for ( const std::string& line : Lines )
+		ImGui::Text( line.c_str() );
 	ImGui::End();
 }
 

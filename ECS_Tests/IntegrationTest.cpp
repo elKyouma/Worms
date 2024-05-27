@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "game/Components.h"
+#include "game/Systems.h"
 #include "World.cpp"
 
 class WorldTest : public ::testing::Test
