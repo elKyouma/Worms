@@ -184,6 +184,7 @@
     <ClCompile Include="src\ECS\World.cpp" />
     <ClCompile Include="src\ExceptionHandling\AppException.cpp" />
     <ClCompile Include="src\Game\Map\Map.cpp" />
+    <ClCompile Include="src\Game\Player\HealthBar.cpp" />
     <ClCompile Include="src\Game\Player\Worm.cpp" />
     <ClCompile Include="src\Game\Player\WormManager.cpp" />
     <ClCompile Include="src\Game\Player\WormTeam.cpp" />
@@ -213,6 +214,7 @@
     <ClInclude Include="src\ExceptionHandling\SDL_Exception.h" />
     <ClInclude Include="src\Game\Components.h" />
     <ClInclude Include="src\Game\Map\Map.h" />
+    <ClInclude Include="src\Game\Player\HealthBar.h" />
     <ClInclude Include="src\Game\Player\Worm.h" />
     <ClInclude Include="src\Game\Player\WormManager.h" />
     <ClInclude Include="src\Game\Player\WormTeam.h" />
