@@ -7,7 +7,7 @@ std::optional<PhysicTexture> IMG_LoadPhysicTexture( SDL_Renderer* renderer, cons
 	SDL_Texture* texture = NULL;
 	SDL_Surface* surface = IMG_Load( file );
 	if ( surface ) {
-		texture = SDL_CreateTextureFromSurface( renderer, surface );
+		//texture = SDL_CreateTextureFromSurface( renderer, surface );
 		SDL_LockSurface( surface );
 		auto points = MarchingSquares( (Uint32*)surface->pixels, surface->w, surface->h, 64 );
 		std::vector<std::vector<b2Vec2>> physPoints;
@@ -18,8 +18,7 @@ std::optional<PhysicTexture> IMG_LoadPhysicTexture( SDL_Renderer* renderer, cons
 				physPoints[i].emplace_back( float( points[i][j].x / 100.f ), float( -points[i][j].y / 100.f ) );
 		}
 		SDL_UnlockSurface( surface );
-		SDL_FreeSurface( surface );
-		return PhysicTexture{ physPoints, texture };
+		return PhysicTexture{ physPoints, surface };
 	}
 
 	return { };

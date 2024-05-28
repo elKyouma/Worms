@@ -14,7 +14,7 @@ Collider ColliderFactory::CreateTriggerBody( b2Shape* shape, b2Vec2 position, co
 	b2Body* body = physicsWorld->CreateBody( &bodyDef );
 	CreateTriggerFixture( body, shape, info );
 
-	return Collider( body );
+	return Collider( body, info );
 }
 
 Collider ColliderFactory::CreateDynamicBody( b2Shape* shape, b2Vec2 position, const PhysicsInfo& info )
@@ -26,7 +26,7 @@ Collider ColliderFactory::CreateDynamicBody( b2Shape* shape, b2Vec2 position, co
 	b2Body* body = physicsWorld->CreateBody( &bodyDef );
 	CreateDynamicFixture( body, shape, info );
 
-	return std::move( Collider( body ) );
+	return std::move( Collider( body, info ) );
 }
 
 Collider ColliderFactory::CreateKineticBody( b2Shape* shape, b2Vec2 position, const PhysicsInfo& info )
@@ -37,7 +37,7 @@ Collider ColliderFactory::CreateKineticBody( b2Shape* shape, b2Vec2 position, co
 	b2Body* body = physicsWorld->CreateBody( &bodyDef );
 	CreateKineticFixture( body, shape, info );
 
-	return Collider( body );
+	return Collider( body, info );
 }
 
 Collider ColliderFactory::CreateStaticBody( b2Shape* shape, b2Vec2 position, const PhysicsInfo& info )
@@ -49,7 +49,7 @@ Collider ColliderFactory::CreateStaticBody( b2Shape* shape, b2Vec2 position, con
 	b2Body* body = physicsWorld->CreateBody( &bodyDef );
 	CreateStaticFixture( body, shape, info );
 
-	return Collider( body );
+	return Collider( body, info );
 }
 
 void ColliderFactory::CreateTriggerFixture( b2Body* body, b2Shape* shape, const PhysicsInfo& info )

@@ -3,47 +3,47 @@
 
 void Collider::AddOnColliderEnter( std::function<void( b2Contact* )> callback ) const
 {
-	ContactManager::Get().AddEvent( physicsInfo.id, CollisionType::BEGIN, callback );
+	ContactManager::Get().AddEvent( id, CollisionType::BEGIN, callback );
 }
 
 void Collider::AddOnCollider( std::function<void( b2Contact* )> callback ) const
 {
-	ContactManager::Get().AddEvent( physicsInfo.id, CollisionType::WHILE, callback );
+	ContactManager::Get().AddEvent( id, CollisionType::WHILE, callback );
 }
 
 void Collider::AddOnColliderExit( std::function<void( b2Contact* )> callback ) const
 {
-	ContactManager::Get().AddEvent( physicsInfo.id, CollisionType::END, callback );
+	ContactManager::Get().AddEvent( id, CollisionType::END, callback );
 }
 
 void Collider::RemoveOnColliderEnter( std::function<void( b2Contact* )> callback ) const
 {
-	ContactManager::Get().DeleteEvent( physicsInfo.id, CollisionType::BEGIN, callback );
+	ContactManager::Get().DeleteEvent( id, CollisionType::BEGIN, callback );
 }
 
 void Collider::RemoveOnCollider( std::function<void( b2Contact* )> callback ) const
 {
-	ContactManager::Get().DeleteEvent( physicsInfo.id, CollisionType::WHILE, callback );
+	ContactManager::Get().DeleteEvent( id, CollisionType::WHILE, callback );
 }
 
 void Collider::RemoveOnColliderExit( std::function<void( b2Contact* )> callback ) const
 {
-	ContactManager::Get().DeleteEvent( physicsInfo.id, CollisionType::END, callback );
+	ContactManager::Get().DeleteEvent( id, CollisionType::END, callback );
 }
 
 void Collider::ClearOnColliderEnter() const
 {
-	ContactManager::Get().ClearEvent( physicsInfo.id, CollisionType::BEGIN );
+	ContactManager::Get().ClearEvent( id, CollisionType::BEGIN );
 }
 
 void Collider::ClearOnCollider() const
 {
-	ContactManager::Get().ClearEvent( physicsInfo.id, CollisionType::WHILE );
+	ContactManager::Get().ClearEvent( id, CollisionType::WHILE );
 }
 
 void Collider::ClearOnColliderExit() const
 {
-	ContactManager::Get().ClearEvent( physicsInfo.id, CollisionType::END );
+	ContactManager::Get().ClearEvent( id, CollisionType::END );
 }
 
 void Collider::FreezeRotation()
@@ -71,7 +71,8 @@ b2Body* Collider::GetBody()
 	return body;
 }
 
-Collider::Collider( b2Body* body )
+Collider::Collider( b2Body* body, PhysicsInfo info )
 {
 	this->body = body;
+	id = info.id;
 }

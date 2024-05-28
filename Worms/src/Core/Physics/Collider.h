@@ -33,10 +33,10 @@ public:
 	b2Body* GetBody();
 
 private:
-	PhysicsInfo physicsInfo;
+	EntityId id;
 	b2Body* body;
 
 	friend ColliderFactory;
-	Collider( b2Body* );
+	Collider( b2Body*, PhysicsInfo );
 };
 

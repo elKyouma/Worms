@@ -32,7 +32,7 @@ void Projectille::Initialise( float posX, float posY, float vX, float vY )
 
 	rigidBody = &world->AddComponent<RigidBody>( objectId );
 
-	physicsInfo.id = GetId();
+	physicsInfo.id = objectId;
 	physicsInfo.tag = PhysicsTag::BULLET;
 
 	b2CircleShape shape;
