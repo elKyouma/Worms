@@ -38,7 +38,7 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	wormManager->createTeam( 4 );
 	wormManager->createTeam( 4 );
 	map = std::make_unique<Map>( renderer, world.get(), physicsWorld.get() );
-	weapon = std::make_unique<Weapon>( renderer, world.get());
+	weapon = std::make_unique<Weapon>( renderer, world.get() );
 }
 
 void Game::InitSDL( const std::string& title, const int width, const int height )
@@ -130,7 +130,7 @@ void Game::Render()
 
 	world->Render();
 
-	bullet->Update();
+	//bullet->Update();
 	ImGui::SetNextWindowPos( ImVec2( 0.0f, ImGui::GetIO().DisplaySize.y - 200 ) );
 	ImGui::SetNextWindowSize( { ImGui::GetIO().DisplaySize.x, 200 } );
 	ImGui::SetNextWindowBgAlpha( 1.f );

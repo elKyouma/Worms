@@ -21,7 +21,7 @@ public:
 
 private:
 	std::queue<EntityId> availableEntities;
-	std::array<Signature, MAX_COMPONENTS> signatures;
+	std::array<Signature, MAX_ENTITIES> signatures;
 
 };
 
