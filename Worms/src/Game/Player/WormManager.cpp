@@ -1,8 +1,8 @@
 #include "Game/Player/WormManager.h"
 #include "Core/Input.h"
 
-WormManager::WormManager( SDL_Renderer* renderer, World* world, b2World* physicsWorld )
-	: _renderer( renderer ), _world( world ), _teams(), physicsWorld( physicsWorld ) {}
+WormManager::WormManager( SDL_Renderer* renderer, World* world, b2World* physicsWorld, Camera* camera )
+	: _renderer( renderer ), _world( world ), _teams(), physicsWorld( physicsWorld ), camera( camera ) {}
 
 void WormManager::createTeam( int size )
 {
@@ -27,6 +27,7 @@ void WormManager::Update()
 		ChangeTeam();
 
 	_teams[_activeTeam]->Update();
+	camera->ChangeTarget(_teams[_activeTeam]->getActiveWorm());
 }
 
 WormManager::~WormManager() {

@@ -7,7 +7,7 @@ public:
 	void addWorm( Worm* worm );
 	void removeWorm( Worm* worm );
 	void changeActiveWorm();
-	Worm* getActiveWorm();
+	EntityId getActiveWorm();
 	int Size() const;
 	void Update();
 
