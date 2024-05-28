@@ -1,21 +1,26 @@
 #pragma once
-class Camera
+
+#include "Core/GameObject.h"
+#include "Game/Components.h"
+
+class Camera : GameObject
 {
 public:
-	float X() { return _x; };
-	float Y() { return _y; };
+	Camera( SDL_Renderer* newRenderer, World* newWorld );
+	float X() { return pos->x; };
+	float Y() { return pos->y; };
 	float Zoom() { return zoom; };
 
 	void Update();
-	void ChangePosition( float x, float y );
-	void ChangeX( float deltaX ) { _x += deltaX; }
-	void ChangeY( float deltaY ) { _y += deltaY; }
+	void ChangeX( float deltaX ) { pos->x += deltaX; }
+	void ChangeY( float deltaY ) { pos->y += deltaY; }
 	void ChangeZoom( float delta ) { zoom += delta; }
+	void ChangeTarget( EntityId newTargetId ) { target->id = newTargetId; }
 private:
-	float _x = 2.f;
-	float _y = -1.f;
 	float zoom = 1.f;
 	bool inputs_enabled = true;
+	Position* pos;
+	Follow* target;
 
 	static constexpr float CAMERA_SPEED = 2.f;
 };

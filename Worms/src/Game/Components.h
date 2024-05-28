@@ -1,6 +1,8 @@
 #pragma once
 #include <SDL2/SDL.h>
 #include <box2d/b2_body.h>
+#include "ECS/ECS_Types.h"
+
 
 struct Position
 {
@@ -30,4 +32,9 @@ struct Rotation
 struct Health
 {
 	int value;
+};
+
+struct Follow
+{
+	EntityId id;
 };

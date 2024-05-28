@@ -38,7 +38,7 @@ private:
 	std::unique_ptr<WormManager> wormManager;
 	std::unique_ptr<b2ColliderDraw> b2DebugDraw;
 	std::unique_ptr<Weapon> weapon;
-	Camera camera{ };
+	std::unique_ptr<Camera> camera;
 
 	bool toggleColliders = false;
 	bool isRunning = false;
