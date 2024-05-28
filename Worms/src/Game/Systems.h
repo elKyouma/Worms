@@ -82,6 +82,11 @@ public:
 		{
 			positions.GetData( ent ).x = rigidBody.GetData( ent ).body->GetPosition().x;
 			positions.GetData( ent ).y = rigidBody.GetData( ent ).body->GetPosition().y;
+
+			auto angle = componentManager.TryGetComponent<Rotation>( ent );
+			if ( angle.has_value() )
+				angle.value().get().degree = rigidBody.GetData(ent).body->GetAngle() * 180 / M_PI;
+				
 		}
 	}
 private:
