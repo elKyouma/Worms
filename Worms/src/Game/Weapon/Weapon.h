@@ -12,6 +12,7 @@ public:
 	~Weapon();
 	void Update();
 	void Render();
+	void DestroyProjectille( EntityId ID );
 	void SetParent( EntityId newParent ) { parentId = newParent; }
 
 private:

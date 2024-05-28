@@ -28,6 +28,8 @@ public:
 	void CreateKineticFixture( b2Body* shape, b2Shape* body, const PhysicsInfo& info = {} );
 	void CreateStaticFixture( b2Body* body, b2Shape* shape, const PhysicsInfo& info = {} );
 
+	b2World* GetPhysicsWorld() { return physicsWorld; };
+
 private:
 	ColliderFactory() = default;
 

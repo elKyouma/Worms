@@ -13,7 +13,9 @@ Projectille::Projectille( SDL_Renderer* newRenderer, World* newWorld )
 
 Projectille::~Projectille()
 {
+	ColliderFactory::Get().GetPhysicsWorld()->DestroyBody( rigidBody->body );
 	SDL_DestroyTexture( world->GetComponent<Sprite>( objectId ).texture );
+	world->DestroyEntity( objectId );
 }
 
 void Projectille::Update()
