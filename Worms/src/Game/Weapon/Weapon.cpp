@@ -4,7 +4,7 @@
 #include "Core/Time.h"
 #include "Core/Input.h"
 
-Weapon::Weapon( SDL_Renderer* newRenderer, World* newWorld, Camera &camera ) : camera(camera)
+Weapon::Weapon( SDL_Renderer* newRenderer, World* newWorld, Camera* camera ) : camera(camera)
 {
 	Initialise( newRenderer, newWorld );
 	pos = &world->AddComponent<Position>( objectId, { 0, 0 } );
@@ -59,8 +59,8 @@ void Weapon::Render()
 		size.y );
 
 	SDL_Rect renderQuad(
-		400 + (pos->x - camera.X()) * 100.0,
-		300 - (pos->y - camera.Y()) * 100.0 - size.y / 2,
+		400 + (pos->x - camera->X()) * 100.0,
+		300 - (pos->y - camera->Y()) * 100.0 - size.y / 2,
 		slice.w,
 		slice.h );
 

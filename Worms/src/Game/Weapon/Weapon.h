@@ -8,7 +8,7 @@
 class Weapon : public GameObject
 {
 public:
-	Weapon( SDL_Renderer* newRenderer, World* newWorld, Camera &camera );
+	Weapon( SDL_Renderer* newRenderer, World* newWorld, Camera *camera );
 	~Weapon();
 	void Update();
 	void Render();
@@ -21,6 +21,6 @@ private:
 	std::vector<std::unique_ptr<Projectille>> projectilles;
 	float force = 0;
 	SDL_Texture *powerBar;
-	Camera &camera;
+	Camera *camera;
 };
 
