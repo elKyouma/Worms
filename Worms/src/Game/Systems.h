@@ -106,10 +106,10 @@ public:
 		auto& positions = componentManager.GetComponentArray<Position>();
 		for ( EntityId ent : subscribed )
 		{
-			auto& targetId = componentManager.GetComponent<Follow>( ent ).id;
-			auto& targetPosition = componentManager.GetComponent<Position>( targetId );
-			positions.GetData( ent ).x = targetPosition.x;
-			positions.GetData( ent ).y = targetPosition.y;
+			auto& target = componentManager.GetComponent<Follow>( ent );
+			auto& targetPosition = componentManager.GetComponent<Position>( target.id );
+			positions.GetData( ent ).x = targetPosition.x + target.offsetX;
+			positions.GetData( ent ).y = targetPosition.y + target.offsetY;
 		}
 	}
 private:
