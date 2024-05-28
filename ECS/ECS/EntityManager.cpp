@@ -9,12 +9,14 @@ EntityManager::EntityManager()
 EntityId EntityManager::CreateEntity()
 {
 	EntityId newEntity = availableEntities.front();
+	LOG( "Created entity " + std::to_string( newEntity ) );
 	availableEntities.pop();
 	return newEntity;
 }
 
 void EntityManager::DestroyEntity( const EntityId ent )
 {
+	LOG( "Destroyed entity " + std::to_string( ent ) );
 	availableEntities.push( ent );
 }
 

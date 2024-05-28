@@ -1,5 +1,5 @@
-#include "AppException.h"
 #include <sstream>
+#include "AppException.h"
 
 AppException::AppException( int line, const char* file, const char* message ) noexcept
 	:

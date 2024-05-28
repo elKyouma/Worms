@@ -1,5 +1,3 @@
-#include "Game/Components.h"
-#include "Game/Systems.h"
 #include "ECS/World.h"
 
 World::World( SDL_Renderer* renderer ) : renderer( renderer )

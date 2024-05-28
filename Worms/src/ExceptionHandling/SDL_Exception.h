@@ -1,5 +1,6 @@
 #pragma once
 #include "AppException.h"
+#include "SDL2/SDL.h"
 
 class SDL_Exception : public AppException
 {

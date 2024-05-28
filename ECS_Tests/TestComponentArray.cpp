@@ -1,7 +1,7 @@
 #include "pch.h"
 #include <assert.h>
 #include "ComponentArray.h"
-#include "Components.h"
+#include "game/Components.h"
 
 class TestComponentArray : public ::testing::Test
 {

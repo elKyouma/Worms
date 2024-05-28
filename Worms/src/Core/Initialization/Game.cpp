@@ -6,6 +6,7 @@
 #include "Core/Time.h"
 #include "Game.h"
 #include "imgui_impl_sdl2.h"
+#include "Terminal/Terminal.h"
 
 Game::Game() {}
 
@@ -49,8 +50,9 @@ void Game::InitSDL( const std::string& title, const int width, const int height 
 	window = SDL_CreateWindow( title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0 );
 	SDL_CHECK( window );
 
-	renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED );
+	renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
 	SDL_CHECK( renderer );
+	SDL_RenderSetLogicalSize( renderer, width, height );
 }
 
 
@@ -79,7 +81,7 @@ void Game::Update()
 	weapon->Update();
 	camera.Update();
 	map->Update( renderer );
-
+	Terminal::Get().Update();
 }
 
 
@@ -127,6 +129,12 @@ void Game::Render()
 	SDL_RenderClear( renderer );
 
 	world->Render();
+
+	bullet->Update();
+	ImGui::SetNextWindowPos( ImVec2( 0.0f, ImGui::GetIO().DisplaySize.y - 200 ) );
+	ImGui::SetNextWindowSize( { ImGui::GetIO().DisplaySize.x, 200 } );
+	ImGui::SetNextWindowBgAlpha( 1.f );
+	Terminal::Get().Render();
 
 	ImGui::Render();
 	SDL_RenderSetScale( renderer, io->DisplayFramebufferScale.x, io->DisplayFramebufferScale.y );

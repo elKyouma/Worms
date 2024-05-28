@@ -1,8 +1,9 @@
 #include <fstream>
 
 #include <stdio.h> /* printf and fprintf */
-#include "Game.h"
 #include "Core/Time.h"
+#include "Game.h"
+#include "Terminal/Terminal.h"
 
 /* Sets constants */
 #define WIDTH 800
@@ -27,11 +28,9 @@ int WinMain( int argc, char** argv )
 
 		game->Clean();
 	}
-	catch ( SDL_Exception& e )
+	catch ( std::exception& e )
 	{
-		std::ofstream logs{ "logs.txt" };
-		logs << e.what() << std::endl;
-		logs.close();
+		Terminal::Get().Log( e.what(), LogLevel::ERROR );
 	}
 
 	return 0;

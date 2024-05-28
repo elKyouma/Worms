@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "ComponentManager.cpp"
-#include "Components.h"
 #include "ECS_Types.h"
+#include "game/Components.h"
 
 class TestComponentManager : public ::testing::Test
 {
