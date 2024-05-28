@@ -73,7 +73,7 @@ void Weapon::Render()
 
 void Weapon::DestroyProjectille( EntityId ID )
 {
-	projectilles.erase( std::remove_if( projectilles.begin(), projectilles.end(), 
+	projectilles.erase( std::remove_if( projectilles.begin(), projectilles.end(),
 						[ID] ( std::unique_ptr<Projectille> &proc ) { return proc->GetId() == ID; } ), projectilles.end() );
 }
 
