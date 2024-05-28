@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "Game/Weapon/Weapon.h"
 #include "SDL2/SDL_image.h"
 #include "ExceptionHandling/SDL_Exception.h"
@@ -68,6 +69,12 @@ void Weapon::Render()
 
 
 	SDL_RenderCopyEx( renderer, powerBar, &slice, &renderQuad, -rot->degree, &centre, SDL_FLIP_NONE );
+}
+
+void Weapon::DestroyProjectille( EntityId ID )
+{
+	projectilles.erase( std::remove_if( projectilles.begin(), projectilles.end(), 
+						[ID] ( std::unique_ptr<Projectille> &proc ) { return proc->GetId() == ID; } ), projectilles.end() );
 }
 
 
