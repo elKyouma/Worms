@@ -11,7 +11,7 @@ public:
 
 	void createTeam( int size );
 	void deleteTeam( WormTeam* team );
-	EntityId GetActiveWormId() { return _teams[_activeTeam]->getActiveWorm()->GetId(); }
+	EntityId GetActiveWormId() { return _teams[_activeTeam]->getActiveWorm(); }
 	void Update();
 
 	~WormManager();

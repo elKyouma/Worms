@@ -27,7 +27,7 @@ void WormTeam::changeActiveWorm()
 
 EntityId WormTeam::getActiveWorm()
 {
-	return _worms[_activeWorm]->getId();
+	return _worms[_activeWorm]->GetId();
 }
 
 int WormTeam::Size() const
