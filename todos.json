@@ -42,7 +42,7 @@
             "title": "add health bars"
         },
         {
-            "done": false,
+            "done": true,
             "title": "health system"
         },
         {
@@ -58,11 +58,11 @@
             "title": "sprite effects"
         },
         {
-            "done": false,
+            "done": true,
             "title": "camer follow active worms"
         },
         {
-            "done": false,
+            "done": true,
             "title": "power bar"
         }
     ]
