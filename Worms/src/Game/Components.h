@@ -37,4 +37,6 @@ struct Health
 struct Follow
 {
 	EntityId id;
+	float offsetX = 0.f;
+	float offsetY = 0.f;
 };

@@ -24,13 +24,11 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	world->RegisterComponent<Motion>();
 	world->RegisterComponent<RigidBody>();
 	world->RegisterComponent<Follow>();
-
-	camera = std::make_unique<Camera>( renderer, world.get() );
-
 	world->RegisterSystem<Movement>();
-	world->RegisterSystem<SpriteRenderer>( renderer, *camera );
 	world->RegisterSystem<PhysicsSynchronizer>();
 	world->RegisterSystem<TargetSystem>();
+	camera = std::make_unique<Camera>( renderer, world.get() );
+	world->RegisterSystem<SpriteRenderer>( renderer, *camera );
 
 	physicsWorld = std::make_unique<b2World>( b2Vec2( 0, -9.811 ) );
 	b2DebugDraw = std::make_unique<b2ColliderDraw>( renderer, *camera );
