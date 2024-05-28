@@ -1,14 +1,14 @@
 #pragma once
 #include <box2d/b2_world.h>
 #include <memory>
+#include <memory>
 #include "Core/GameObject.h"
 #include "Core/Physics/Collider.h"
 #include "Core/Physics/ColliderFactory.h"
 #include "Game/Components.h"
+#include "Game/Player/HealthBar.h"
 #include "Game/Systems.h"
 #include "Game/Tags.h"
-#include "Game/Player/HealthBar.h"
-#include <memory>
 
 class Worm : public GameObject
 {
@@ -30,6 +30,7 @@ private:
 	bool active = false;
 
 	PhysicsInfo physicsInfo;
+	PhysicsInfo groundedPhysicsInfo;
 
 	static constexpr float WORM_SPEED = 3.f;
 	static constexpr float JUMP_FORCE = 2.5f;

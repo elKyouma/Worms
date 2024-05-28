@@ -11,6 +11,8 @@
 Map::Map( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : world( world )
 {
 	mapId = world->CreateEntity();
+	physicsInfo.id = mapId;
+	physicsInfo.tag = PhysicsTag::MAP;
 	pos = &world->AddComponent<Position>( mapId, { 1.5f, -1.f } );
 
 	physTex = IMG_LoadPhysicTexture( renderer, "map.png" );
@@ -32,7 +34,7 @@ Map::Map( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : world(
 
 		b2ChainShape shape;
 		shape.CreateLoop( &physTex.value().points[0][0], physTex.value().points[0].size() );
-		rb.body = ColliderFactory::Get().CreateStaticBody( &shape, { pos->x, pos->y} ).GetBody();
+		rb.body = ColliderFactory::Get().CreateStaticBody( &shape, { pos->x, pos->y }, physicsInfo ).GetBody();
 
 		world->AddComponent<Sprite>( mapId, { physTex.value().texture } );
 	}

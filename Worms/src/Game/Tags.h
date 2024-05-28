@@ -6,7 +6,8 @@ enum PhysicsTag
 	NONE,
 	BULLET,
 	WORM,
-	GROUNDED
+	GROUNDED,
+	MAP
 };
 
 struct PhysicsInfo

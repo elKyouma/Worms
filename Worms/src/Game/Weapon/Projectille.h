@@ -13,6 +13,7 @@ public:
 	~Projectille();
 	void Update();
 private:
+	PhysicsInfo physicsInfo;
 	RigidBody* rigidBody;
 	Position* position;
 	Rotation* rotation;

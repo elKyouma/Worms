@@ -4,6 +4,7 @@
 #include "Core/Utils.h"
 #include "ECS/World.h"
 #include "Game/Components.h"
+#include "Game/Tags.h"
 
 class Map
 {
@@ -16,6 +17,7 @@ private:
 	EntityId mapId;
 	World* world;
 	Position* pos;
+	PhysicsInfo physicsInfo;
 	std::optional<PhysicTexture> physTex;
 };
 
