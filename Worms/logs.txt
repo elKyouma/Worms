@@ -1,1 +1,1 @@
-2024-05-29 21:08:37 [INFO] Created entity 26
+2024-05-29 22:09:39 [INFO] Destroyed entity 29

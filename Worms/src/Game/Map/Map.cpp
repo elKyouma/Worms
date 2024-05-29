@@ -98,22 +98,18 @@ float Map::Distance( const float x1, const float y1, const float x2, const float
 
 void Map::CreateNewColliders()
 {
-	auto surf = physTex.value().surface;
+	auto surf = physTex->surface;
 	SDL_LockSurface( surf );
 
-	auto points = MarchingSquares( (Uint32*)surf->pixels, surf->w, surf->h, 64 );
+	auto shapes = MarchingSquares( (Uint32*)surf->pixels, surf->w, surf->h, 64 );
 	std::vector<std::vector<b2Vec2>> physPoints;
-	for ( int i = 0; i < points.size(); i++ )
+	for ( int i = 0; i < shapes.size(); i++ )
 	{
 		physPoints.push_back( {} );
-		for ( int j = points[i].size() - 1; j >= 0; j-- )
-			physPoints[i].emplace_back( float( points[i][j].x / 100.f ), float( -points[i][j].y / 100.f ) );
+		for ( int j = shapes[i].size() - 1; j >= 0; j-- )
+			physPoints[i].emplace_back( float( shapes[i][j].x / 100.f ), float( -shapes[i][j].y / 100.f ) );
 	}
-	physTex->points.clear();
-	physTex->points = physPoints;
-	SDL_UnlockSurface( surf );
-
-	for ( auto& points : physTex.value().points )
+	for ( auto& points : physPoints )
 	{
 		points = DouglasPeucker( points, 0.02 );
 		for ( auto& point : points ) {
@@ -121,12 +117,24 @@ void Map::CreateNewColliders()
 			point.y += mapSize.y / 200.f;
 		}
 	}
+
+	physTex->points.clear();
+	physTex->points = physPoints;
+
+	SDL_UnlockSurface( surf );
+
 	if ( world->GetComponent<RigidBody>( mapId ).body != NULL )
 		physicsWorld->DestroyBody( world->GetComponent<RigidBody>( mapId ).body );
 
 	b2ChainShape shape;
-	shape.CreateLoop( &physTex.value().points[0][0], physTex.value().points[0].size() );
+	shape.CreateLoop( &physTex->points[0][0], physTex->points[0].size() );
 	auto collider = ColliderFactory::Get().CreateStaticBody( &shape, { pos->x, pos->y }, physicsInfo );
+	for ( int i = 1; i < physTex->points.size(); i++ )
+	{
+		shape.Clear();
+		shape.CreateLoop( &physTex.value().points[i][0], physTex.value().points[i].size() );
+		ColliderFactory::Get().CreateStaticFixture( collider.GetBody(), &shape, physicsInfo );
+	}
 	collider.AddOnColliderEnter( std::bind( &Map::DestroyMap, this, std::placeholders::_1 ) );
 	collider.AddOnColliderExit( std::bind( &Map::DestroyMap, this, std::placeholders::_1 ) );
 	world->GetComponent<RigidBody>( mapId ).body = collider.GetBody();
