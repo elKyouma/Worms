@@ -5,22 +5,25 @@
 class WormManager
 {
 public:
-	WormManager( SDL_Renderer* renderer, World* world, b2World* physicsWorld );
+	WormManager( SDL_Renderer* renderer, World* world, b2World* physicsWorld, Camera* camera );
 	WormManager( const WormManager& ) = delete;
 	WormManager( WormManager&& ) = delete;
 
 	void createTeam( int size );
 	void deleteTeam( WormTeam* team );
-	EntityId GetActiveWormId() { return _teams[_activeTeam]->getActiveWorm()->GetId(); }
+	EntityId GetActiveWormId() { return _teams[_activeTeam]->getActiveWorm(); }
 	void Update();
 
 	~WormManager();
 private:
 	void ChangeTeam();
 	void ChangeActiveWorm();
-	SDL_Renderer* _renderer = NULL;
-	World* _world = NULL;
-	b2World* physicsWorld = NULL;
+
 	std::vector<WormTeam*> _teams;
 	int _activeTeam = 0;
+
+	SDL_Renderer* _renderer;
+	World* _world;
+	b2World* physicsWorld;
+	Camera* camera;
 };

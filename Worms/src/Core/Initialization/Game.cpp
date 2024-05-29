@@ -23,22 +23,24 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	world->RegisterComponent<Sprite>();
 	world->RegisterComponent<Motion>();
 	world->RegisterComponent<RigidBody>();
+	world->RegisterComponent<Follow>();
 	world->RegisterSystem<Movement>();
-	world->RegisterSystem<SpriteRenderer>( renderer, camera );
 	world->RegisterSystem<PhysicsSynchronizer>();
-
+	world->RegisterSystem<TargetSystem>();
+	camera = std::make_unique<Camera>( renderer, world.get() );
+	world->RegisterSystem<SpriteRenderer>( renderer, *camera );
 
 	physicsWorld = std::make_unique<b2World>( b2Vec2( 0, -9.811 ) );
-	b2DebugDraw = std::make_unique<b2ColliderDraw>( renderer, camera );
+	b2DebugDraw = std::make_unique<b2ColliderDraw>( renderer, *camera );
 	physicsWorld->SetDebugDraw( b2DebugDraw.get() );
 	physicsWorld->SetContactListener( &ContactManager::Get() );
 	ColliderFactory::Get().Init( physicsWorld.get() );
 
-	wormManager = std::make_unique<WormManager>( renderer, world.get(), physicsWorld.get() );
+	wormManager = std::make_unique<WormManager>( renderer, world.get(), physicsWorld.get(), camera.get() );
 	wormManager->createTeam( 4 );
 	wormManager->createTeam( 4 );
 	map = std::make_unique<Map>( renderer, world.get(), physicsWorld.get() );
-	weapon = std::make_unique<Weapon>( renderer, world.get() );
+	weapon = std::make_unique<Weapon>( renderer, world.get(), camera.get() );
 }
 
 void Game::InitSDL( const std::string& title, const int width, const int height )
@@ -79,7 +81,7 @@ void Game::Update()
 	wormManager->Update();
 	weapon->SetParent( wormManager->GetActiveWormId() );
 	weapon->Update();
-	camera.Update();
+	camera->Update();
 	map->Update( renderer );
 	Terminal::Get().Update();
 }
@@ -129,6 +131,7 @@ void Game::Render()
 	SDL_RenderClear( renderer );
 
 	world->Render();
+	weapon->Render();
 
 	//bullet->Update();
 	ImGui::SetNextWindowPos( ImVec2( 0.0f, ImGui::GetIO().DisplaySize.y - 200 ) );

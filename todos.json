@@ -26,7 +26,7 @@
             "title": "Shooting from screen center"
         },
         {
-            "done": false,
+            "done": true,
             "title": "Integrate shooting with moving character"
         },
         {
@@ -34,7 +34,7 @@
             "title": "Character movement"
         },
         {
-            "done": false,
+            "done": true,
             "title": "Character movement with physics"
         },
         {
@@ -42,7 +42,7 @@
             "title": "add health bars"
         },
         {
-            "done": false,
+            "done": true,
             "title": "health system"
         },
         {
@@ -58,11 +58,11 @@
             "title": "sprite effects"
         },
         {
-            "done": false,
+            "done": true,
             "title": "camer follow active worms"
         },
         {
-            "done": false,
+            "done": true,
             "title": "power bar"
         }
     ]

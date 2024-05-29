@@ -26,26 +26,37 @@ void Weapon::Update()
 
 	rot->degree += Input::Get().Vertical() * Time::deltaTime * 100.0;
 
-	pos->x += 0.1 * cos( rot->degree * M_PI / 180 );
-	pos->y += 0.1 * sin( rot->degree * M_PI / 180 );
+	pos->x -= 0.1 * cos( rot->degree * M_PI / 180 );
+	pos->y -= 0.1 * sin( rot->degree * M_PI / 180 );
 
 	if ( Input::Get().UseAction() )
 	{
-		if ( force < 0.25 )
-			force += 0.25 * Time::deltaTime;
-	}
-	else
-	{
-		if ( force )
+		if ( force < 2.0 )
+			pos->x += 0.1 * cos( rot->degree * M_PI / 180 );
+		pos->y += 0.1 * sin( rot->degree * M_PI / 180 );
+
+		if ( Input::Get().UseAction() )
 		{
-			projectilles.emplace_back();
-			projectilles.back() = std::make_unique<Projectille>( renderer, world );
-			projectilles.back()->Initialise( pos->x + 0.5 * cos( rot->degree * M_PI / 180 ),
-											 pos->y + 0.5 * sin( rot->degree * M_PI / 180 ),
-											 force * cos( rot->degree * M_PI / 180 ),
-											 force * sin( rot->degree * M_PI / 180 ) );
+			if ( force < 0.25 )
+				force += 0.25 * Time::deltaTime;
 		}
-		force = 0;
+		else
+		{
+			if ( force )
+			{
+				projectilles.emplace_back();
+				projectilles.back() = std::make_unique<Projectille>( renderer, world );
+				projectilles.back()->Initialise( pos->x - 0.5 * cos( rot->degree * M_PI / 180 ),
+												 pos->y - 0.5 * sin( rot->degree * M_PI / 180 ),
+												 -force * cos( rot->degree * M_PI / 180 ),
+												 -force * sin( rot->degree * M_PI / 180 ) );
+				projectilles.back()->Initialise( pos->x + 0.5 * cos( rot->degree * M_PI / 180 ),
+												 pos->y + 0.5 * sin( rot->degree * M_PI / 180 ),
+												 force * cos( rot->degree * M_PI / 180 ),
+												 force * sin( rot->degree * M_PI / 180 ) );
+			}
+			force = 0;
+		}
 	}
 }
 

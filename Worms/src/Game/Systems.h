@@ -91,3 +91,26 @@ public:
 	}
 private:
 };
+
+class TargetSystem : public System
+{
+public:
+	TargetSystem( ComponentManager& componentManager )
+		: System( componentManager )
+	{
+		systemSignature.set( componentManager.GetComponentId<Follow>(), true );
+	}
+
+	virtual void Update() override
+	{
+		auto& positions = componentManager.GetComponentArray<Position>();
+		for ( EntityId ent : subscribed )
+		{
+			auto& target = componentManager.GetComponent<Follow>( ent );
+			auto& targetPosition = componentManager.GetComponent<Position>( target.id );
+			positions.GetData( ent ).x = targetPosition.x + target.offsetX;
+			positions.GetData( ent ).y = targetPosition.y + target.offsetY;
+		}
+	}
+private:
+};
