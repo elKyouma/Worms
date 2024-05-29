@@ -13,19 +13,26 @@ public:
 	~Map();
 
 	void Update( SDL_Renderer* renderer );
+	SDL_Point GlobalToLocalPos( const Position& mapPos );
+	void SDL_Surface( SDL_Point point );
 private:
 	void DestroyMap( b2Contact* contact );
 	float Distance( const float x1, const float y1, const float x2, const float y2 );
 
+	void CreateNewColliders();
+
 	bool destroyed = false;
 	SDL_Renderer* renderer;
-	EntityId mapId;
-	Position bulltetPos;
-
-	World* world;
 	b2World* physicsWorld;
+	World* world;
+
+	EntityId mapId;
 	Position* pos;
+	Sprite* sprite;
+	Position bulltetPos;
 	PhysicsInfo physicsInfo;
 	std::optional<PhysicTexture> physTex;
+
+	SDL_Point mapSize{};
 };
 
