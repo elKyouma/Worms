@@ -21,12 +21,20 @@ int WinMain( int argc, char** argv )
 
 		while ( game->IsRunning() )
 		{
-			Time::deltaTime = timer.Reset();
-			game->HandleEvents();
-			game->Update();
-			game->PreRender();
-			game->Render();
-			game->PostRender();
+			try
+			{
+				Time::deltaTime = timer.Reset();
+				game->HandleEvents();
+				game->Update();
+				game->PreRender();
+				game->Render();
+				game->PostRender();
+			}
+			catch ( std::exception& e )
+			{
+				Terminal::Get().Log( e.what(), LogLevel::ERROR );
+			}
+
 		}
 
 		game->Clean();
