@@ -14,7 +14,7 @@ std::optional<PhysicTexture> IMG_LoadPhysicTexture( SDL_Renderer* renderer, cons
 		for ( int i = 0; i < points.size(); i++ )
 		{
 			physPoints.push_back( {} );
-			for ( int j = points[i].size() - 1; j >= 0; j-- )
+			for ( int j = static_cast<int>(points[i].size() - 1); j >= 0; j-- )
 				physPoints[i].emplace_back( float( points[i][j].x / 100.f ), float( -points[i][j].y / 100.f ) );
 		}
 		SDL_UnlockSurface( surface );
@@ -23,18 +23,6 @@ std::optional<PhysicTexture> IMG_LoadPhysicTexture( SDL_Renderer* renderer, cons
 
 	return { };
 
-}
-
-
-void DrawPolygon( SDL_Renderer* renderer, const std::vector<std::vector<b2Vec2>>& lines, const b2Vec2 pos )
-{
-	SDL_SetRenderDrawColor( renderer, 0, 255, 0, 255 );
-	for ( int i = 0; i < lines.size(); i++ )
-		for ( int j = 0; j < lines[i].size() - 1; j++ )
-			SDL_RenderDrawLine( renderer, (pos.x + lines[i][j].x) * 100, (pos.y + lines[i][j].y) * 100,
-											(pos.x + lines[i][j + 1].x * 100), (pos.y + lines[i][j + 1].y) * 100 );
-
-	SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
 }
 
 std::vector<std::vector<SDL_Point>>  MarchingSquares( Uint32* org_pixels, int w, int h, int threshold )

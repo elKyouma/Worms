@@ -38,7 +38,7 @@ void Projectille::Initialise( float posX, float posY, float vX, float vY )
 	physicsInfo.tag = PhysicsTag::BULLET;
 
 	b2CircleShape shape;
-	shape.m_radius = 0.1;
+	shape.m_radius = 0.1f;
 	collider = std::make_unique<Collider>( ColliderFactory::Get().CreateDynamicBody( &shape, { position->x, position->y }, physicsInfo ) );
 	collider->SetContinuous( true );
 	collider->SetVelocity( b2Vec2( vX, vY ) );

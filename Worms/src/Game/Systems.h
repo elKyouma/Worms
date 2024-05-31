@@ -1,7 +1,7 @@
 #pragma once
 #include "Core/Camera.h"
-#include "Game/Components.h"
 #include "ECS/System.h"
+#include "Game/Components.h"
 
 class Movement : public System
 {
@@ -67,7 +67,7 @@ private:
 class PhysicsSynchronizer : public System
 {
 public:
-	PhysicsSynchronizer ( ComponentManager& componentManager)
+	PhysicsSynchronizer( ComponentManager& componentManager )
 		: System( componentManager )
 	{
 		systemSignature.set( componentManager.GetComponentId<Position>(), true );
@@ -85,8 +85,8 @@ public:
 
 			auto angle = componentManager.TryGetComponent<Rotation>( ent );
 			if ( angle.has_value() )
-				angle.value().get().degree = rigidBody.GetData(ent).body->GetAngle() * 180 / M_PI;
-				
+				angle.value().get().degree = rigidBody.GetData( ent ).body->GetAngle() * 180 / static_cast<float>(M_PI);
+
 		}
 	}
 private:

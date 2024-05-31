@@ -42,5 +42,5 @@ Signature EntityManager::GetSignature( const EntityId ent )
 
 uint16_t EntityManager::GetAmountOfAvailableEntities() const
 {
-	return availableEntities.size();
+	return static_cast<uint16_t>(availableEntities.size());
 }

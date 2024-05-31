@@ -40,10 +40,10 @@ void Weapon::Update()
 		{
 			projectilles.emplace_back();
 			projectilles.back() = std::make_unique<Projectille>( renderer, world );
-			projectilles.back()->Initialise( pos->x + 0.5 * cos( rot->degree * M_PI / 180 ),
-											 pos->y + 0.5 * sin( rot->degree * M_PI / 180 ),
-											 force * cos( rot->degree * M_PI / 180 ),
-											 force * sin( rot->degree * M_PI / 180 ) );
+			projectilles.back()->Initialise( pos->x + 0.5 * cos( rot->degree * static_cast<float>(M_PI) / 180 ),
+											 pos->y + 0.5 * sin( rot->degree * static_cast<float>(M_PI) / 180 ),
+											 force * cos( rot->degree * static_cast<float>(M_PI) / 180 ),
+											 force * sin( rot->degree * static_cast<float>(M_PI) / 180 ) );
 		}
 		force = 0;
 	}
@@ -57,12 +57,12 @@ void Weapon::Render()
 	SDL_Rect slice(
 		0,
 		0,
-		size.x * force / 0.25,
+		static_cast<int>(size.x * force / 0.25),
 		size.y );
 
 	SDL_Rect renderQuad(
-		400 + (pos->x - camera->X()) * 100.0,
-		300 - (pos->y - camera->Y()) * 100.0 - size.y / 2,
+		400 + static_cast<int>((pos->x - camera->X()) * 100.0),
+		300 - static_cast<int>((pos->y - camera->Y()) * 100.0) - size.y / 2,
 		slice.w,
 		slice.h );
 

@@ -16,7 +16,7 @@ typedef std::bitset<MAX_COMPONENTS> Signature;
 
 #if ECS_VERBOSE
 #include "../../Worms/src/Terminal/Terminal.h"
-extern class Terminal;
+class Terminal;
 #define LOG(x) Terminal::Get().Log(x, LogLevel::INFO);
 #else
 #define LOG(x)
