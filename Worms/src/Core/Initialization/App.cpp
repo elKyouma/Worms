@@ -16,31 +16,6 @@ void App::InitWindow( const std::string& title, const int width, const int heigh
 	InitImGui();
 
 	isRunning = true;
-	world = std::make_unique<World>( renderer );
-	world->RegisterComponent<Position>();
-	world->RegisterComponent<Rotation>();
-	world->RegisterComponent<Health>();
-	world->RegisterComponent<Sprite>();
-	world->RegisterComponent<Motion>();
-	world->RegisterComponent<RigidBody>();
-	world->RegisterComponent<Follow>();
-	world->RegisterSystem<Movement>();
-	world->RegisterSystem<PhysicsSynchronizer>();
-	world->RegisterSystem<TargetSystem>();
-	camera = std::make_unique<Camera>( renderer, world.get() );
-	world->RegisterSystem<SpriteRenderer>( renderer, *camera );
-
-	physicsWorld = std::make_unique<b2World>( b2Vec2( 0, -9.811f ) );
-	b2DebugDraw = std::make_unique<b2ColliderDraw>( renderer, *camera );
-	physicsWorld->SetDebugDraw( b2DebugDraw.get() );
-	physicsWorld->SetContactListener( &ContactManager::Get() );
-	ColliderFactory::Get().Init( physicsWorld.get() );
-
-	wormManager = std::make_unique<WormManager>( renderer, world.get(), physicsWorld.get(), camera.get() );
-	wormManager->createTeam( 4 );
-	wormManager->createTeam( 4 );
-	map = std::make_unique<Map>( renderer, world.get(), physicsWorld.get() );
-	weapon = std::make_unique<Weapon>( renderer, world.get(), camera.get() );
 }
 
 void App::InitSDL( const std::string& title, const int width, const int height )
@@ -76,13 +51,6 @@ void App::InitImGui()
 
 void App::Update()
 {
-	world->Update();
-	physicsWorld->Step( static_cast<float>(Time::deltaTime), 8, 3 );
-	wormManager->Update();
-	weapon->SetParent( wormManager->GetActiveWormId() );
-	weapon->Update();
-	camera->Update();
-	map->Update( renderer );
 	Terminal::Get().Update();
 }
 
@@ -111,6 +79,25 @@ void App::HandleEvents()
 
 void App::Render()
 {
+}
+
+void App::PostRender()
+{
+	if ( toggleColliders )
+		physicsWorld->DebugDraw();
+	ImGui::SetNextWindowPos( ImVec2( 0.0f, ImGui::GetIO().DisplaySize.y - 200 ) );
+	ImGui::SetNextWindowSize( { ImGui::GetIO().DisplaySize.x, 200 } );
+	ImGui::SetNextWindowBgAlpha( 1.f );
+	Terminal::Get().Render();
+
+	ImGui::Render();
+	SDL_RenderSetScale( renderer, io->DisplayFramebufferScale.x, io->DisplayFramebufferScale.y );
+	ImGui_ImplSDLRenderer2_RenderDrawData( ImGui::GetDrawData() );
+	SDL_RenderPresent( renderer );
+}
+
+void App::PreRender()
+{
 	// Start the Dear ImGui frame
 	ImGui_ImplSDLRenderer2_NewFrame();
 	ImGui_ImplSDL2_NewFrame();
@@ -129,29 +116,12 @@ void App::Render()
 	// Rendering
 	SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
 	SDL_RenderClear( renderer );
-
-	world->Render();
-	weapon->Render();
-
-	//bullet->Update();
-	ImGui::SetNextWindowPos( ImVec2( 0.0f, ImGui::GetIO().DisplaySize.y - 200 ) );
-	ImGui::SetNextWindowSize( { ImGui::GetIO().DisplaySize.x, 200 } );
-	ImGui::SetNextWindowBgAlpha( 1.f );
-	Terminal::Get().Render();
-
-	ImGui::Render();
-	SDL_RenderSetScale( renderer, io->DisplayFramebufferScale.x, io->DisplayFramebufferScale.y );
-	ImGui_ImplSDLRenderer2_RenderDrawData( ImGui::GetDrawData() );
-	if ( toggleColliders )
-		physicsWorld->DebugDraw();
-	SDL_RenderPresent( renderer );
 }
 
 void App::Clean()
 {
 	ImGui_ImplSDLRenderer2_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
-
 	SDL_DestroyWindow( window );
 	SDL_DestroyRenderer( renderer );
 	SDL_Quit();

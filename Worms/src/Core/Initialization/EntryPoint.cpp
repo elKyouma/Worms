@@ -1,8 +1,9 @@
 #include <fstream>
 
 #include <stdio.h> /* printf and fprintf */
+#include "Core/Initialization/App.h"
 #include "Core/Time.h"
-#include "Game.h"
+#include "Game/Game.h"
 #include "Terminal/Terminal.h"
 
 /* Sets constants */
@@ -11,7 +12,7 @@
 
 int WinMain( int argc, char** argv )
 {
-	std::unique_ptr<Game> game = std::make_unique<Game>();
+	std::unique_ptr<App> game = std::make_unique<Game>();
 	Time::Timer timer{};
 
 	try
@@ -23,7 +24,9 @@ int WinMain( int argc, char** argv )
 			Time::deltaTime = timer.Reset();
 			game->HandleEvents();
 			game->Update();
+			game->PreRender();
 			game->Render();
+			game->PostRender();
 		}
 
 		game->Clean();
