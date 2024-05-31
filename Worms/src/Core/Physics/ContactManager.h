@@ -9,7 +9,7 @@
 enum CollisionType
 {
 	BEGIN,
-	WHILE,
+	//WHILE,
 	END
 };
 
@@ -33,6 +33,8 @@ public:
 	void BeginContact( b2Contact* contact );
 	void EndContact( b2Contact* contact );
 
+	void Update();
+
 	void AddEvent( const EntityId entId, const CollisionType, std::function<void( b2Contact* )> );
 	void DeleteEvent( const EntityId entId, const CollisionType, std::function<void( b2Contact* )> );
 	void ClearEvent( const EntityId entId, const CollisionType );
@@ -43,7 +45,7 @@ private:
 
 private:
 	EventMap beginEvents;
-	EventMap updateEvents;
+	//EventMap updateEvents;
 	EventMap endEvents;
 };
 
