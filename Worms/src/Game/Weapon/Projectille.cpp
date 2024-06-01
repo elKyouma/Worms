@@ -25,7 +25,6 @@ void Projectille::Update()
 	if ( destroyNextFrame )
 	{
 		destroyNextFrame = false;
-		sensorInfo.tag = PhysicsTag::NONE;
 		collider->GetBody()->DestroyFixture( fixture );
 	}
 
@@ -59,8 +58,7 @@ void Projectille::Initialise( float posX, float posY, float vX, float vY )
 	spriteComponent.texture = IMG_LoadTexture( renderer, "placeHolderBullet.png" );
 	SDL_CHECK( spriteComponent.texture );
 
-	rotation = &world->AddComponent<Rotation>( objectId, { 0 } );
-
+	world->AddComponent<Rotation>( objectId, { 0 } );
 	rigidBody = &world->AddComponent<RigidBody>( objectId );
 
 	physicsInfo.id = objectId;

@@ -7,8 +7,10 @@ class Camera : GameObject
 {
 public:
 	Camera( SDL_Renderer* newRenderer, World* newWorld );
-	float X() { return pos->x; };
-	float Y() { return pos->y; };
+	float& X() { return pos->x; };
+	float X() const { return pos->x; };
+	float& Y() { return pos->y; };
+	float Y() const { return pos->y; };
 	float Zoom() { return zoom; };
 
 	void Update();

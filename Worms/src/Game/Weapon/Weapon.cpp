@@ -6,9 +6,13 @@
 #include "Game/Weapon/Weapon.h"
 #include "SDL2/SDL_image.h"
 
-Weapon::Weapon( SDL_Renderer* newRenderer, World* newWorld, Camera* camera ) : camera( camera )
+Weapon::Weapon( const Camera& camera ) : camera( camera )
 {
-	Initialise( newRenderer, newWorld );
+}
+
+void Weapon::Initialise( SDL_Renderer* newRenderer, World* newWorld )
+{
+	GameObject::Initialise( newRenderer, newWorld );
 	pos = &world->AddComponent<Position>( objectId, { 0, 0 } );
 
 	rot = &world->AddComponent<Rotation>( objectId, { 0 } );
@@ -19,6 +23,7 @@ Weapon::Weapon( SDL_Renderer* newRenderer, World* newWorld, Camera* camera ) : c
 
 	powerBar = IMG_LoadTexture( renderer, "powerBar.png" );
 }
+
 void Weapon::Update()
 {
 	pos->x = world->GetComponent<Position>( parentId ).x;
@@ -64,8 +69,8 @@ void Weapon::Render()
 		size.y );
 
 	SDL_Rect renderQuad(
-		400 + static_cast<int>((pos->x - camera->X()) * 100.0),
-		300 - static_cast<int>((pos->y - camera->Y()) * 100.0) - size.y / 2,
+		400 + static_cast<int>((pos->x - camera.X()) * 100.0),
+		300 - static_cast<int>((pos->y - camera.Y()) * 100.0) - size.y / 2,
 		slice.w,
 		slice.h );
 

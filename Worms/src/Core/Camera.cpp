@@ -12,6 +12,6 @@ void Camera::Update()
 {
 	if ( !inputs_enabled ) return;
 
-	ChangeX( Input::Get().CameraHorizontal() * Time::deltaTime * CAMERA_SPEED );
-	ChangeY( Input::Get().CameraVertical() * Time::deltaTime * CAMERA_SPEED );
+	ChangeX( Input::Get().CameraHorizontal() * static_cast<float>(Time::deltaTime) * CAMERA_SPEED );
+	ChangeY( Input::Get().CameraVertical() * static_cast<float>(Time::deltaTime) * CAMERA_SPEED );
 }

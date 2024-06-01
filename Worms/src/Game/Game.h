@@ -1,6 +1,5 @@
 #pragma once
 #include "Core/Initialization/App.h"
-
 class Game : public App
 {
 public:
@@ -14,6 +13,6 @@ private:
 
 	std::unique_ptr<Map> map;
 	std::unique_ptr<WormManager> wormManager;
-	std::unique_ptr<Weapon> weapon;
+	Weapon* weapon;
 };
 
