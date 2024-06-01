@@ -52,6 +52,7 @@ void App::InitImGui()
 void App::Update()
 {
 	Terminal::Get().Update();
+	ContactManager::Get().Update();
 }
 
 

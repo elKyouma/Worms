@@ -82,7 +82,7 @@ void Map::DestroyMapAtLocalPoint( SDL_Point point )
 
 void Map::DestroyMap( b2Contact* contact )
 {
-	auto entId = GetEntityWithTag( contact, PhysicsTag::BULLET );
+ 	auto entId = GetEntityWithTag( contact, PhysicsTag::DESTRUCTION_FIELD );
 	if ( !entId.has_value() ) return;
 
 	bulltetPos = world->GetComponent<Position>( entId.value() );

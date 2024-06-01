@@ -52,7 +52,7 @@ Collider ColliderFactory::CreateStaticBody( b2Shape* shape, b2Vec2 position, con
 	return Collider( body, info );
 }
 
-void ColliderFactory::CreateTriggerFixture( b2Body* body, b2Shape* shape, const PhysicsInfo& info )
+b2Fixture* ColliderFactory::CreateTriggerFixture( b2Body* body, b2Shape* shape, const PhysicsInfo& info )
 {
 	b2FixtureDef fixtureDef;
 	fixtureDef.isSensor = true;
@@ -60,33 +60,33 @@ void ColliderFactory::CreateTriggerFixture( b2Body* body, b2Shape* shape, const 
 	fixtureDef.friction = 1;
 	fixtureDef.density = 1;
 	fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(&info);
-	body->CreateFixture( &fixtureDef );
+	return body->CreateFixture( &fixtureDef );
 }
 
-void ColliderFactory::CreateDynamicFixture( b2Body* body, b2Shape* shape, const PhysicsInfo& info )
+b2Fixture* ColliderFactory::CreateDynamicFixture( b2Body* body, b2Shape* shape, const PhysicsInfo& info )
 {
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = shape;
 	fixtureDef.friction = 1;
 	fixtureDef.density = 1;
 	fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(&info);
-	body->CreateFixture( &fixtureDef );
+	return body->CreateFixture( &fixtureDef );
 }
 
-void ColliderFactory::CreateKineticFixture( b2Body* body, b2Shape* shape, const PhysicsInfo& info )
+b2Fixture* ColliderFactory::CreateKineticFixture( b2Body* body, b2Shape* shape, const PhysicsInfo& info )
 {
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = shape;
 	fixtureDef.friction = 1;
 	fixtureDef.density = 1;
 	fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(&info);
-	body->CreateFixture( &fixtureDef );
+	return body->CreateFixture( &fixtureDef );
 }
 
-void ColliderFactory::CreateStaticFixture( b2Body* body, b2Shape* shape, const PhysicsInfo& info )
+b2Fixture* ColliderFactory::CreateStaticFixture( b2Body* body, b2Shape* shape, const PhysicsInfo& info )
 {
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = shape;
 	fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(&info);
-	body->CreateFixture( &fixtureDef );
+	return body->CreateFixture( &fixtureDef );
 }

@@ -13,15 +13,15 @@ class Collider
 {
 public:
 	void AddOnColliderEnter( std::function<void( b2Contact* )> callback ) const;
-	void AddOnCollider( std::function<void( b2Contact* )> callback ) const;
+	//void AddOnCollider( std::function<void( b2Contact* )> callback ) const;
 	void AddOnColliderExit( std::function<void( b2Contact* )> callback ) const;
 
 	void RemoveOnColliderEnter( std::function<void( b2Contact* )> callback ) const;
-	void RemoveOnCollider( std::function<void( b2Contact* )> callback ) const;
+	//void RemoveOnCollider( std::function<void( b2Contact* )> callback ) const;
 	void RemoveOnColliderExit( std::function<void( b2Contact* )> callback ) const;
 
 	void ClearOnColliderEnter() const;
-	void ClearOnCollider() const;
+	//void ClearOnCollider() const;
 	void ClearOnColliderExit() const;
 
 	void FreezeRotation();

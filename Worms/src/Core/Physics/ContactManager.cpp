@@ -3,9 +3,25 @@
 
 void ContactManager::BeginContact( b2Contact* contact )
 {
-	if ( contact->GetFixtureA()->GetUserData().pointer != 0 )
+	beginContactFixtureUpdate( contact->GetFixtureA(), contact );
+	beginContactFixtureUpdate( contact->GetFixtureB(), contact );
+}
+
+void ContactManager::EndContact( b2Contact* contact )
+{
+	endContactFixtureUpdate( contact->GetFixtureA(), contact );
+	endContactFixtureUpdate( contact->GetFixtureB(), contact );
+}
+
+void ContactManager::beginContactFixtureUpdate( b2Fixture* fixture, b2Contact* contact )
+{
+	if ( fixture->GetUserData().pointer != 0 )
 	{
-		PhysicsInfo* info1 = (PhysicsInfo*)contact->GetFixtureA()->GetUserData().pointer;
+		PhysicsInfo* info1 = (PhysicsInfo*)fixture->GetUserData().pointer;
+
+		//if ( fixture->IsSensor() && updateEvents.contains( info1->id ) )
+		//	updatableSensors.push_back( std::make_pair( info1->id, contact ) );
+
 		if ( beginEvents.contains( info1->id ) )
 		{
 			auto& evts = beginEvents[info1->id];
@@ -13,38 +29,16 @@ void ContactManager::BeginContact( b2Contact* contact )
 				evt( contact );
 		}
 	}
-
-	if ( contact->GetFixtureB()->GetUserData().pointer != 0 )
-	{
-		PhysicsInfo* info2 = (PhysicsInfo*)contact->GetFixtureB()->GetUserData().pointer;
-		if ( beginEvents.contains( info2->id ) )
-		{
-			auto& evts = beginEvents[info2->id];
-			for ( const auto& evt : evts )
-				evt( contact );
-		}
-	}
 }
 
-void ContactManager::EndContact( b2Contact* contact )
+void ContactManager::endContactFixtureUpdate( b2Fixture* fixture, b2Contact* contact )
 {
-	if ( contact->GetFixtureA()->GetUserData().pointer != 0 )
+	if ( fixture->GetUserData().pointer != 0 )
 	{
-		PhysicsInfo* info1 = (PhysicsInfo*)contact->GetFixtureA()->GetUserData().pointer;
+		PhysicsInfo* info1 = (PhysicsInfo*)fixture->GetUserData().pointer;
 		if ( beginEvents.contains( info1->id ) )
 		{
 			auto& evts = endEvents[info1->id];
-			for ( const auto& evt : evts )
-				evt( contact );
-		}
-	}
-
-	if ( contact->GetFixtureB()->GetUserData().pointer != 0 )
-	{
-		PhysicsInfo* info2 = (PhysicsInfo*)contact->GetFixtureB()->GetUserData().pointer;
-		if ( beginEvents.contains( info2->id ) )
-		{
-			auto& evts = endEvents[info2->id];
 			for ( const auto& evt : evts )
 				evt( contact );
 		}
@@ -53,7 +47,9 @@ void ContactManager::EndContact( b2Contact* contact )
 
 void ContactManager::Update()
 {
-
+	//for ( auto [id, contact] : updatableSensors )
+	//	for ( auto evt : updateEvents[id] )
+	//		evt( contact );
 }
 
 void ContactManager::AddEvent( const EntityId entId, const CollisionType type, std::function<void( b2Contact* )> evt )
@@ -77,7 +73,12 @@ void ContactManager::DeleteEvent( const EntityId entId, const CollisionType type
 	else
 	{
 		auto& vec = events[entId];
-		std::remove_if( vec.begin(), vec.end(), [&] ( auto other ) { return &evt == &other; } );
+		std::erase_if( vec, [evt] ( const std::function<void( b2Contact* )>& other )
+					   {
+						   return *(long*)(char*)&evt == *(long*)(char*)&other;
+					   } );
+		if ( vec.size() == 0 )
+			events.erase( entId );
 	}
 }
 
@@ -102,8 +103,8 @@ EventMap& ContactManager::GetEvents( const CollisionType type )
 	{
 	case CollisionType::BEGIN:
 		return beginEvents;
-		//case CollisionType::WHILE:
-		//	return updateEvents;
+	case CollisionType::WHILE_SENSOR_ONLY:
+		return updateEvents;
 	case CollisionType::END:
 		return endEvents;
 	}

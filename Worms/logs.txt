@@ -1,1 +1,1 @@
-2024-05-31 20:41:12 [INFO] Created entity 27
+2024-06-01 11:45:53 [INFO] Destroyed bullet with id = 29

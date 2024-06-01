@@ -23,10 +23,10 @@ public:
 	Collider CreateKineticBody( b2Shape* shape, b2Vec2 position, const PhysicsInfo& info = {} );
 	Collider CreateStaticBody( b2Shape* shape, b2Vec2 position, const PhysicsInfo& info = {} );
 
-	void CreateTriggerFixture( b2Body* body, b2Shape* shape, const PhysicsInfo& info = {} );
-	void CreateDynamicFixture( b2Body* body, b2Shape* shape, const PhysicsInfo& info = {} );
-	void CreateKineticFixture( b2Body* shape, b2Shape* body, const PhysicsInfo& info = {} );
-	void CreateStaticFixture( b2Body* body, b2Shape* shape, const PhysicsInfo& info = {} );
+	b2Fixture* CreateTriggerFixture( b2Body* body, b2Shape* shape, const PhysicsInfo& info = {} );
+	b2Fixture* CreateDynamicFixture( b2Body* body, b2Shape* shape, const PhysicsInfo& info = {} );
+	b2Fixture* CreateKineticFixture( b2Body* shape, b2Shape* body, const PhysicsInfo& info = {} );
+	b2Fixture* CreateStaticFixture( b2Body* body, b2Shape* shape, const PhysicsInfo& info = {} );
 
 	b2World* GetPhysicsWorld() { return physicsWorld; };
 

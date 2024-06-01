@@ -7,6 +7,7 @@ enum PhysicsTag
 {
 	NONE,
 	BULLET,
+	DESTRUCTION_FIELD,
 	WORM,
 	GROUNDED,
 	MAP

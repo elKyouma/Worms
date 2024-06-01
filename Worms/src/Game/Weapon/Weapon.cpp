@@ -24,15 +24,18 @@ void Weapon::Update()
 	pos->x = world->GetComponent<Position>( parentId ).x;
 	pos->y = world->GetComponent<Position>( parentId ).y;
 
-	rot->degree += Input::Get().Vertical() * Time::deltaTime * 100.0;
+	rot->degree += Input::Get().Vertical() * static_cast<float>(Time::deltaTime) * 100.f;
 
-	pos->x += 0.1 * cos( rot->degree * M_PI / 180 );
-	pos->y += 0.1 * sin( rot->degree * M_PI / 180 );
+	pos->x += 0.1f * cosf( rot->degree * static_cast<float>(M_PI) / 180 );
+	pos->y += 0.1f * sinf( rot->degree * static_cast<float>(M_PI) / 180 );
+
+	for ( auto& projectille : projectilles )
+		projectille->Update();
 
 	if ( Input::Get().UseAction() )
 	{
 		if ( force < 0.25 )
-			force += 0.25 * Time::deltaTime;
+			force += 0.25f * static_cast<float>(Time::deltaTime);
 	}
 	else
 	{
@@ -40,10 +43,10 @@ void Weapon::Update()
 		{
 			projectilles.emplace_back();
 			projectilles.back() = std::make_unique<Projectille>( renderer, world );
-			projectilles.back()->Initialise( pos->x + 0.5 * cos( rot->degree * static_cast<float>(M_PI) / 180 ),
-											 pos->y + 0.5 * sin( rot->degree * static_cast<float>(M_PI) / 180 ),
-											 force * cos( rot->degree * static_cast<float>(M_PI) / 180 ),
-											 force * sin( rot->degree * static_cast<float>(M_PI) / 180 ) );
+			projectilles.back()->Initialise( pos->x + 0.5f * cosf( rot->degree * static_cast<float>(M_PI) / 180 ),
+											 pos->y + 0.5f * sinf( rot->degree * static_cast<float>(M_PI) / 180 ),
+											 force * cosf( rot->degree * static_cast<float>(M_PI) / 180 ),
+											 force * sinf( rot->degree * static_cast<float>(M_PI) / 180 ) );
 		}
 		force = 0;
 	}

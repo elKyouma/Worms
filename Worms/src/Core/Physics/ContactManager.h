@@ -9,7 +9,7 @@
 enum CollisionType
 {
 	BEGIN,
-	//WHILE,
+	WHILE_SENSOR_ONLY,
 	END
 };
 
@@ -33,6 +33,7 @@ public:
 	void BeginContact( b2Contact* contact );
 	void EndContact( b2Contact* contact );
 
+
 	void Update();
 
 	void AddEvent( const EntityId entId, const CollisionType, std::function<void( b2Contact* )> );
@@ -43,9 +44,15 @@ private:
 	ContactManager() = default;
 	EventMap& GetEvents( const CollisionType type );
 
+	void beginContactFixtureUpdate( b2Fixture* fixture, b2Contact* contact );
+	void endContactFixtureUpdate( b2Fixture* fixture, b2Contact* contact );
+
 private:
+
+	//std::vector<std::pair<EntityId, b2Contact*>> updatableSensors;
+
 	EventMap beginEvents;
-	//EventMap updateEvents;
+	EventMap updateEvents;
 	EventMap endEvents;
 };
 

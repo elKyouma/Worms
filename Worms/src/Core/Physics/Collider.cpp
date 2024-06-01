@@ -6,10 +6,10 @@ void Collider::AddOnColliderEnter( std::function<void( b2Contact* )> callback ) 
 	ContactManager::Get().AddEvent( id, CollisionType::BEGIN, callback );
 }
 
-void Collider::AddOnCollider( std::function<void( b2Contact* )> callback ) const
-{
-	ContactManager::Get().AddEvent( id, CollisionType::WHILE, callback );
-}
+//void Collider::AddOnCollider( std::function<void( b2Contact* )> callback ) const
+//{
+//	ContactManager::Get().AddEvent( id, CollisionType::WHILE, callback );
+//}
 
 void Collider::AddOnColliderExit( std::function<void( b2Contact* )> callback ) const
 {
@@ -21,10 +21,10 @@ void Collider::RemoveOnColliderEnter( std::function<void( b2Contact* )> callback
 	ContactManager::Get().DeleteEvent( id, CollisionType::BEGIN, callback );
 }
 
-void Collider::RemoveOnCollider( std::function<void( b2Contact* )> callback ) const
-{
-	ContactManager::Get().DeleteEvent( id, CollisionType::WHILE, callback );
-}
+//void Collider::RemoveOnCollider( std::function<void( b2Contact* )> callback ) const
+//{
+//	ContactManager::Get().DeleteEvent( id, CollisionType::WHILE, callback );
+//}
 
 void Collider::RemoveOnColliderExit( std::function<void( b2Contact* )> callback ) const
 {
@@ -36,10 +36,10 @@ void Collider::ClearOnColliderEnter() const
 	ContactManager::Get().ClearEvent( id, CollisionType::BEGIN );
 }
 
-void Collider::ClearOnCollider() const
-{
-	ContactManager::Get().ClearEvent( id, CollisionType::WHILE );
-}
+//void Collider::ClearOnCollider() const
+//{
+//	ContactManager::Get().ClearEvent( id, CollisionType::WHILE );
+//}
 
 void Collider::ClearOnColliderExit() const
 {
