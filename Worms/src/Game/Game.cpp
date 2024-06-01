@@ -35,8 +35,7 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	wormManager = std::make_unique<WormManager>( renderer, world.get(), physicsWorld.get(), camera.get() );
 	wormManager->createTeam( 4 );
 	wormManager->createTeam( 4 );
-	map = std::make_unique<Map>( renderer, world.get(), physicsWorld.get() );
-
+	GameObject::activeObjs.emplace_back( std::make_unique<Map>( physicsWorld.get() ) );
 	auto weapon = std::make_unique<Weapon>( *camera );
 	this->weapon = weapon.get();
 	GameObject::activeObjs.emplace_back( std::move( weapon ) );
@@ -55,7 +54,6 @@ void Game::Update()
 	wormManager->Update();
 	weapon->SetParent( wormManager->GetActiveWormId() );
 	camera->Update();
-	map->Update( renderer );
 
 	for ( auto& gameObject : GameObject::activeObjs )
 		gameObject->Update();

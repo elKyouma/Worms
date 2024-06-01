@@ -11,45 +11,50 @@
 #include "Game/Map/Map.h"
 #include "SDL2/SDL_surface.h"
 
-Map::Map( SDL_Renderer* renderer, World* world, b2World* physicsWorld ) : world( world ), renderer( renderer ), physicsWorld( physicsWorld )
+Map::Map( b2World* physicsWorld ) : physicsWorld( physicsWorld )
 {
-	mapId = world->CreateEntity();
-	physicsInfo.id = mapId;
-	physicsInfo.tag = PhysicsTag::MAP;
-	pos = &world->AddComponent<Position>( mapId, { 1.5f, -1.f } );
-	sprite = &world->AddComponent<Sprite>( mapId );
-
-	physTex = IMG_LoadPhysicTexture( renderer, "map.png" );
-	ContactManager::Get().AddEvent( mapId, CollisionType::BEGIN, std::bind( &Map::DestroyMap, this, std::placeholders::_1 ) );
-	if ( physTex.has_value() )
-	{
-		auto& rb = world->AddComponent<RigidBody>( mapId );
-		auto texture = SDL_CreateTextureFromSurface( renderer, physTex.value().surface );
-		SDL_QueryTexture( texture, NULL, NULL, &mapSize.x, &mapSize.y );
-		CreateNewColliders();
-
-		sprite->texture = texture;
-	}
 	//else
 		//TODO return error
 }
 
 Map::~Map()
 {
-	SDL_DestroyTexture( world->GetComponent<Sprite>( mapId ).texture );
+	SDL_DestroyTexture( world->GetComponent<Sprite>( objectId ).texture );
 }
 
-void Map::Update( SDL_Renderer* renderer )
+void Map::Initialise( SDL_Renderer* renderer, World* world )
+{
+	GameObject::Initialise( renderer, world );
+
+	physicsInfo.id = objectId;
+	physicsInfo.tag = PhysicsTag::MAP;
+	pos = &world->AddComponent<Position>( objectId, { 1.5f, -1.f } );
+	sprite = &world->AddComponent<Sprite>( objectId );
+
+	physTex = IMG_LoadPhysicTexture( renderer, "map.png" );
+	ContactManager::Get().AddEvent( objectId, CollisionType::BEGIN, std::bind( &Map::DestroyMap, this, std::placeholders::_1 ) );
+	if ( physTex.has_value() )
+	{
+		auto& rb = world->AddComponent<RigidBody>( objectId );
+		auto texture = SDL_CreateTextureFromSurface( renderer, physTex.value().surface );
+		SDL_QueryTexture( texture, NULL, NULL, &mapSize.x, &mapSize.y );
+		CreateNewColliders();
+
+		sprite->texture = texture;
+	}
+}
+
+void Map::Update()
 {
 	if ( !destroyed || physicsWorld->IsLocked() ) return;
 	destroyed = false;
 
-	Position mapPos = world->GetComponent<Position>( mapId );
+	Position mapPos = world->GetComponent<Position>( objectId );
 	DestroyMapAtLocalPoint( GlobalToLocalPos( mapPos ) );
 	CreateNewColliders();
 
 	auto texture = SDL_CreateTextureFromSurface( renderer, physTex.value().surface );
-	SDL_DestroyTexture( world->GetComponent<Sprite>( mapId ).texture );
+	SDL_DestroyTexture( world->GetComponent<Sprite>( objectId ).texture );
 	sprite->texture = texture;
 }
 
@@ -82,7 +87,7 @@ void Map::DestroyMapAtLocalPoint( SDL_Point point )
 
 void Map::DestroyMap( b2Contact* contact )
 {
- 	auto entId = GetEntityWithTag( contact, PhysicsTag::DESTRUCTION_FIELD );
+	auto entId = GetEntityWithTag( contact, PhysicsTag::DESTRUCTION_FIELD );
 	if ( !entId.has_value() ) return;
 
 	bulltetPos = world->GetComponent<Position>( entId.value() );
@@ -105,15 +110,15 @@ void Map::CreateNewColliders()
 
 	physTex->points = physPoints;
 
-	if ( world->GetComponent<RigidBody>( mapId ).body != NULL )
-		physicsWorld->DestroyBody( world->GetComponent<RigidBody>( mapId ).body );
+	if ( world->GetComponent<RigidBody>( objectId ).body != NULL )
+		physicsWorld->DestroyBody( world->GetComponent<RigidBody>( objectId ).body );
 
 	b2ChainShape shape;
 	shape.CreateLoop( &physTex->points[0][0], physTex->points[0].size() );
 	auto collider = ColliderFactory::Get().CreateStaticBody( &shape, { pos->x, pos->y }, physicsInfo );
 	GenerateFixturesForAllContours( collider );
 
-	world->GetComponent<RigidBody>( mapId ).body = collider.GetBody();
+	world->GetComponent<RigidBody>( objectId ).body = collider.GetBody();
 
 }
 

@@ -1,19 +1,21 @@
 #pragma once
 #include <memory>
 #include <SDL2/SDL.h>
+#include "Core/GameObject.h"
 #include "Core/Physics/Collider.h"
 #include "Core/Utils.h"
 #include "ECS/World.h"
 #include "Game/Components.h"
 #include "Game/Tags.h"
 
-class Map
+class Map : public GameObject
 {
 public:
-	Map( SDL_Renderer* renderer, World* world, b2World* physicsWorld );
+	Map( b2World* physicsWorld );
 	~Map();
+	void Initialise( SDL_Renderer* renderer, World* world ) override;
+	void Update() override;
 
-	void Update( SDL_Renderer* renderer );
 	SDL_Point GlobalToLocalPos( const Position& mapPos );
 	void DestroyMapAtLocalPoint( SDL_Point point );
 private:
@@ -29,11 +31,8 @@ private:
 	void SimplifyContour( std::vector<std::vector<b2Vec2>>& physPoints );
 
 	bool destroyed = false;
-	SDL_Renderer* renderer;
 	b2World* physicsWorld;
-	World* world;
 
-	EntityId mapId;
 	Position* pos;
 	Sprite* sprite;
 	Position bulltetPos;
