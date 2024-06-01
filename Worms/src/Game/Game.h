@@ -10,6 +10,7 @@ public:
 	//void Clean() final;
 
 private:
+	void setUpDebugDraw( std::unique_ptr<Camera, std::default_delete<Camera>>& camera );
 
 	std::unique_ptr<WormManager> wormManager;
 	Weapon* weapon;

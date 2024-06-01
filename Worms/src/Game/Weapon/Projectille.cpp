@@ -8,9 +8,8 @@
 #include "Game/Weapon/Projectille.h"
 #include "Terminal/Terminal.h"
 
-Projectille::Projectille( SDL_Renderer* newRenderer, World* newWorld )
+Projectille::Projectille( float posX, float posY, float vX, float vY ) : startPosX( posX ), startPosY( posY ), startVelX( vX ), startVelY( vY )
 {
-	GameObject::Initialise( newRenderer, newWorld );
 }
 
 Projectille::~Projectille()
@@ -26,6 +25,7 @@ void Projectille::Update()
 	{
 		destroyNextFrame = false;
 		collider->GetBody()->DestroyFixture( fixture );
+		GameObject::objsToDelete.emplace_back( this );
 	}
 
 	if ( createSensor )
@@ -39,7 +39,6 @@ void Projectille::Update()
 		shape.m_radius = 1.f;
 		fixture = ColliderFactory::Get().CreateTriggerFixture( collider->GetBody(), &shape, sensorInfo );
 	}
-	//if(destroyNextFrame )
 }
 
 void Projectille::onCollision( b2Contact* constact )
@@ -50,9 +49,11 @@ void Projectille::onCollision( b2Contact* constact )
 
 }
 
-void Projectille::Initialise( float posX, float posY, float vX, float vY )
+void Projectille::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 {
-	position = &world->AddComponent<Position>( objectId, { posX, posY } );
+	GameObject::Initialise( newRenderer, newWorld );
+
+	position = &world->AddComponent<Position>( objectId, { startPosX, startPosY } );
 
 	Sprite& spriteComponent = world->AddComponent<Sprite>( objectId );
 	spriteComponent.texture = IMG_LoadTexture( renderer, "placeHolderBullet.png" );
@@ -68,7 +69,7 @@ void Projectille::Initialise( float posX, float posY, float vX, float vY )
 	shape.m_radius = 0.1f;
 	collider = std::make_unique<Collider>( ColliderFactory::Get().CreateDynamicBody( &shape, { position->x, position->y }, physicsInfo ) );
 	collider->SetContinuous( true );
-	collider->SetVelocity( b2Vec2( vX, vY ) );
+	collider->SetVelocity( b2Vec2( startVelX, startVelY ) );
 
 	rigidBody->body = collider->GetBody();
 	ContactManager::Get().AddEvent( objectId, CollisionType::BEGIN, std::bind( &Projectille::onCollision, this, std::placeholders::_1 ) );

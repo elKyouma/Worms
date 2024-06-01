@@ -11,6 +11,7 @@ EntityId World::CreateEntity()
 
 void World::DestroyEntity( const EntityId ent )
 {
+	LOG( "Destroyed entity with id = " + std::to_string( ent ) );
 	comManager.RemoveAllComponents( ent, entManager.GetSignature( ent ) );
 	entManager.DestroyEntity( ent );
 	sysManager.UnsubscribeEntity( ent );

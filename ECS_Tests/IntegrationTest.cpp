@@ -45,3 +45,22 @@ TEST_F( WorldTest, CreateObjectAndUseSystem )
 	EXPECT_EQ( world.GetComponent<Position>( e2 ).x, -9 );
 	EXPECT_EQ( world.GetComponent<Position>( e2 ).y, 0 );
 }
+
+TEST_F( WorldTest, CreateObjectWithSystem_ThenDeleteIt )
+{
+	SDL_Renderer* renderer = SDL_CreateRenderer( SDL_CreateWindow( "", 0, 0, 0, 0, 0 ), 0, 0 );
+	World world{ renderer };
+	world.RegisterComponent<Position>();
+	world.RegisterComponent<Motion>();
+	world.RegisterSystem<Movement>();
+	EntityId e1 = world.CreateEntity();
+	EntityId e2 = world.CreateEntity();
+	world.AddComponent<Position>( e1 );
+	world.AddComponent<Position>( e2 );
+	world.AddComponent<Motion>( e1 ).v_y = -9;
+	world.AddComponent<Motion>( e2 ).v_x = -9;
+	world.Update();
+	world.DestroyEntity( e2 );
+	world.Update();
+
+}

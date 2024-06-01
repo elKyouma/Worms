@@ -23,26 +23,32 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	world->RegisterSystem<Movement>();
 	world->RegisterSystem<PhysicsSynchronizer>();
 	world->RegisterSystem<TargetSystem>();
-	camera = std::make_unique<Camera>( renderer, world.get() );
+	auto camera = std::make_unique<Camera>();
 	world->RegisterSystem<SpriteRenderer>( renderer, *camera );
 
 	physicsWorld = std::make_unique<b2World>( b2Vec2( 0, -9.811f ) );
-	b2DebugDraw = std::make_unique<b2ColliderDraw>( renderer, *camera );
-	physicsWorld->SetDebugDraw( b2DebugDraw.get() );
-	physicsWorld->SetContactListener( &ContactManager::Get() );
+	setUpDebugDraw( camera );
 	ColliderFactory::Get().Init( physicsWorld.get() );
 
-	wormManager = std::make_unique<WormManager>( renderer, world.get(), physicsWorld.get(), camera.get() );
+	wormManager = std::make_unique<WormManager>( renderer, world.get(), physicsWorld.get(), *camera );
 	wormManager->createTeam( 4 );
 	wormManager->createTeam( 4 );
 	GameObject::activeObjs.emplace_back( std::make_unique<Map>( physicsWorld.get() ) );
 	auto weapon = std::make_unique<Weapon>( *camera );
 	this->weapon = weapon.get();
 	GameObject::activeObjs.emplace_back( std::move( weapon ) );
+	GameObject::activeObjs.emplace_back( std::move( camera ) );
 
 	for ( auto& gameObject : GameObject::activeObjs )
 		gameObject->Initialise( renderer, world.get() );
 
+}
+
+void Game::setUpDebugDraw( std::unique_ptr<Camera, std::default_delete<Camera>>& camera )
+{
+	b2DebugDraw = std::make_unique<b2ColliderDraw>( renderer, *camera );
+	physicsWorld->SetDebugDraw( b2DebugDraw.get() );
+	physicsWorld->SetContactListener( &ContactManager::Get() );
 }
 
 void Game::Update()
@@ -53,10 +59,26 @@ void Game::Update()
 	physicsWorld->Step( static_cast<float>(Time::deltaTime), 8, 3 );
 	wormManager->Update();
 	weapon->SetParent( wormManager->GetActiveWormId() );
-	camera->Update();
 
 	for ( auto& gameObject : GameObject::activeObjs )
 		gameObject->Update();
+
+	for ( auto& ptr : GameObject::objsToAdd )
+	{
+		ptr->Initialise( renderer, world.get() );
+		GameObject::activeObjs.emplace_back( std::move( ptr ) );
+	}
+	GameObject::objsToAdd.clear();
+
+	if ( GameObject::objsToDelete.size() > 0 )
+		GameObject::activeObjs.erase(
+			std::remove_if( GameObject::activeObjs.begin(), GameObject::activeObjs.end(), [ ] ( std::unique_ptr<GameObject>& value ) {
+				return std::find( GameObject::objsToDelete.begin(), GameObject::objsToDelete.end(), value.get() ) != GameObject::objsToDelete.end();
+		} ),
+			GameObject::activeObjs.end()
+		);
+
+	GameObject::objsToDelete.clear();
 }
 
 void Game::Render()

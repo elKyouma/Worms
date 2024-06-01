@@ -3,17 +3,17 @@
 #include "Core/GameObject.h"
 #include "Game/Components.h"
 
-class Camera : GameObject
+class Camera : public GameObject
 {
 public:
-	Camera( SDL_Renderer* newRenderer, World* newWorld );
 	float& X() { return pos->x; };
 	float X() const { return pos->x; };
 	float& Y() { return pos->y; };
 	float Y() const { return pos->y; };
 	float Zoom() { return zoom; };
 
-	void Update();
+	void Initialise( SDL_Renderer* newRenderer, World* newWorld ) override;
+	void Update() override;
 	void ChangeX( float deltaX ) { pos->x += deltaX; }
 	void ChangeY( float deltaY ) { pos->y += deltaY; }
 	void ChangeZoom( float delta ) { zoom += delta; }

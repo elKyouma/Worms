@@ -14,6 +14,7 @@ public:
 	template<typename Sys, typename... Args>
 	void RegisterSystem( Args&&... params );
 
+	void OnEntityRemoval( const EntityId oldEnt, const EntityId lastId );
 	void OnSignatureChange( const EntityId e, const Signature signature );
 	void UnsubscribeEntity( const EntityId e );
 

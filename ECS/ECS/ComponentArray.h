@@ -124,7 +124,7 @@ void ComponentArray<Data>::EraseData( const EntityId ent )
 	components[amountOfComponents] = Data{};
 
 	entityToIndex.erase( ent );
-	entityToIndex[amountOfComponents] = index;
+	entityToIndex[indexToEntity[amountOfComponents]] = index;
 
 	indexToEntity[index] = indexToEntity[amountOfComponents];
 	indexToEntity.erase( amountOfComponents );

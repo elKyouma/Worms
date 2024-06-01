@@ -2,10 +2,12 @@
 #include "Core/Input.h"
 #include "Core/Time.h"
 
-Camera::Camera( SDL_Renderer* newRenderer, World* newWorld ) {
-	Initialise( newRenderer, newWorld );
+void Camera::Initialise( SDL_Renderer* newRenderer, World* newWorld )
+{
+	GameObject::Initialise( newRenderer, newWorld );
 	pos = &world->AddComponent<Position>( objectId, { 2, -1 } );
 	target = &world->AddComponent<Follow>( objectId, { 3 } );
+
 }
 
 void Camera::Update()

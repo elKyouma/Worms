@@ -34,7 +34,6 @@ protected:
 	std::unique_ptr<World> world;
 	std::unique_ptr<b2World> physicsWorld;
 	std::unique_ptr<b2ColliderDraw> b2DebugDraw;
-	std::unique_ptr<Camera> camera;
 
 private:
 	void InitSDL( const std::string& title, const int width, const int height );

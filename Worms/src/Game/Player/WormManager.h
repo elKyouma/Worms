@@ -5,7 +5,7 @@
 class WormManager
 {
 public:
-	WormManager( SDL_Renderer* renderer, World* world, b2World* physicsWorld, Camera* camera );
+	WormManager( SDL_Renderer* renderer, World* world, b2World* physicsWorld, Camera& camera );
 	WormManager( const WormManager& ) = delete;
 	WormManager( WormManager&& ) = delete;
 
@@ -25,5 +25,5 @@ private:
 	SDL_Renderer* _renderer;
 	World* _world;
 	b2World* physicsWorld;
-	Camera* camera;
+	Camera& camera;
 };

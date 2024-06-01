@@ -1,1 +1,1 @@
-2024-06-01 14:07:53 [INFO] Destroyed bullet with id = 31
+2024-06-01 17:42:15 [INFO] Destroyed entity 30

@@ -8,13 +8,15 @@
 class Projectille : public GameObject
 {
 public:
-	Projectille( SDL_Renderer* newRenderer, World* newWorld );
-	void Initialise( float posX, float posY, float vX, float vY );
+	Projectille( float posX, float posY, float vX, float vY );
+	void Initialise( SDL_Renderer* newRenderer, World* newWorld );
 	~Projectille();
 	void Update();
 private:
 
 	void onCollision( b2Contact* constact );
+
+	float startPosX, startPosY, startVelX, startVelY;
 
 	bool destroyNextFrame = false;
 	bool createSensor = false;

@@ -72,6 +72,18 @@ TEST_F( TestComponentArray, ValidateEraseComponentMemoryPositioning ) {
 	}
 }
 
+TEST_F( TestComponentArray, ValidateEraseLastComponentMemoryPositioning ) {
+	ComponentArray<Position> components{};
+	const int amountOfComponents = 10;
+	AddComponentsWithUniquePos( components, amountOfComponents );
+
+	components.EraseData( 9 );
+
+	for ( int i = 0; i < amountOfComponents - 1; i++ )
+		EXPECT_FLOAT_EQ( components.GetData( i ).y, (float)i );
+}
+
+
 TEST_F( TestComponentArray, ValidateEraseComponentThatDoesntExist ) {
 	ComponentArray<Position> components{};
 	const int amountOfComponents = 10;
