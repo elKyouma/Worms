@@ -10,12 +10,14 @@ public:
 	virtual void Initialise( SDL_Renderer* newRenderer, World* newWorld );
 	virtual void Update() {};
 	virtual void Render() {};
+	virtual void CleanUp();
+
 	EntityId GetId() { return objectId; }
+
 
 	static std::vector<std::unique_ptr<GameObject>>  activeObjs;
 	static std::vector<std::unique_ptr<GameObject>>  objsToAdd;
 	static std::vector<GameObject*>  objsToDelete;
-	virtual ~GameObject() {}
 protected:
 	EntityId objectId;
 	World* world = nullptr;

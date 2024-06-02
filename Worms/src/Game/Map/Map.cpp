@@ -17,11 +17,6 @@ Map::Map( b2World* physicsWorld ) : physicsWorld( physicsWorld )
 		//TODO return error
 }
 
-Map::~Map()
-{
-	SDL_DestroyTexture( world->GetComponent<Sprite>( objectId ).texture );
-}
-
 void Map::Initialise( SDL_Renderer* renderer, World* world )
 {
 	GameObject::Initialise( renderer, world );
@@ -56,6 +51,11 @@ void Map::Update()
 	auto texture = SDL_CreateTextureFromSurface( renderer, physTex.value().surface );
 	SDL_DestroyTexture( world->GetComponent<Sprite>( objectId ).texture );
 	sprite->texture = texture;
+}
+
+void Map::CleanUp()
+{
+	SDL_DestroyTexture( world->GetComponent<Sprite>( objectId ).texture );
 }
 
 SDL_Point Map::GlobalToLocalPos( const Position& mapPos )

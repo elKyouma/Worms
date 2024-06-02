@@ -14,8 +14,9 @@ class Worm : public GameObject
 {
 public:
 	Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld );
-	~Worm();
-	void Update();
+	void Update() override;
+	void CleanUp() override;
+
 	void Activate();
 	void Disactivate();
 	bool IsGrounded() const;

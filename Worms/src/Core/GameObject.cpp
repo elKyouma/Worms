@@ -12,3 +12,8 @@ void GameObject::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 	objectId = world->CreateEntity();
 	//Terminal::Get().Log(objectId + "", );
 }
+
+void GameObject::CleanUp()
+{
+	world->DestroyEntity( objectId );
+}

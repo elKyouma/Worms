@@ -76,7 +76,7 @@ void Weapon::Render()
 	SDL_RenderCopyEx( renderer, powerBar, &slice, &renderQuad, -rot->degree, &centre, SDL_FLIP_NONE );
 }
 
-Weapon::~Weapon()
+void Weapon::CleanUp()
 {
 	SDL_DestroyTexture( world->GetComponent<Sprite>( objectId ).texture );
 }

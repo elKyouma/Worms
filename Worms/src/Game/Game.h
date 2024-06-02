@@ -7,7 +7,6 @@ public:
 	void Update() final;
 	//void HandleEvents() final;
 	void Render() final;
-	//void Clean() final;
 
 private:
 	void setUpDebugDraw( std::unique_ptr<Camera, std::default_delete<Camera>>& camera );

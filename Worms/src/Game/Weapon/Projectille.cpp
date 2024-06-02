@@ -12,13 +12,6 @@ Projectille::Projectille( float posX, float posY, float vX, float vY ) : startPo
 {
 }
 
-Projectille::~Projectille()
-{
-	ColliderFactory::Get().GetPhysicsWorld()->DestroyBody( rigidBody->body );
-	SDL_DestroyTexture( world->GetComponent<Sprite>( objectId ).texture );
-	world->DestroyEntity( objectId );
-}
-
 void Projectille::Update()
 {
 	if ( destroyNextFrame )
@@ -41,10 +34,15 @@ void Projectille::Update()
 	}
 }
 
+void Projectille::CleanUp()
+{
+	ColliderFactory::Get().GetPhysicsWorld()->DestroyBody( rigidBody->body );
+	SDL_DestroyTexture( world->GetComponent<Sprite>( objectId ).texture );
+}
+
 void Projectille::onCollision( b2Contact* constact )
 {
 	ContactManager::Get().DeleteEvent( objectId, CollisionType::BEGIN, std::bind( &Projectille::onCollision, this, std::placeholders::_1 ) );
-	Terminal::Get().Log( "Destroyed bullet with id = " + std::to_string( objectId ), LogLevel::INFO );
 	createSensor = true;
 
 }

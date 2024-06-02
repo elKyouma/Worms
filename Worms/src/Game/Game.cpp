@@ -73,7 +73,10 @@ void Game::Update()
 	if ( GameObject::objsToDelete.size() > 0 )
 		GameObject::activeObjs.erase(
 			std::remove_if( GameObject::activeObjs.begin(), GameObject::activeObjs.end(), [ ] ( std::unique_ptr<GameObject>& value ) {
-				return std::find( GameObject::objsToDelete.begin(), GameObject::objsToDelete.end(), value.get() ) != GameObject::objsToDelete.end();
+				bool found = std::find( GameObject::objsToDelete.begin(), GameObject::objsToDelete.end(), value.get() ) != GameObject::objsToDelete.end();
+				if ( found )
+					value->CleanUp();
+				return found;
 		} ),
 			GameObject::activeObjs.end()
 		);

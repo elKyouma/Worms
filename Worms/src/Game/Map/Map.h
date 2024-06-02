@@ -12,9 +12,9 @@ class Map : public GameObject
 {
 public:
 	Map( b2World* physicsWorld );
-	~Map();
 	void Initialise( SDL_Renderer* renderer, World* world ) override;
 	void Update() override;
+	void CleanUp() override;
 
 	SDL_Point GlobalToLocalPos( const Position& mapPos );
 	void DestroyMapAtLocalPoint( SDL_Point point );

@@ -18,10 +18,30 @@ void Terminal::Update()
 
 void Terminal::Render()
 {
+	char input[20] = "";
 	bool open = true;
 	ImGui::Begin( "Terminal", &open );
+	ImGui::BeginChild( "history", { 0, 140 }, false, ImGuiWindowFlags_HorizontalScrollbar );
+
+	if ( ImGui::GetScrollY() < 0.9f )
+		scroll = true;
+
 	for ( const std::string& line : Lines )
 		ImGui::Text( line.c_str() );
+
+	if ( scroll )
+	{
+		ImGui::SetScrollHereY( 1.0 );
+		scroll = false;
+	}
+	ImGui::EndChild();
+	if ( ImGui::InputText( "Terminal", input, 20, ImGuiInputTextFlags_EnterReturnsTrue ) )
+	{
+		Terminal::Get().Log( input, LogLevel::INFO );
+		strcpy_s( input, "" );
+		scroll = true;
+		ImGui::SetKeyboardFocusHere( -1 );
+	}
 	ImGui::End();
 }
 

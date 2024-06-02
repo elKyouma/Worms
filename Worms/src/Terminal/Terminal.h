@@ -27,6 +27,8 @@ public:
 	void Render();
 
 private:
+	bool scroll = true;
+
 	std::string logFile = "logs.txt";
 	std::vector<std::string> Lines;
 

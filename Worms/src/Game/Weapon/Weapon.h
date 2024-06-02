@@ -9,11 +9,11 @@ class Weapon : public GameObject
 {
 public:
 	Weapon( const Camera& camera );
-	~Weapon();
 
 	void Initialise( SDL_Renderer* newRenderer, World* newWorld ) override;
 	void Update() override;
 	void Render() override;
+	void CleanUp() override;
 	void SetParent( EntityId newParent ) { parentId = newParent; }
 
 private:

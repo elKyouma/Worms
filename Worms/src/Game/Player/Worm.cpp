@@ -47,11 +47,6 @@ Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld )
 	rb->body = collider->GetBody();
 }
 
-Worm::~Worm()
-{
-	SDL_DestroyTexture( world->GetComponent<Sprite>( objectId ).texture );
-}
-
 void Worm::Update()
 {
 	pos->x = rb->body->GetPosition().x;
@@ -63,12 +58,11 @@ void Worm::Update()
 
 	if ( abs( rb->body->GetLinearVelocity().x ) < 2 )
 		rb->body->ApplyForce( { Input::Get().Horizontal() * WORM_SPEED * 10, 0.f }, { 0.f,0.f }, true );
+}
 
-	/*if ( IsGrounded() && Input::Get().Vertical() > 0.f && rb->body->GetLinearVelocity().y < 0.4 )
-	{
-		grounded = false;
-		rb->body->ApplyLinearImpulse( { 0.f, JUMP_FORCE / 10.f }, { 0.f,0.f }, true );
-	}*/
+void Worm::CleanUp()
+{
+	SDL_DestroyTexture( world->GetComponent<Sprite>( objectId ).texture );
 }
 
 void Worm::Activate()

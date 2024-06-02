@@ -10,8 +10,8 @@ class Projectille : public GameObject
 public:
 	Projectille( float posX, float posY, float vX, float vY );
 	void Initialise( SDL_Renderer* newRenderer, World* newWorld );
-	~Projectille();
 	void Update();
+	void CleanUp();
 private:
 
 	void onCollision( b2Contact* constact );
