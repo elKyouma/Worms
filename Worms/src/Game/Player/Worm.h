@@ -33,7 +33,7 @@ private:
 	PhysicsInfo physicsInfo;
 	PhysicsInfo groundedPhysicsInfo;
 
-	static constexpr float WORM_SPEED = 3.f;
+	static constexpr float WORM_SPEED = 2.f;
 	static constexpr float JUMP_FORCE = 2.5f;
 };
 

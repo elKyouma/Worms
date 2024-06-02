@@ -28,7 +28,7 @@ Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld )
 
 	shape.SetAsBox( 0.1, 0.2 );
 	b2PolygonShape groundShape;
-	groundShape.SetAsBox( 0.1, 0.05, { 0.f, -0.25f }, 0.f );
+	groundShape.SetAsBox( 0.1, 0.05, { 0.f, -0.15f }, 0.f );
 
 	collider = std::make_unique<Collider>( ColliderFactory::Get().CreateDynamicBody( &shape, { pos->x, pos->y }, physicsInfo ) );
 	collider->FreezeRotation();
@@ -57,7 +57,13 @@ void Worm::Update()
 	if ( !active ) return;
 
 	if ( abs( rb->body->GetLinearVelocity().x ) < 2 )
-		rb->body->ApplyForce( { Input::Get().Horizontal() * WORM_SPEED * 10, 0.f }, { 0.f,0.f }, true );
+		rb->body->SetLinearVelocity( { Input::Get().Horizontal() * WORM_SPEED, rb->body->GetLinearVelocity().y });
+
+	if ( IsGrounded() && Input::Get().Jump() && rb->body->GetLinearVelocity().y < 0.4 )
+	{
+		grounded = false;
+		rb->body->SetLinearVelocity( { rb->body->GetLinearVelocity().x * sqrtf(2.0), JUMP_FORCE * sqrtf( 2.0 ) });
+	}
 }
 
 void Worm::CleanUp()

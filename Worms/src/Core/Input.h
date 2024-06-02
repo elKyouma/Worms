@@ -27,6 +27,8 @@ public:
 
 	bool UseAction() { return use_action; }
 
+	bool Jump() { return jump; }
+
 private:
 	float horizontal;
 	float vertical;
@@ -38,6 +40,8 @@ private:
 	bool change_team;
 
 	bool use_action;
+
+	bool jump;
 	Input() = default;
 
 };
