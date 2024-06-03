@@ -3,15 +3,14 @@
 #include "ExceptionHandling/SDL_Exception.h"
 #include "ECS/World.h"
 
-HealthBar::HealthBar( SDL_Renderer* renderer, World* world, EntityId newParentId, const Camera& camera, int health): camera(camera)
+HealthBar::HealthBar( SDL_Renderer* renderer, World* world, EntityId newParentId, const Camera& camera, int health, SDL_Texture* texture): camera(camera)
 {
 	Initialise( renderer, world );
 
 	position = &world->AddComponent<Position>( objectId, { 0, 0 } );
 	hp = &world->AddComponent<Health>( objectId, { 100, 100 } );
 	target = &world->AddComponent<Follow>( objectId, { newParentId, 0.0, 0.3 } );
-
-	healthBar = IMG_LoadTexture( renderer, "healthGREEN.png" );
+	healthBar = texture;
 	SDL_CHECK( healthBar );
 }
 
