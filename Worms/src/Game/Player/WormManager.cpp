@@ -30,6 +30,14 @@ void WormManager::Update()
 	camera.ChangeTarget( _teams[_activeTeam]->getActiveWorm() );
 }
 
+void WormManager::RenderHealthBars()
+{
+	for ( auto team : _teams )
+	{
+		team->RenderHealthBars();
+	}
+}
+
 WormManager::~WormManager() {
 	if ( !_teams.empty() )
 	{

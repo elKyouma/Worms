@@ -71,6 +71,10 @@ void Worm::CleanUp()
 	SDL_DestroyTexture( world->GetComponent<Sprite>( objectId ).texture );
 }
 
+void Worm::Render() {
+	healthBar->Render();
+}
+
 void Worm::Activate()
 {
 	active = true;
