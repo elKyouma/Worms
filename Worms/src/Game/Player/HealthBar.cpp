@@ -3,15 +3,31 @@
 #include "ExceptionHandling/SDL_Exception.h"
 #include "ECS/World.h"
 
-HealthBar::HealthBar( SDL_Renderer* renderer, World* world, EntityId newParentId, int health)
+HealthBar::HealthBar( SDL_Renderer* renderer, World* world, EntityId newParentId, Camera camera, int health): camera(camera)
 {
 	Initialise( renderer, world );
 
 	position = &world->AddComponent<Position>( objectId, { 0, 0 } );
-	hp = &world->AddComponent<Health>( objectId, { health } );
+	hp = &world->AddComponent<Health>( objectId, { 100, 100 } );
 	target = &world->AddComponent<Follow>( objectId, { newParentId, 0.0, 0.3 } );
 
-	Sprite& spriteComponent = world->AddComponent<Sprite>( objectId );
-	spriteComponent.texture = IMG_LoadTexture( renderer, "heart.png" );
-	SDL_CHECK( spriteComponent.texture );
+	healthBar = IMG_LoadTexture( renderer, "healthBar1.png" );
+	SDL_CHECK( healthBar );
+}
+
+void HealthBar::Render()
+{
+	SDL_Point size;
+	SDL_QueryTexture( healthBar, NULL, NULL, &size.x, &size.y );
+
+	double hpPrc = static_cast<float>(hp->current) / static_cast<float>(hp->max);
+	SDL_Rect slice(0, 0, static_cast<int>(size.x), size.y );
+
+	SDL_Rect renderQuad(
+		400 - static_cast<int>((position->x - camera.X()) * 100.0),
+		300 - static_cast<int>((position->y - camera.Y()) * 100.0) - size.y / 2,
+		slice.w,
+		slice.h );
+
+	SDL_RenderCopy( renderer, healthBar, &slice, &renderQuad );
 }

@@ -8,7 +8,7 @@ void WormManager::createTeam( int size )
 {
 	WormTeam* newTeam = new WormTeam;
 	for ( int i = 0; i < size; i++ ) {
-		newTeam->addWorm( new Worm( _renderer, _world, physicsWorld ) );
+		newTeam->addWorm( new Worm( _renderer, _world, physicsWorld, camera ) );
 	}
 	_teams.push_back( newTeam );
 }
