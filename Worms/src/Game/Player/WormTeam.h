@@ -10,6 +10,7 @@ public:
 	EntityId getActiveWorm();
 	int Size() const;
 	void Update();
+	void RenderHealthBars();
 
 	~WormTeam();
 private:

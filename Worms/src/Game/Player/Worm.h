@@ -15,6 +15,7 @@ public:
 	Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, Camera camera );
 	void Update() override;
 	void CleanUp() override;
+	void Render() override;
 
 	void Activate();
 	void Disactivate();
