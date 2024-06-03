@@ -1,7 +1,6 @@
 #pragma once
 #include <box2d/b2_world.h>
 #include <memory>
-#include <memory>
 #include "Core/GameObject.h"
 #include "Core/Physics/Collider.h"
 #include "Core/Physics/ColliderFactory.h"
@@ -13,7 +12,7 @@
 class Worm : public GameObject
 {
 public:
-	Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld );
+	Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, Camera camera );
 	void Update() override;
 	void CleanUp() override;
 
