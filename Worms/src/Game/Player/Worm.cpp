@@ -8,7 +8,7 @@
 #include "ExceptionHandling/SDL_Exception.h"
 #include "Game/Player/Worm.h"
 
-Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, const Camera& camera )
+Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, const Camera& camera, SDL_Texture* texture )
 {
 	Initialise( newRenderer, newWorld );
 	pos = &world->AddComponent<Position>( objectId, { 2, 1 } );
@@ -42,7 +42,7 @@ Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, c
 										grounded = false;
 									} );
 
-	healthBar = std::make_unique<HealthBar>( newRenderer, newWorld, objectId, camera, 100 );
+	healthBar = std::make_unique<HealthBar>( newRenderer, newWorld, objectId, camera, 100, texture );
 	rb = &world->AddComponent<RigidBody>( objectId );
 	rb->body = collider->GetBody();
 }
