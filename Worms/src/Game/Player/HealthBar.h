@@ -6,7 +6,7 @@
 class HealthBar : public GameObject
 {
 public:
-	HealthBar( SDL_Renderer* renderer, World* world, EntityId newParentId, Camera camera, int health );
+	HealthBar( SDL_Renderer* renderer, World* world, EntityId newParentId, const Camera& camera, int health );
 	void Render() override;
 private:
 	Follow* target;

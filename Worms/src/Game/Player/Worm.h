@@ -12,7 +12,7 @@
 class Worm : public GameObject
 {
 public:
-	Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, Camera camera );
+	Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, const Camera& camera );
 	void Update() override;
 	void CleanUp() override;
 	void Render() override;
