@@ -8,7 +8,7 @@
 #include "ExceptionHandling/SDL_Exception.h"
 #include "Game/Player/Worm.h"
 
-Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, Camera camera )
+Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, const Camera& camera )
 {
 	Initialise( newRenderer, newWorld );
 	pos = &world->AddComponent<Position>( objectId, { 2, 1 } );
