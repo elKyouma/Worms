@@ -62,7 +62,7 @@ void Projectille::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 	static SDL_Texture* texture;
 	Sprite& spriteComponent = world->AddComponent<Sprite>( objectId );
 
-	if( texture == nullptr )
+	if ( texture == nullptr )
 		texture = IMG_LoadTexture( renderer, texturePath.c_str() );
 	spriteComponent.texture = texture;
 

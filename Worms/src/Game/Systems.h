@@ -40,7 +40,7 @@ public:
 	{
 		auto& positions = componentManager.GetComponentArray<Position>();
 		auto& sprites = componentManager.GetComponentArray<Sprite>();
-		for ( EntityId ent : subscribed )
+ 		for ( EntityId ent : subscribed )
 		{
 			SDL_Point size;
 			SDL_QueryTexture( sprites.GetData( ent ).texture, NULL, NULL, &size.x, &size.y );
