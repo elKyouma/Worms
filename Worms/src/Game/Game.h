@@ -12,7 +12,7 @@ public:
 
 private:
 	void setUpDebugDraw( std::unique_ptr<Camera, std::default_delete<Camera>>& camera );
-
+	void registerComponents();
 	std::unique_ptr<WormManager> wormManager;
 	Weapon* weapon;
 	std::unique_ptr<Music> music;

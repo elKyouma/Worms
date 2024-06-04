@@ -5,7 +5,7 @@
 #include "../../Worms/src/ExceptionHandling/ECS_Exception.h"
 
 #define MAX_COMPONENTS 32
-#define MAX_ENTITIES 1000
+#define MAX_ENTITIES 50000
 #define MAX_SYSTEMS 16
 
 typedef uint16_t EntityId;

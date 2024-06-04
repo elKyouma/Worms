@@ -12,7 +12,7 @@ public:
 	virtual void Render() {};
 	virtual void CleanUp();
 
-	EntityId GetId() { return objectId; }
+	EntityId GetId() const { return objectId; }
 
 
 	static std::vector<std::unique_ptr<GameObject>>  activeObjs;

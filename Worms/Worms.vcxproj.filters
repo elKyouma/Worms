@@ -53,7 +53,30 @@
     <ClCompile Include="src\**\*.cpp" />
     <ClCompile Include="src\**\*.cpp" />
     <ClCompile Include="src\**\*.cpp" />
-    <ClCompile Include="src\Core\Audio\Sound.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
+    <ClCompile Include="src\**\*.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\**\*.h" />
@@ -104,6 +127,36 @@
     <ClInclude Include="src\**\*.h" />
     <ClInclude Include="src\**\*.h" />
     <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\Core\Audio\Sound.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="jump.wav" />
+    <Media Include="Rick_Roll.mp3" />
   </ItemGroup>
 </Project>
