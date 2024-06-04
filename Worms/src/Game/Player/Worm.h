@@ -1,6 +1,7 @@
 #pragma once
 #include <box2d/b2_world.h>
 #include <memory>
+#include "Core/Audio/Sound.h"
 #include "Core/GameObject.h"
 #include "Core/Physics/Collider.h"
 #include "Core/Physics/ColliderFactory.h"
@@ -14,6 +15,7 @@ class Worm : public GameObject
 public:
 	Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, const Camera& camera, SDL_Texture* texture );
 	void Update() override;
+	void Jump();
 	void CleanUp() override;
 	void Render() override;
 
@@ -24,6 +26,7 @@ public:
 private:
 	RigidBody* rb;
 	Position* pos;
+	Sound jumpSound{ "jump.wav" };
 	std::unique_ptr<HealthBar> healthBar;
 	std::unique_ptr<Collider> collider = NULL;
 
