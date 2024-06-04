@@ -41,7 +41,8 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 
 	for ( auto& gameObject : GameObject::activeObjs )
 		gameObject->Initialise( renderer, world.get() );
-
+	music = std::make_unique<Music>( "Rick_Roll.ogg" );
+	music->Play();
 }
 
 void Game::setUpDebugDraw( std::unique_ptr<Camera, std::default_delete<Camera>>& camera )

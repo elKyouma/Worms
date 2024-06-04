@@ -1,5 +1,6 @@
 #include <imgui_impl_sdlrenderer2.h>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 #include "Core/Initialization/App.h"
 #include "Core/Input.h"
 #include "Core/Physics/ColliderFactory.h"
@@ -21,7 +22,7 @@ void App::InitWindow( const std::string& title, const int width, const int heigh
 void App::InitSDL( const std::string& title, const int width, const int height )
 {
 	// Initialises the SDL video subsystem (as well as the events subsystem).
-	SDL_CALL( SDL_Init( SDL_INIT_VIDEO ) != 0 );
+	SDL_CALL( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO ) != 0 );
 
 	/* Creates a SDL window */
 	window = SDL_CreateWindow( title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0 );
@@ -29,6 +30,10 @@ void App::InitSDL( const std::string& title, const int width, const int height )
 
 	renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
 	SDL_CHECK( renderer );
+
+	SDL_CALL( Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 ) );
+
+
 	SDL_RenderSetLogicalSize( renderer, width, height );
 }
 

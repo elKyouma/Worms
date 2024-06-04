@@ -1,4 +1,5 @@
 #pragma once
+#include "Core/Audio/Music.h"
 #include "Core/Initialization/App.h"
 class Game : public App
 {
@@ -7,11 +8,13 @@ public:
 	void Update() final;
 	//void HandleEvents() final;
 	void Render() final;
+	//void Clean() final;
 
 private:
 	void setUpDebugDraw( std::unique_ptr<Camera, std::default_delete<Camera>>& camera );
 
 	std::unique_ptr<WormManager> wormManager;
 	Weapon* weapon;
+	std::unique_ptr<Music> music;
 };
 
