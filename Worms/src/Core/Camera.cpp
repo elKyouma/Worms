@@ -2,12 +2,19 @@
 #include "Core/Input.h"
 #include "Core/Time.h"
 
-void Camera::Initialise( SDL_Renderer* newRenderer, World* newWorld )
+FocusPoint::FocusPoint( SDL_Renderer* newRenderer, World* newWorld )
 {
 	GameObject::Initialise( newRenderer, newWorld );
 	pos = &world->AddComponent<Position>( objectId, { 2, -1 } );
 	target = &world->AddComponent<Follow>( objectId, { 3 } );
+}
 
+
+void Camera::Initialise( SDL_Renderer* newRenderer, World* newWorld )
+{
+	GameObject::Initialise( newRenderer, newWorld );
+	pos = &world->AddComponent<Position>( objectId, { 2, -1 } );
+	focusPoint = std::make_unique<FocusPoint>(newRenderer, newWorld);
 }
 
 void Camera::Update()
