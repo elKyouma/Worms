@@ -2,14 +2,15 @@
 
 void WeaponManager::Initialise()
 {
-	weapons.emplace_back();
-	for ( WeaponImpl& params : weapons )
+	weapons.push_back( new Grenade );
+	weapons.push_back( new Bazooka );
+	for ( WeaponImpl* params : weapons )
 	{
-		textures.insert( { params.weaponTexturePath, IMG_LoadTexture( renderer, "placeHolderWeapon.png" ) } );
-		sounds.insert( { params.soundPath, Sound( params.soundPath ) } );
+		textures.insert( { params->weaponTexturePath, IMG_LoadTexture( renderer, params->weaponTexturePath.c_str() ) } );
+		sounds.insert( { params->soundPath, Sound( params->soundPath ) } );
 	}
-	weapon->SetParams( weapons[0] );
-	weapon->SetTexture( textures[weapons[0].weaponTexturePath] );
+	weapon->SetParams( *weapons[0] );
+	weapon->SetTexture( textures[weapons[0]->weaponTexturePath] );
 
 }
 
@@ -25,4 +26,8 @@ WeaponManager::~WeaponManager()
 		SDL_DestroyTexture( texture );
 	}
 	sounds.clear();
+	for ( WeaponImpl* weapon : weapons )
+	{
+		delete weapon;
+	}
 }
