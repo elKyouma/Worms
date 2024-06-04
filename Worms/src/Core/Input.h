@@ -29,6 +29,8 @@ public:
 
 	bool Jump() { return jump; }
 
+	float ChangeWeapon() { return changeWeapon; }
+
 private:
 	float horizontal;
 	float vertical;
@@ -42,6 +44,9 @@ private:
 	bool use_action;
 
 	bool jump;
+
+	float changeWeapon;
+
 	Input() = default;
 
 };
