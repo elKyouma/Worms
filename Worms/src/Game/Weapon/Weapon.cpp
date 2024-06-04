@@ -47,7 +47,10 @@ void Weapon::Update()
 				std::make_unique<Projectille>( pos->x + 0.5f * cosf( rot->degree * static_cast<float>(M_PI) / 180 ),
 				pos->y + 0.5f * sinf( rot->degree * static_cast<float>(M_PI) / 180 ),
 				force * cosf( rot->degree * static_cast<float>(M_PI) / 180 ),
-				force * sinf( rot->degree * static_cast<float>(M_PI) / 180 ), 2.0 ) );
+				force * sinf( rot->degree * static_cast<float>(M_PI) / 180 ) ) );
+			/*Projectille* proc = dynamic_cast<Projectille*>(GameObject::objsToAdd.back().get());
+			proc->SetExplosionOffset( 2.f );
+			proc->ToggleGravity( false );*/
 		}
 		force = 0;
 	}

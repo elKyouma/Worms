@@ -8,7 +8,7 @@
 #include "Game/Weapon/Projectille.h"
 #include "Terminal/Terminal.h"
 
-Projectille::Projectille( float posX, float posY, float vX, float vY, float offset  ) : startPosX( posX ), startPosY( posY ), startVelX( vX ), startVelY( vY ), explosionOffset( offset )
+Projectille::Projectille( float posX, float posY, float vX, float vY ) : startPosX( posX ), startPosY( posY ), startVelX( vX ), startVelY( vY )
 {
 }
 
@@ -33,7 +33,7 @@ void Projectille::Update()
 		sensorInfo.id = objectId;
 		sensorInfo.tag = PhysicsTag::DESTRUCTION_FIELD;
 		b2CircleShape shape;
-		shape.m_radius = 2.f;
+		shape.m_radius = explosionRadius;
 		fixture = ColliderFactory::Get().CreateTriggerFixture( collider->GetBody(), &shape, sensorInfo );
 	}
 }
@@ -61,7 +61,7 @@ void Projectille::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 	position = &world->AddComponent<Position>( objectId, { startPosX, startPosY } );
 
 	Sprite& spriteComponent = world->AddComponent<Sprite>( objectId );
-	spriteComponent.texture = IMG_LoadTexture( renderer, "placeHolderBullet.png" );
+	spriteComponent.texture = IMG_LoadTexture( renderer, texturePath.c_str() );
 	SDL_CHECK( spriteComponent.texture );
 
 	world->AddComponent<Rotation>( objectId, { 0 } );
@@ -77,6 +77,8 @@ void Projectille::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 	collider->SetVelocity( b2Vec2( startVelX, startVelY ) );
 
 	rigidBody->body = collider->GetBody();
+	if( !useGravity )
+		rigidBody->body->SetGravityScale( 0 );
 	ContactManager::Get().AddEvent( objectId, CollisionType::BEGIN, std::bind( &Projectille::onCollision, this, std::placeholders::_1 ) );
 
 }

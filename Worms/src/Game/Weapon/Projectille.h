@@ -9,10 +9,17 @@
 class Projectille : public GameObject
 {
 public:
-	Projectille( float posX, float posY, float vX, float vY, float offset = 0 );
+	Projectille( float posX, float posY, float vX, float vY);
 	void Initialise( SDL_Renderer* newRenderer, World* newWorld );
 	void Update();
 	void CleanUp();
+
+	void SetExplosionOffset( float time ) { explosionOffset = time; }
+	void SetTexture( std::string path ) { texturePath = path; }
+	void SetExplosionRadius( float radius ) { explosionRadius = radius; }
+	void SetBaseDamage( float damage ) { baseDamage = damage; }
+	void ToggleGravity( bool toggleGravity ) { useGravity = toggleGravity; }
+	
 private:
 
 	void onCollision( b2Contact* constact );
@@ -30,6 +37,11 @@ private:
 	std::unique_ptr<Collider> collider;
 	EntityId sensorId;
 	Time::Timer timer;
+
 	float explosionOffset = 0;
+	std::string texturePath = "placeHolderBullet.png";
+	float explosionRadius = 1.f;
+	float baseDamage = 40.f;
+	bool useGravity = true;
 };
 
