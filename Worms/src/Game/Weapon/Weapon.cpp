@@ -18,8 +18,8 @@ void Weapon::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 	rot = &world->AddComponent<Rotation>( objectId, { 0 } );
 
 	Sprite& spriteComponent = world->AddComponent<Sprite>( objectId );
-	spriteComponent.texture = IMG_LoadTexture( renderer, "placeHolderWeapon.png" );
-	SDL_CHECK( spriteComponent.texture );
+	/*priteComponent.texture = IMG_LoadTexture( renderer, "placeHolderWeapon.png" );
+	SDL_CHECK( spriteComponent.texture );*/
 
 	powerBar = IMG_LoadTexture( renderer, "powerBar.png" );
 }
@@ -48,9 +48,12 @@ void Weapon::Update()
 				pos->y + 0.5f * sinf( rot->degree * static_cast<float>(M_PI) / 180 ),
 				force * cosf( rot->degree * static_cast<float>(M_PI) / 180 ),
 				force * sinf( rot->degree * static_cast<float>(M_PI) / 180 ) ) );
-			/*Projectille* proc = dynamic_cast<Projectille*>(GameObject::objsToAdd.back().get());
-			proc->SetGravityScale( 0.2f );
-			proc->SetMaxSpeed( 2.5f );*/
+			Projectille* proc = dynamic_cast<Projectille*>(GameObject::objsToAdd.back().get());
+			proc->SetGravityScale( weaponParams.gravityScale );
+			proc->SetMaxSpeed( weaponParams.maxSpeed );
+			proc->SetBaseDamage( weaponParams.baseDamage );
+			proc->SetExplosionOffset( weaponParams.explosionOffset );
+			proc->SetTexture( weaponParams.projectilleTexturePath );
 		}
 		force = 0;
 	}
@@ -81,5 +84,5 @@ void Weapon::Render()
 
 void Weapon::CleanUp()
 {
-	SDL_DestroyTexture( world->GetComponent<Sprite>( objectId ).texture );
+	//SDL_DestroyTexture( world->GetComponent<Sprite>( objectId ).texture );
 }
