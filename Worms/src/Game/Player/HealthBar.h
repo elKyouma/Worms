@@ -1,6 +1,6 @@
 #pragma once
-#include "Core/GameObject.h"
 #include "Core/Camera.h"
+#include "Core/GameObject.h"
 #include "Game/Components.h"
 
 class HealthBar : public GameObject
@@ -8,6 +8,7 @@ class HealthBar : public GameObject
 public:
 	HealthBar( SDL_Renderer* renderer, World* world, EntityId newParentId, const Camera& camera, int health, SDL_Texture* texture );
 	void Render() override;
+	void TakeDamage( int amount );
 private:
 	Follow* target;
 	Position* position;
