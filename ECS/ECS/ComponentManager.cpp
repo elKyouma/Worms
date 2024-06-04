@@ -10,7 +10,6 @@ void ComponentManager::AddComponents( const EntityId ent, const Signature sign )
 
 void ComponentManager::RemoveAllComponents( const EntityId ent, const Signature sign )
 {
-
 	for ( uint8_t i = 0; i < registeredComponents; i++ )
 		if ( sign.test( i ) )
 			components[i]->EraseData( ent );
