@@ -19,17 +19,21 @@ void Projectille::Update()
 		destroyNextFrame = false;
 		collider->GetBody()->DestroyFixture( fixture );
 		GameObject::objsToDelete.emplace_back( this );
+		return;
 	}
+	if ( timer.Measure() > explosionOffset && explosionOffset != 0 )
+		createSensor = true;
 
 	if ( createSensor )
 	{
 		createSensor = false;
 		destroyNextFrame = true;
 
+		rigidBody->body->SetAwake( true );
 		sensorInfo.id = objectId;
 		sensorInfo.tag = PhysicsTag::DESTRUCTION_FIELD;
 		b2CircleShape shape;
-		shape.m_radius = 1.f;
+		shape.m_radius = explosionRadius;
 		fixture = ColliderFactory::Get().CreateTriggerFixture( collider->GetBody(), &shape, sensorInfo );
 	}
 }
@@ -43,18 +47,21 @@ void Projectille::CleanUp()
 void Projectille::onCollision( b2Contact* constact )
 {
 	ContactManager::Get().DeleteEvent( objectId, CollisionType::BEGIN, std::bind( &Projectille::onCollision, this, std::placeholders::_1 ) );
-	createSensor = true;
-
+	if( explosionOffset == 0 )
+		createSensor = true;
+	
 }
 
 void Projectille::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 {
 	GameObject::Initialise( newRenderer, newWorld );
 
+	timer.Reset();
+
 	position = &world->AddComponent<Position>( objectId, { startPosX, startPosY } );
 
 	Sprite& spriteComponent = world->AddComponent<Sprite>( objectId );
-	spriteComponent.texture = IMG_LoadTexture( renderer, "placeHolderBullet.png" );
+	spriteComponent.texture = IMG_LoadTexture( renderer, texturePath.c_str() );
 	SDL_CHECK( spriteComponent.texture );
 
 	world->AddComponent<Rotation>( objectId, { 0 } );
@@ -70,6 +77,8 @@ void Projectille::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 	collider->SetVelocity( b2Vec2( startVelX, startVelY ) );
 
 	rigidBody->body = collider->GetBody();
+	if( !useGravity )
+		rigidBody->body->SetGravityScale( 0 );
 	ContactManager::Get().AddEvent( objectId, CollisionType::BEGIN, std::bind( &Projectille::onCollision, this, std::placeholders::_1 ) );
 
 }
