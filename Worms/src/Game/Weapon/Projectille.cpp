@@ -41,15 +41,14 @@ void Projectille::Update()
 void Projectille::CleanUp()
 {
 	ColliderFactory::Get().GetPhysicsWorld()->DestroyBody( rigidBody->body );
-	SDL_DestroyTexture( world->GetComponent<Sprite>( objectId ).texture );
 }
 
 void Projectille::onCollision( b2Contact* constact )
 {
 	ContactManager::Get().DeleteEvent( objectId, CollisionType::BEGIN, std::bind( &Projectille::onCollision, this, std::placeholders::_1 ) );
-	if( explosionOffset == 0 )
+	if ( explosionOffset == 0 )
 		createSensor = true;
-	
+
 }
 
 void Projectille::Initialise( SDL_Renderer* newRenderer, World* newWorld )
@@ -60,8 +59,13 @@ void Projectille::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 
 	position = &world->AddComponent<Position>( objectId, { startPosX, startPosY } );
 
+	static SDL_Texture* texture;
 	Sprite& spriteComponent = world->AddComponent<Sprite>( objectId );
-	spriteComponent.texture = IMG_LoadTexture( renderer, texturePath.c_str() );
+
+	if( texture == nullptr )
+		texture = IMG_LoadTexture( renderer, texturePath.c_str() );
+	spriteComponent.texture = texture;
+
 	SDL_CHECK( spriteComponent.texture );
 
 	world->AddComponent<Rotation>( objectId, { 0 } );
