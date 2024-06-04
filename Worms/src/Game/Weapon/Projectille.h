@@ -18,7 +18,8 @@ public:
 	void SetTexture( std::string path ) { texturePath = path; }
 	void SetExplosionRadius( float radius ) { explosionRadius = radius; }
 	void SetBaseDamage( float damage ) { baseDamage = damage; }
-	void ToggleGravity( bool toggleGravity ) { useGravity = toggleGravity; }
+	void SetGravityScale( float scale ) { gravityScale = scale; }
+	void SetMaxSpeed( float speed ) { maxSpeed = speed / 10.f; }
 	
 private:
 
@@ -42,6 +43,7 @@ private:
 	std::string texturePath = "placeHolderBullet.png";
 	float explosionRadius = 1.f;
 	float baseDamage = 40.f;
-	bool useGravity = true;
+	float gravityScale = 1.f;
+	float maxSpeed = 0.25f;
 };
 

@@ -74,11 +74,11 @@ void Projectille::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 	shape.m_radius = 0.1f;
 	collider = std::make_unique<Collider>( ColliderFactory::Get().CreateDynamicBody( &shape, { position->x, position->y }, physicsInfo ) );
 	collider->SetContinuous( true );
-	collider->SetVelocity( b2Vec2( startVelX, startVelY ) );
+	collider->SetVelocity( b2Vec2( startVelX * maxSpeed, startVelY * maxSpeed ) );
 
 	rigidBody->body = collider->GetBody();
-	if( !useGravity )
-		rigidBody->body->SetGravityScale( 0 );
+	rigidBody->body->SetGravityScale( gravityScale );
+
 	ContactManager::Get().AddEvent( objectId, CollisionType::BEGIN, std::bind( &Projectille::onCollision, this, std::placeholders::_1 ) );
 
 }

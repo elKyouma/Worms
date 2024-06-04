@@ -36,8 +36,8 @@ void Weapon::Update()
 
 	if ( Input::Get().UseAction() )
 	{
-		if ( force < 0.25 )
-			force += 0.25f * static_cast<float>(Time::deltaTime);
+		if ( force < 1 )
+			force += static_cast<float>(Time::deltaTime);
 	}
 	else
 	{
@@ -49,8 +49,8 @@ void Weapon::Update()
 				force * cosf( rot->degree * static_cast<float>(M_PI) / 180 ),
 				force * sinf( rot->degree * static_cast<float>(M_PI) / 180 ) ) );
 			/*Projectille* proc = dynamic_cast<Projectille*>(GameObject::objsToAdd.back().get());
-			proc->SetExplosionOffset( 2.f );
-			proc->ToggleGravity( false );*/
+			proc->SetGravityScale( 0.2f );
+			proc->SetMaxSpeed( 2.5f );*/
 		}
 		force = 0;
 	}
@@ -64,7 +64,7 @@ void Weapon::Render()
 	SDL_Rect slice(
 		0,
 		0,
-		static_cast<int>(size.x * force / 0.25),
+		static_cast<int>(size.x * force),
 		size.y );
 
 	SDL_Rect renderQuad(
