@@ -4,11 +4,12 @@
 #include "Core/Physics/Collider.h"
 #include "Game/Components.h"
 #include "Game/Systems.h"
+#include "Core/Time.h"
 
 class Projectille : public GameObject
 {
 public:
-	Projectille( float posX, float posY, float vX, float vY );
+	Projectille( float posX, float posY, float vX, float vY, float offset = 0 );
 	void Initialise( SDL_Renderer* newRenderer, World* newWorld );
 	void Update();
 	void CleanUp();
@@ -28,5 +29,7 @@ private:
 	b2Fixture* fixture;
 	std::unique_ptr<Collider> collider;
 	EntityId sensorId;
+	Time::Timer timer;
+	float explosionOffset = 0;
 };
 
