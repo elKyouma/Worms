@@ -90,5 +90,6 @@ void Game::Render()
 		gameObject->Render();
 
 	world->Render();
+	wormManager->RenderHealthBars();
 	//weapon->Render();
 }

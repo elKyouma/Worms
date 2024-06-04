@@ -35,6 +35,13 @@ int WormTeam::Size() const
 	return _worms.size();
 }
 
+void WormTeam::RenderHealthBars() {
+	for ( auto worm : _worms )
+	{
+		worm->Render();
+	}
+}
+
 void WormTeam::Update()
 {
 	for ( auto& worm : _worms )

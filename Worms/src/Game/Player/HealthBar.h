@@ -1,14 +1,17 @@
 #pragma once
 #include "Core/GameObject.h"
+#include "Core/Camera.h"
 #include "Game/Components.h"
 
-class HealthBar : GameObject
+class HealthBar : public GameObject
 {
 public:
-	HealthBar( SDL_Renderer* renderer, World* world, EntityId newParentId, int health );
-	void Update();
+	HealthBar( SDL_Renderer* renderer, World* world, EntityId newParentId, const Camera& camera, int health, SDL_Texture* texture );
+	void Render() override;
 private:
-	EntityId parentId;
+	Follow* target;
 	Position* position;
 	Health* hp;
+	SDL_Texture* healthBar;
+	const Camera& camera;
 };

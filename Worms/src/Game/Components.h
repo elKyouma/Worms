@@ -31,7 +31,8 @@ struct Rotation
 
 struct Health
 {
-	int value;
+	int current;
+	int max;
 };
 
 struct Follow
