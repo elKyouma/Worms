@@ -3,12 +3,15 @@
 #include "Core/GameObject.h"
 #include "Game/Components.h"
 #include <memory>
+#include <algorithm>
 
 class FocusPoint : public GameObject
 {
 public:
 	FocusPoint( SDL_Renderer* newRenderer, World* newWorld );
 	void ChangeTarget( EntityId newTargetId ) { target->id = newTargetId; }
+	const Position& GetPos() const { return *pos; };
+	float Y() const { return pos->y; };
 private:
 	Position* pos;
 	Follow* target;
@@ -25,6 +28,7 @@ public:
 
 	void Initialise( SDL_Renderer* newRenderer, World* newWorld ) override;
 	void Update() override;
+	void ChangePos( Position newPos ) { pos->x += newPos.x; pos->y += newPos.y; }
 	void ChangeX( float deltaX ) { pos->x += deltaX; }
 	void ChangeY( float deltaY ) { pos->y += deltaY; }
 	void ChangeZoom( float delta ) { zoom += delta; }
