@@ -6,6 +6,7 @@
 #include "Weapon.h"
 #include "WeaponTypes.h"
 #include "Core/Audio/Sound.h"
+#include "Core/Input.h"
 
 class WeaponManager
 { 
@@ -17,6 +18,7 @@ public:
 private:
 	SDL_Renderer* renderer;
 	Weapon* weapon;
+	int currentWeapon = 0;
 	std::vector<WeaponImpl *> weapons;
 	std::map<std::string, Sound> sounds;
 	std::map<std::string, SDL_Texture*> textures;

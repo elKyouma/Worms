@@ -19,4 +19,15 @@ struct PhysicsInfo
 	EntityId id;
 };
 
+struct Parameters
+{
+	float explosionOffset;
+	std::string texturePath;
+	float explosionRadius;
+	float baseDamage;
+	float gravityScale;
+	float maxSpeed;
+};
+
 std::optional<EntityId> GetEntityWithTag( b2Contact* contact, PhysicsTag tag );
+std::optional<b2Body*> GetObjectWithTag( b2Contact* contact, PhysicsTag tag );

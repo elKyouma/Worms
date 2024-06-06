@@ -19,7 +19,7 @@ public:
 	}
 
 	Collider CreateTriggerBody( b2Shape* shape, b2Vec2 position, const PhysicsInfo& info = {} );
-	Collider CreateDynamicBody( b2Shape* shape, b2Vec2 position, const PhysicsInfo& info = {} );
+	Collider CreateDynamicBody( b2Shape* shape, b2Vec2 position, const PhysicsInfo& info = {}, uintptr_t userData = 0 );
 	Collider CreateKineticBody( b2Shape* shape, b2Vec2 position, const PhysicsInfo& info = {} );
 	Collider CreateStaticBody( b2Shape* shape, b2Vec2 position, const PhysicsInfo& info = {} );
 

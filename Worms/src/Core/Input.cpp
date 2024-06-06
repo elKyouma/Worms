@@ -16,8 +16,8 @@ void Input::UpdateInputsDown( const SDL_Event& ev )
 	case SDL_SCANCODE_T: change_team = true; break;
 	case SDL_SCANCODE_LSHIFT: use_action = true; break;
 	case SDL_SCANCODE_SPACE: jump = true; break;
-	case SDL_SCANCODE_E: changeWeapon = 1.f; break;
-	case SDL_SCANCODE_Q: changeWeapon = -1.f; break;
+	case SDL_SCANCODE_E: changeWeapon = 1; break;
+	case SDL_SCANCODE_Q: changeWeapon = -1; break;
 	}
 }
 
@@ -47,7 +47,7 @@ void Input::UpdateInputsUp( const SDL_Event& ev )
 	case SDL_SCANCODE_SPACE: jump = false; break;
 	case SDL_SCANCODE_Q:
 	case SDL_SCANCODE_E:
-		changeWeapon = 0.f;
+		changeWeapon = 0;
 		break;
 	}
 }

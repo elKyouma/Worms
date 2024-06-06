@@ -17,12 +17,13 @@ Collider ColliderFactory::CreateTriggerBody( b2Shape* shape, b2Vec2 position, co
 	return Collider( body, info );
 }
 
-Collider ColliderFactory::CreateDynamicBody( b2Shape* shape, b2Vec2 position, const PhysicsInfo& info )
+Collider ColliderFactory::CreateDynamicBody( b2Shape* shape, b2Vec2 position, const PhysicsInfo& info, uintptr_t userData )
 {
 	static b2BodyDef bodyDef;
 	bodyDef.position = position;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.angularDamping = 1.0f;
+	bodyDef.userData.pointer = userData;
 	b2Body* body = physicsWorld->CreateBody( &bodyDef );
 	CreateDynamicFixture( body, shape, info );
 

@@ -175,6 +175,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Image Include="bazooka.png" />
     <Image Include="grenade.png" />
     <Image Include="map.png" />
     <Image Include="placeHolderBullet.png" />

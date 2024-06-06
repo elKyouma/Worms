@@ -15,10 +15,10 @@ struct Bazooka : public WeaponImpl
 {
 	Bazooka()
 	{
-		weaponTexturePath = "grenade.png";
+		weaponTexturePath = "bazooka.png";
 		projectilleTexturePath = "placeHolderBullet.png";
-		gravityScale = 0.1f;
-		maxSpeed = 3.f;
-		explosionRadius = 0.5f;
+		gravityScale = 0.5f;
+		maxSpeed = 5.f;
+		explosionRadius = 0.2f;
 	}
 };

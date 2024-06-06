@@ -2,6 +2,7 @@
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_world.h>
 #include <SDL2/SDL_image.h>
+#include <box2d/b2_body.h>
 #include "Core/Physics/ColliderFactory.h"
 #include "Core/Physics/ContactManager.h"
 #include "ExceptionHandling/SDL_Exception.h"
@@ -21,7 +22,7 @@ void Projectille::Update()
 		GameObject::objsToDelete.emplace_back( this );
 		return;
 	}
-	if ( timer.Measure() > explosionOffset && explosionOffset != 0 )
+	if ( timer.Measure() > params.explosionOffset && params.explosionOffset != 0 )
 		createSensor = true;
 
 	if ( createSensor )
@@ -33,7 +34,7 @@ void Projectille::Update()
 		sensorInfo.id = objectId;
 		sensorInfo.tag = PhysicsTag::DESTRUCTION_FIELD;
 		b2CircleShape shape;
-		shape.m_radius = explosionRadius;
+		shape.m_radius = params.explosionRadius;
 		fixture = ColliderFactory::Get().CreateTriggerFixture( collider->GetBody(), &shape, sensorInfo );
 	}
 }
@@ -46,7 +47,7 @@ void Projectille::CleanUp()
 void Projectille::onCollision( b2Contact* constact )
 {
 	ContactManager::Get().DeleteEvent( objectId, CollisionType::BEGIN, std::bind( &Projectille::onCollision, this, std::placeholders::_1 ) );
-	if ( explosionOffset == 0 )
+	if ( params.explosionOffset == 0 )
 		createSensor = true;
 
 }
@@ -63,7 +64,7 @@ void Projectille::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 	Sprite& spriteComponent = world->AddComponent<Sprite>( objectId );
 
 	if ( texture == nullptr )
-		texture = IMG_LoadTexture( renderer, texturePath.c_str() );
+		texture = IMG_LoadTexture( renderer, params.texturePath.c_str() );
 	spriteComponent.texture = texture;
 
 	SDL_CHECK( spriteComponent.texture );
@@ -76,12 +77,12 @@ void Projectille::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 
 	b2CircleShape shape;
 	shape.m_radius = 0.1f;
-	collider = std::make_unique<Collider>( ColliderFactory::Get().CreateDynamicBody( &shape, { position->x, position->y }, physicsInfo ) );
+	collider = std::make_unique<Collider>( ColliderFactory::Get().CreateDynamicBody( &shape, { position->x, position->y }, physicsInfo, reinterpret_cast<uintptr_t>(&params) ) );
 	collider->SetContinuous( true );
-	collider->SetVelocity( b2Vec2( startVelX * maxSpeed, startVelY * maxSpeed ) );
+	collider->SetVelocity( b2Vec2( startVelX * params.maxSpeed, startVelY * params.maxSpeed ) );
 
 	rigidBody->body = collider->GetBody();
-	rigidBody->body->SetGravityScale( gravityScale );
+	rigidBody->body->SetGravityScale( params.gravityScale );
 
 	ContactManager::Get().AddEvent( objectId, CollisionType::BEGIN, std::bind( &Projectille::onCollision, this, std::placeholders::_1 ) );
 

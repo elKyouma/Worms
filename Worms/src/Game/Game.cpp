@@ -65,6 +65,8 @@ void Game::Update()
 	wormManager->Update();
 	weapon->SetParent( wormManager->GetActiveWormId() );
 
+	weaponManager->Update();
+
 	for ( auto& gameObject : GameObject::activeObjs )
 		gameObject->Update();
 

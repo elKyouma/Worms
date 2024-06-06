@@ -29,7 +29,7 @@ public:
 
 	bool Jump() { return jump; }
 
-	float ChangeWeapon() { return changeWeapon; }
+	int ChangeWeapon() { return changeWeapon; }
 
 private:
 	float horizontal;
@@ -45,7 +45,7 @@ private:
 
 	bool jump;
 
-	float changeWeapon;
+	int changeWeapon;
 
 	Input() = default;
 

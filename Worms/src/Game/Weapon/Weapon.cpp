@@ -54,6 +54,7 @@ void Weapon::Update()
 			proc->SetBaseDamage( weaponParams.baseDamage );
 			proc->SetExplosionOffset( weaponParams.explosionOffset );
 			proc->SetTexture( weaponParams.projectilleTexturePath );
+			proc->SetExplosionRadius( weaponParams.explosionRadius );
 		}
 		force = 0;
 	}
