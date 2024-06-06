@@ -29,7 +29,7 @@ public:
 
 	bool Jump() { return jump; }
 
-	int ChangeWeapon() { return changeWeapon; }
+	int ChangeWeapon() { int temp = changeWeapon; changeWeapon = 0; return temp; }
 
 private:
 	float horizontal;
