@@ -22,8 +22,6 @@ Position adjustPos( const Position& focusPos, const Position& currentPos)
 	double dy = focusPos.y - currentPos.y;
 	newPos.x = smoothstep( dx, focusPos.x, currentPos.x);
 	newPos.y = smoothstep( dy, focusPos.y, currentPos.y);
-	Terminal::Get().Log( std::to_string( newPos.x ), LogLevel::INFO );
-	Terminal::Get().Log( std::to_string( newPos.y ), LogLevel::INFO );
 	return newPos;
 }
 
