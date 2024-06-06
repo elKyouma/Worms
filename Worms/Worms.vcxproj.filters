@@ -156,8 +156,11 @@
     <ClInclude Include="src\**\*.h" />
     <ClInclude Include="src\**\*.h" />
     <ClInclude Include="src\**\*.h" />
+<<<<<<< HEAD
     <ClInclude Include="src\**\*.h" />
     <ClInclude Include="src\**\*.h" />
+=======
+>>>>>>> master
   </ItemGroup>
   <ItemGroup>
     <Media Include="jump.wav" />

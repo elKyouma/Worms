@@ -1,4 +1,5 @@
 #pragma once
+#include <fstream>
 #include <string>
 #include <vector>
 
@@ -21,7 +22,7 @@ public:
 		return terminal;
 	}
 
-	void Log( const std::string& message, LogLevel level );
+	void Log( std::string&& message, LogLevel level );
 
 	void Update();
 	void Render();
@@ -29,10 +30,13 @@ public:
 private:
 	bool scroll = true;
 
-	std::string logFile = "logs.txt";
+	std::string fileName = "logs.txt";
 	std::vector<std::string> Lines;
 
 	std::string getCurrentTime();
 	std::string getLogLevelString( LogLevel level );
-	Terminal() = default;
+	std::ofstream logFile;
+
+	Terminal() { Lines.reserve( 10000 ); logFile.open( fileName ); }
+	~Terminal() { logFile.close(); }
 };

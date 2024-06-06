@@ -16,6 +16,15 @@ Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, c
 	physicsInfo.tag = PhysicsTag::WORM;
 	physicsInfo.id = objectId;
 
+
+	ContactManager::Get().AddEvent( objectId, CollisionType::BEGIN,
+									[&] ( b2Contact* contact )
+									{
+										auto entId = GetEntityWithTag( contact, PhysicsTag::DESTRUCTION_FIELD );
+										if ( entId.has_value() )
+											healthBar->TakeDamage( 40 );
+									} );
+
 	auto groundedId = world->CreateEntity();
 	groundedPhysicsInfo.tag = PhysicsTag::GROUNDED;
 	groundedPhysicsInfo.id = groundedId;
