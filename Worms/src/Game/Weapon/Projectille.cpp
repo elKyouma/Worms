@@ -1,3 +1,4 @@
+#include <box2d/b2_body.h>
 #include <box2d/b2_circle_shape.h>
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_world.h>
@@ -36,6 +37,7 @@ void Projectille::Update()
 
 void Projectille::CleanUp()
 {
+	world->GetComponent<Sprite>( objectId ).texture = nullptr;
 	ColliderFactory::Get().GetPhysicsWorld()->DestroyBody( rigidBody->body );
 }
 
