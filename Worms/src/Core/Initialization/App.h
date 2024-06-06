@@ -3,7 +3,7 @@
 #include <SDL2/SDL.h> /* macOS- and GNU/Linux-specific */
 #include <string>
 #include "box2d/b2_world.h"
-#include "Core/Camera.h"
+#include "Core/Camera/Camera.h"
 #include "Core/Physics/b2ColliderDraw.h"
 #include "ECS/World.h"
 #include "ExceptionHandling/SDL_Exception.h"

@@ -1,8 +1,6 @@
-#include "Core/Camera.h"
+#include "Core/Camera/Camera.h"
 #include "Core/Input.h"
 #include "Core/Time.h"
-#include "Terminal/Terminal.h"
-#include "SDL2/SDL_image.h"
 #include "ExceptionHandling/SDL_Exception.h"
 
 double smoothstep( double x, double endPoint, double currentPoint)
@@ -24,17 +22,6 @@ Position adjustPos( const Position& focusPos, const Position& currentPos)
 	newPos.y = smoothstep( dy, focusPos.y, currentPos.y);
 	return newPos;
 }
-
-FocusPoint::FocusPoint( SDL_Renderer* newRenderer, World* newWorld )
-{
-	GameObject::Initialise( newRenderer, newWorld );
-	pos = &world->AddComponent<Position>( objectId, { 2, -1 } );
-	target = &world->AddComponent<Follow>( objectId, { 3 } );
-	Sprite& spriteComponent = world->AddComponent<Sprite>( objectId );
-	spriteComponent.texture = IMG_LoadTexture( renderer, "placeHolderBullet.png" );
-	SDL_CHECK( spriteComponent.texture );
-}
-
 
 void Camera::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 {

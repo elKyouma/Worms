@@ -1,5 +1,5 @@
 #pragma once
-#include "Core/Camera.h"
+#include "Core/Camera/Camera.h"
 #include "ECS/System.h"
 #include "Game/Components.h"
 

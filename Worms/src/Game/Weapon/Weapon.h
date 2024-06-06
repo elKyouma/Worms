@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "Core/Camera.h"
+#include "Core/Camera/Camera.h"
 #include "Core/GameObject.h"
 #include "Game/Components.h"
 #include "Game/Weapon/Projectille.h"

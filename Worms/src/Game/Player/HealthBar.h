@@ -1,6 +1,6 @@
 #pragma once
 #include "Core/GameObject.h"
-#include "Core/Camera.h"
+#include "Core/Camera/Camera.h"
 #include "Game/Components.h"
 
 class HealthBar : public GameObject
