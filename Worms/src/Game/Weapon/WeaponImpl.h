@@ -4,7 +4,7 @@
 struct WeaponImpl
 {
 	std::string weaponTexturePath = "placeHolderWeapon.png";
-	std::string projectilleTexturePath = "placeHolderBullet.png";;
+	std::string projectileTexturePath = "placeHolderBullet.png";;
 	std::string soundPath;
 	float explosionOffset = 0;
 	float explosionRadius = 1.f;

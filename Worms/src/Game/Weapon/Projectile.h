@@ -2,14 +2,14 @@
 #include <memory>
 #include "Core/GameObject.h"
 #include "Core/Physics/Collider.h"
+#include "Core/Time.h"
 #include "Game/Components.h"
 #include "Game/Systems.h"
-#include "Core/Time.h"
 
-class Projectille : public GameObject
+class Projectile : public GameObject
 {
 public:
-	Projectille( float posX, float posY, float vX, float vY);
+	Projectile( float posX, float posY, float vX, float vY );
 	void Initialise( SDL_Renderer* newRenderer, World* newWorld );
 	void Update();
 	void CleanUp();
@@ -20,7 +20,7 @@ public:
 	void SetBaseDamage( float damage ) { params.baseDamage = damage; }
 	void SetGravityScale( float scale ) { params.gravityScale = scale; }
 	void SetMaxSpeed( float speed ) { params.maxSpeed = speed / 10.f; }
-	
+
 private:
 
 	void onCollision( b2Contact* constact );
