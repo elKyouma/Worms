@@ -115,7 +115,7 @@ public:
 		for ( EntityId ent : subscribed )
 		{
 			auto& target = follows.GetData( ent );
-			auto& targetPosition = positions.GetData( ent );
+			auto& targetPosition = positions.GetData( target.id );
 			positions.GetData( ent ).x = targetPosition.x + target.offsetX;
 			positions.GetData( ent ).y = targetPosition.y + target.offsetY;
 		}
