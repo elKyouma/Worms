@@ -6,6 +6,8 @@
     <Image Include="placeHolderWeapon.png" />
     <Image Include="worms.png" />
     <Image Include="powerBar.png" />
+    <Image Include="grenade.png" />
+    <Image Include="bazooka.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -154,6 +156,11 @@
     <ClInclude Include="src\**\*.h" />
     <ClInclude Include="src\**\*.h" />
     <ClInclude Include="src\**\*.h" />
+<<<<<<< HEAD
+    <ClInclude Include="src\**\*.h" />
+    <ClInclude Include="src\**\*.h" />
+=======
+>>>>>>> master
   </ItemGroup>
   <ItemGroup>
     <Media Include="jump.wav" />

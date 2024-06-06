@@ -14,11 +14,12 @@ public:
 	void Update();
 	void CleanUp();
 
-	void SetExplosionOffset( float time ) { explosionOffset = time; }
-	void SetTexture( std::string path ) { texturePath = path; }
-	void SetExplosionRadius( float radius ) { explosionRadius = radius; }
-	void SetBaseDamage( float damage ) { baseDamage = damage; }
-	void ToggleGravity( bool toggleGravity ) { useGravity = toggleGravity; }
+	void SetExplosionOffset( float time ) { params.explosionOffset = time; }
+	void SetTexture( std::string path ) { params.texturePath = path; }
+	void SetExplosionRadius( float radius ) { params.explosionRadius = radius; }
+	void SetBaseDamage( float damage ) { params.baseDamage = damage; }
+	void SetGravityScale( float scale ) { params.gravityScale = scale; }
+	void SetMaxSpeed( float speed ) { params.maxSpeed = speed / 10.f; }
 	
 private:
 
@@ -37,11 +38,6 @@ private:
 	std::unique_ptr<Collider> collider;
 	EntityId sensorId;
 	Time::Timer timer;
-
-	float explosionOffset = 0;
-	std::string texturePath = "placeHolderBullet.png";
-	float explosionRadius = 1.f;
-	float baseDamage = 40.f;
-	bool useGravity = true;
+	Parameters params{};
 };
 

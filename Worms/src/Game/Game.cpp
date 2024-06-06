@@ -34,12 +34,17 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	GameObject::activeObjs.emplace_back( std::make_unique<Map>( physicsWorld.get() ) );
 	auto weapon = std::make_unique<Weapon>( *camera );
 	this->weapon = weapon.get();
+	weaponManager = std::make_unique<WeaponManager>( renderer, weapon.get());
 	GameObject::activeObjs.emplace_back( std::move( weapon ) );
 	GameObject::activeObjs.emplace_back( std::move( camera ) );
+
 	GameObject::activeObjs.emplace_back( std::make_unique<ParticleSystem>( 1, 1, 100 ) );
 
 	for ( auto& gameObject : GameObject::activeObjs )
 		gameObject->Initialise( renderer, world.get() );
+
+	weaponManager->Initialise();
+
 	music = std::make_unique<Music>( "Rick_Roll.ogg" );
 	music->Play();
 }
@@ -73,6 +78,10 @@ void Game::Update()
 	wormManager->Update();
 	weapon->SetParent( wormManager->GetActiveWormId() );
 
+
+	weaponManager->Update();
+
+	
 	for ( auto& ptr : GameObject::objsToAdd )
 	{
 		ptr->Initialise( renderer, world.get() );
