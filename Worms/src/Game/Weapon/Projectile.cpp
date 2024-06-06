@@ -1,20 +1,20 @@
 #include <box2d/b2_body.h>
+#include <box2d/b2_body.h>
 #include <box2d/b2_circle_shape.h>
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_world.h>
 #include <SDL2/SDL_image.h>
-#include <box2d/b2_body.h>
 #include "Core/Physics/ColliderFactory.h"
 #include "Core/Physics/ContactManager.h"
 #include "ExceptionHandling/SDL_Exception.h"
-#include "Game/Weapon/Projectille.h"
+#include "Game/Weapon/Projectile.h"
 #include "Terminal/Terminal.h"
 
-Projectille::Projectille( float posX, float posY, float vX, float vY ) : startPosX( posX ), startPosY( posY ), startVelX( vX ), startVelY( vY )
+Projectile::Projectile( float posX, float posY, float vX, float vY ) : startPosX( posX ), startPosY( posY ), startVelX( vX ), startVelY( vY )
 {
 }
 
-void Projectille::Update()
+void Projectile::Update()
 {
 	if ( destroyNextFrame )
 	{
@@ -40,21 +40,21 @@ void Projectille::Update()
 	}
 }
 
-void Projectille::CleanUp()
+void Projectile::CleanUp()
 {
 	world->GetComponent<Sprite>( objectId ).texture = nullptr;
 	ColliderFactory::Get().GetPhysicsWorld()->DestroyBody( rigidBody->body );
 }
 
-void Projectille::onCollision( b2Contact* constact )
+void Projectile::onCollision( b2Contact* constact )
 {
-	ContactManager::Get().DeleteEvent( objectId, CollisionType::BEGIN, std::bind( &Projectille::onCollision, this, std::placeholders::_1 ) );
+	ContactManager::Get().DeleteEvent( objectId, CollisionType::BEGIN, std::bind( &Projectile::onCollision, this, std::placeholders::_1 ) );
 	if ( params.explosionOffset == 0 )
 		createSensor = true;
 
 }
 
-void Projectille::Initialise( SDL_Renderer* newRenderer, World* newWorld )
+void Projectile::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 {
 	GameObject::Initialise( newRenderer, newWorld );
 
@@ -86,6 +86,6 @@ void Projectille::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 	rigidBody->body = collider->GetBody();
 	rigidBody->body->SetGravityScale( params.gravityScale );
 
-	ContactManager::Get().AddEvent( objectId, CollisionType::BEGIN, std::bind( &Projectille::onCollision, this, std::placeholders::_1 ) );
+	ContactManager::Get().AddEvent( objectId, CollisionType::BEGIN, std::bind( &Projectile::onCollision, this, std::placeholders::_1 ) );
 
 }

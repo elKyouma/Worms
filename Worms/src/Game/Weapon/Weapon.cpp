@@ -44,16 +44,16 @@ void Weapon::Update()
 		if ( force )
 		{
 			GameObject::objsToAdd.emplace_back(
-				std::make_unique<Projectille>( pos->x + 0.5f * cosf( rot->degree * static_cast<float>(M_PI) / 180 ),
+				std::make_unique<Projectile>( pos->x + 0.5f * cosf( rot->degree * static_cast<float>(M_PI) / 180 ),
 				pos->y + 0.5f * sinf( rot->degree * static_cast<float>(M_PI) / 180 ),
 				force * cosf( rot->degree * static_cast<float>(M_PI) / 180 ),
 				force * sinf( rot->degree * static_cast<float>(M_PI) / 180 ) ) );
-			Projectille* proc = dynamic_cast<Projectille*>(GameObject::objsToAdd.back().get());
+			Projectile* proc = dynamic_cast<Projectile*>(GameObject::objsToAdd.back().get());
 			proc->SetGravityScale( weaponParams.gravityScale );
 			proc->SetMaxSpeed( weaponParams.maxSpeed );
 			proc->SetBaseDamage( weaponParams.baseDamage );
 			proc->SetExplosionOffset( weaponParams.explosionOffset );
-			proc->SetTexture( weaponParams.projectilleTexturePath );
+			proc->SetTexture( weaponParams.projectileTexturePath );
 			proc->SetExplosionRadius( weaponParams.explosionRadius );
 		}
 		force = 0;

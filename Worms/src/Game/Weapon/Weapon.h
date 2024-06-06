@@ -3,7 +3,7 @@
 #include "Core/Camera.h"
 #include "Core/GameObject.h"
 #include "Game/Components.h"
-#include "Game/Weapon/Projectille.h"
+#include "Game/Weapon/Projectile.h"
 #include "WeaponImpl.h"
 
 class Weapon : public GameObject

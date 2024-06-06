@@ -8,7 +8,7 @@ void WeaponManager::Initialise()
 	for ( WeaponImpl* params : weapons )
 	{
 		textures.insert( { params->weaponTexturePath, IMG_LoadTexture( renderer, params->weaponTexturePath.c_str() ) } );
-		textures.insert( { params->projectilleTexturePath, IMG_LoadTexture( renderer, params->projectilleTexturePath.c_str() ) } );
+		textures.insert( { params->projectileTexturePath, IMG_LoadTexture( renderer, params->projectileTexturePath.c_str() ) } );
 		sounds.insert( { params->soundPath, Sound( params->soundPath ) } );
 	}
 	weapon->SetParams( *weapons[0] );
