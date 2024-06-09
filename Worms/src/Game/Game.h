@@ -16,7 +16,6 @@ private:
 	void registerComponents();
 	std::unique_ptr<WormManager> wormManager;
 	std::unique_ptr<WeaponManager> weaponManager;
-	Weapon* weapon;
 	std::unique_ptr<Music> music;
 };
 

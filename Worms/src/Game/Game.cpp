@@ -28,13 +28,12 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	setUpDebugDraw( camera );
 	ColliderFactory::Get().Init( physicsWorld.get() );
 
-	wormManager = std::make_unique<WormManager>( renderer, world.get(), physicsWorld.get(), *camera );
+	auto weapon = std::make_unique<Weapon>( *camera );
+	wormManager = std::make_unique<WormManager>( renderer, world.get(), physicsWorld.get(), *camera, *weapon );
 	wormManager->createTeam( 4 );
 	wormManager->createTeam( 4 );
 	GameObject::activeObjs.emplace_back( std::make_unique<Map>( physicsWorld.get() ) );
-	auto weapon = std::make_unique<Weapon>( *camera );
-	this->weapon = weapon.get();
-	weaponManager = std::make_unique<WeaponManager>( renderer, weapon.get());
+	weaponManager = std::make_unique<WeaponManager>( renderer, weapon.get() );
 	GameObject::activeObjs.emplace_back( std::move( weapon ) );
 	GameObject::activeObjs.emplace_back( std::move( camera ) );
 
@@ -76,12 +75,9 @@ void Game::Update()
 	world->Update();
 	physicsWorld->Step( static_cast<float>(Time::deltaTime), 8, 3 );
 	wormManager->Update();
-	weapon->SetParent( wormManager->GetActiveWormId() );
-
-
 	weaponManager->Update();
 
-	
+
 	for ( auto& ptr : GameObject::objsToAdd )
 	{
 		ptr->Initialise( renderer, world.get() );

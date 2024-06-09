@@ -1,11 +1,12 @@
 #pragma once
 #include <box2d/b2_world.h>
 #include "Game/Player/WormTeam.h"
+#include "Game/Weapon/Weapon.h"
 
 class WormManager
 {
 public:
-	WormManager( SDL_Renderer* renderer, World* world, b2World* physicsWorld, Camera& camera );
+	WormManager( SDL_Renderer* renderer, World* world, b2World* physicsWorld, Camera& camera, Weapon& weapon );
 	WormManager( const WormManager& ) = delete;
 	WormManager( WormManager&& ) = delete;
 
@@ -27,4 +28,5 @@ private:
 	World* _world;
 	b2World* physicsWorld;
 	Camera& camera;
+	Weapon& weapon;
 };
