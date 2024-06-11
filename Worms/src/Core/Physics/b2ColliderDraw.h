@@ -2,7 +2,7 @@
 #include <box2d/b2_draw.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
-#include "Core/Camera.h"
+#include "Core/Camera/Camera.h"
 
 class b2ColliderDraw : public b2Draw
 {
