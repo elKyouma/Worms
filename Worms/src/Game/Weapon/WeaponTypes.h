@@ -8,6 +8,7 @@ struct Grenade : public WeaponImpl
 		weaponTexturePath = "grenade.png";
 		projectileTexturePath = "grenade.png";
 		shootingSound = "throw_granade.wav";
+		collisionSound = "collision_sound.wav";
 		explosionSound = "big_explosion.wav";
 		explosionOffset = 2.f;
 	}
