@@ -30,6 +30,7 @@ void Projectile::Update()
 	{
 		createSensor = false;
 		destroyNextFrame = true;
+		explosionSound->Play();
 
 		rigidBody->body->SetAwake( true );
 		sensorInfo.id = objectId;
@@ -49,6 +50,7 @@ void Projectile::CleanUp()
 void Projectile::onCollision( b2Contact* constact )
 {
 	ContactManager::Get().DeleteEvent( objectId, CollisionType::BEGIN, std::bind( &Projectile::onCollision, this, std::placeholders::_1 ) );
+	collisionSound->Play();
 	if ( params.explosionOffset == 0 )
 		createSensor = true;
 
@@ -62,14 +64,7 @@ void Projectile::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 
 	position = &world->AddComponent<Position>( objectId, { startPosX, startPosY } );
 
-	static SDL_Texture* texture;
-	Sprite& spriteComponent = world->AddComponent<Sprite>( objectId );
-
-	if ( texture == nullptr )
-		texture = IMG_LoadTexture( renderer, params.texturePath.c_str() );
-	spriteComponent.texture = texture;
-
-	SDL_CHECK( spriteComponent.texture );
+	Sprite& spriteComponent = world->AddComponent<Sprite>( objectId, { texture } );
 
 	world->AddComponent<Rotation>( objectId, { 0 } );
 	rigidBody = &world->AddComponent<RigidBody>( objectId );

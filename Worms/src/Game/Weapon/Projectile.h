@@ -1,5 +1,7 @@
 #pragma once
 #include <memory>
+#include <SDL2/SDL.h>
+#include "Core/Audio/Sound.h"
 #include "Core/GameObject.h"
 #include "Core/Physics/Collider.h"
 #include "Core/Time.h"
@@ -15,7 +17,9 @@ public:
 	void CleanUp();
 
 	void SetExplosionOffset( float time ) { params.explosionOffset = time; }
-	void SetTexture( std::string path ) { params.texturePath = path; }
+	void SetTexture( SDL_Texture* texture ) { this->texture = texture; }
+	void SetExplosionSound( Sound* sound ) { explosionSound = sound; }
+	void SetCollisionSound( Sound* sound ) { collisionSound = sound; }
 	void SetExplosionRadius( float radius ) { params.explosionRadius = radius; }
 	void SetBaseDamage( float damage ) { params.baseDamage = damage; }
 	void SetGravityScale( float scale ) { params.gravityScale = scale; }
@@ -39,5 +43,9 @@ private:
 	EntityId sensorId;
 	Time::Timer timer;
 	Parameters params{};
+
+	SDL_Texture* texture;
+	Sound* explosionSound;
+	Sound* collisionSound;
 };
 

@@ -27,7 +27,7 @@ private:
 	Weapon* weapon;
 	int currentWeapon = 0;
 	std::vector<WeaponImpl*> weapons;
-	std::map<std::string, Sound> sounds;
+	std::map<std::string, Sound*> sounds;
 	std::map<std::string, SDL_Texture*> textures;
 
 };
