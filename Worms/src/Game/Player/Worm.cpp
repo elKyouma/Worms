@@ -57,7 +57,7 @@ Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, c
 	rb->body = collider->GetBody();
 }
 
-void Worm::Update()
+void Worm::Update( std::vector<Worm*>& wormsToDelete )
 {
 	pos->x = rb->body->GetPosition().x;
 	pos->y = rb->body->GetPosition().y;
@@ -65,7 +65,7 @@ void Worm::Update()
 	healthBar->Update();
 
 	if ( healthBar->getCurrentHp() <= 0 )
-		DestroyWorm();
+		wormsToDelete.emplace_back( this );
 
 	if ( !active ) return;
 
@@ -91,10 +91,6 @@ void Worm::CleanUp()
 
 void Worm::Render() {
 	healthBar->Render();
-}
-
-void Worm::DestroyWorm()
-{
 }
 
 void Worm::Activate()
