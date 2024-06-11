@@ -43,6 +43,7 @@ void Projectile::Update()
 
 void Projectile::CleanUp()
 {
+	GameObject::CleanUp();
 	world->GetComponent<Sprite>( objectId ).texture = nullptr;
 	ColliderFactory::Get().GetPhysicsWorld()->DestroyBody( rigidBody->body );
 }
