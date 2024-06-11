@@ -7,6 +7,7 @@
 #include "Core/Utils.h"
 #include "ExceptionHandling/SDL_Exception.h"
 #include "Game/Player/Worm.h"
+#include "Terminal/Terminal.h"
 
 Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, const Camera& camera, SDL_Texture* texture )
 {
@@ -63,6 +64,9 @@ void Worm::Update()
 
 	healthBar->Update();
 
+	if ( healthBar->getCurrentHp() <= 0 )
+		DestroyWorm();
+
 	if ( !active ) return;
 
 	if ( abs( rb->body->GetLinearVelocity().x ) < 2 )
@@ -87,6 +91,10 @@ void Worm::CleanUp()
 
 void Worm::Render() {
 	healthBar->Render();
+}
+
+void Worm::DestroyWorm()
+{
 }
 
 void Worm::Activate()

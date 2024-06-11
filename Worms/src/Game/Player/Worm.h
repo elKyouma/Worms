@@ -18,6 +18,7 @@ public:
 	void Jump();
 	void CleanUp() override;
 	void Render() override;
+	void DestroyWorm();
 
 	void Activate();
 	void Disactivate();
