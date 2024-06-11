@@ -7,6 +7,7 @@
 #include "Core/Utils.h"
 #include "ExceptionHandling/SDL_Exception.h"
 #include "Game/Player/Worm.h"
+#include "Terminal/Terminal.h"
 
 Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, const Camera& camera, SDL_Texture* texture )
 {
@@ -56,12 +57,15 @@ Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, c
 	rb->body = collider->GetBody();
 }
 
-void Worm::Update()
+void Worm::Update( std::vector<Worm*>& wormsToDelete )
 {
 	pos->x = rb->body->GetPosition().x;
 	pos->y = rb->body->GetPosition().y;
 
 	healthBar->Update();
+
+	if ( healthBar->getCurrentHp() <= 0 )
+		wormsToDelete.emplace_back( this );
 
 	if ( !active ) return;
 

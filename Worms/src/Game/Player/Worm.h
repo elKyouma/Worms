@@ -14,7 +14,7 @@ class Worm : public GameObject
 {
 public:
 	Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, const Camera& camera, SDL_Texture* texture );
-	void Update() override;
+	void Update(std::vector<Worm*>& wormsToDelete);
 	void Jump();
 	void CleanUp() override;
 	void Render() override;
