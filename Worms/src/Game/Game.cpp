@@ -28,13 +28,11 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	setUpDebugDraw( camera );
 	ColliderFactory::Get().Init( physicsWorld.get() );
 
-	auto weapon = std::make_unique<Weapon>( *camera );
-	wormManager = std::make_unique<WormManager>( renderer, world.get(), physicsWorld.get(), *camera, *weapon );
+	weaponManager = std::make_unique<WeaponManager>( renderer, *camera );
+	wormManager = std::make_unique<WormManager>( renderer, world.get(), physicsWorld.get(), *camera, *weaponManager->GetWeapon() );
 	wormManager->createTeam( 4 );
 	wormManager->createTeam( 4 );
 	GameObject::activeObjs.emplace_back( std::make_unique<Map>( physicsWorld.get() ) );
-	weaponManager = std::make_unique<WeaponManager>( renderer, weapon.get() );
-	GameObject::activeObjs.emplace_back( std::move( weapon ) );
 	GameObject::activeObjs.emplace_back( std::move( camera ) );
 
 	GameObject::activeObjs.emplace_back( std::make_unique<ParticleSystem>( 1, 1, 100 ) );
