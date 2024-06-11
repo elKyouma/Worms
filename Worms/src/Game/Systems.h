@@ -45,11 +45,17 @@ public:
 			SDL_Point size;
 			SDL_QueryTexture( sprites.GetData( ent ).texture, NULL, NULL, &size.x, &size.y );
 
+			auto scale = componentManager.TryGetComponent<Scale>( ent );
+			float scaleFactor = 1.f;
+			if ( scale.has_value() )
+				scaleFactor = scale->get().size;
+
 			SDL_Rect destination;
-			destination.x = static_cast<int>(400 + 100.0 * (positions.GetData( ent ).x - camera.X()) - size.x / 2);
-			destination.y = static_cast<int>(300 - 100.0 * (positions.GetData( ent ).y - camera.Y()) - size.y / 2);
-			destination.w = static_cast<int>(size.x * camera.Zoom());
-			destination.h = static_cast<int>(size.y * camera.Zoom());
+			destination.x = static_cast<int>(400 + 100.0 * (positions.GetData( ent ).x - camera.X()) - size.x / 2 * scaleFactor);
+			destination.y = static_cast<int>(300 - 100.0 * (positions.GetData( ent ).y - camera.Y()) - size.y / 2 * scaleFactor);
+			destination.w = static_cast<int>(size.x * scaleFactor);
+			destination.h = static_cast<int>(size.y * scaleFactor);
+
 
 			auto angle = componentManager.TryGetComponent<Rotation>( ent );
 			if ( angle.has_value() )
@@ -99,18 +105,59 @@ public:
 		: System( componentManager )
 	{
 		systemSignature.set( componentManager.GetComponentId<Follow>(), true );
+		systemSignature.set( componentManager.GetComponentId<Position>(), true );
 	}
 
 	virtual void Update() override
 	{
 		auto& positions = componentManager.GetComponentArray<Position>();
+		auto& follows = componentManager.GetComponentArray<Follow>();
 		for ( EntityId ent : subscribed )
 		{
-			auto& target = componentManager.GetComponent<Follow>( ent );
-			auto& targetPosition = componentManager.GetComponent<Position>( target.id );
+			auto& target = follows.GetData( ent );
+			auto& targetPosition = positions.GetData( target.id );
 			positions.GetData( ent ).x = targetPosition.x + target.offsetX;
 			positions.GetData( ent ).y = targetPosition.y + target.offsetY;
 		}
 	}
 private:
+};
+
+
+class ParticleUpdater : public System
+{
+public:
+	ParticleUpdater( ComponentManager& componentManager ) : System( componentManager )
+	{
+		systemSignature.set( componentManager.GetComponentId<Particle>(), true );
+		systemSignature.set( componentManager.GetComponentId<Position>(), true );
+		systemSignature.set( componentManager.GetComponentId<Scale>(), true );
+		systemSignature.set( componentManager.GetComponentId<Sprite>(), true );
+		systemSignature.set( componentManager.GetComponentId<Motion>(), true );
+	}
+
+	void Update() override
+	{
+		auto& particles = componentManager.GetComponentArray<Particle>();
+		auto& positions = componentManager.GetComponentArray<Position>();
+		auto& scales = componentManager.GetComponentArray<Scale>();
+		auto& sprites = componentManager.GetComponentArray<Sprite>();
+		auto& motions = componentManager.GetComponentArray<Motion>();
+
+		for ( EntityId ent : subscribed )
+		{
+			auto& particle = particles.GetData( ent );
+			auto& motion = motions.GetData( ent );
+			if ( particle.vel_characteristic != nullptr )
+			{
+				auto [x, y] = particle.vel_characteristic( motion.v_x, motion.v_y );
+				motion.v_x = x;
+				motion.v_y = y;
+			}
+
+			if ( particle.size_characteristic != nullptr )
+				scales.GetData( ent ).size = particle.size_characteristic( scales.GetData( ent ).size );
+
+		}
+	}
 };

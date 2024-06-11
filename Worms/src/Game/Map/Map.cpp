@@ -78,7 +78,7 @@ void Map::DestroyMapAtLocalPoint( SDL_Point point )
 			Uint8* pixel = (Uint8*)surf->pixels;
 			pixel += (y * surf->pitch) + (x * sizeof( Uint32 ));
 
-			if ( dist < 100 )
+			if ( dist < destructionRadius * 100 )
 				*((Uint32*)pixel) &= 0x00FFFFFF;
 		}
 
@@ -91,7 +91,8 @@ void Map::DestroyMap( b2Contact* contact )
 	if ( !entId.has_value() ) return;
 
 	bulltetPos = world->GetComponent<Position>( entId.value() );
-
+	auto contactBody = GetObjectWithTag( contact, PhysicsTag::DESTRUCTION_FIELD );
+	destructionRadius = reinterpret_cast<Parameters *>(contactBody.value()->GetUserData().pointer)->explosionRadius;
 	if ( destroyed ) return;
 
 	destroyed = true;

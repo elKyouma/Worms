@@ -1,10 +1,12 @@
+#include "Game.h"
+
 #include <imgui_impl_sdlrenderer2.h>
 #include <SDL2/SDL.h>
 #include "Core/Input.h"
+#include "Core/ParticleSystem.h"
 #include "Core/Physics/ColliderFactory.h"
 #include "Core/Physics/ContactManager.h"
 #include "Core/Time.h"
-#include "Game.h"
 #include "imgui_impl_sdl2.h"
 #include "Terminal/Terminal.h"
 
@@ -13,16 +15,12 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	App::InitWindow( title, width, height );
 
 	world = std::make_unique<World>( renderer );
-	world->RegisterComponent<Position>();
-	world->RegisterComponent<Rotation>();
-	world->RegisterComponent<Health>();
-	world->RegisterComponent<Sprite>();
-	world->RegisterComponent<Motion>();
-	world->RegisterComponent<RigidBody>();
-	world->RegisterComponent<Follow>();
+
+	registerComponents();
 	world->RegisterSystem<Movement>();
 	world->RegisterSystem<PhysicsSynchronizer>();
 	world->RegisterSystem<TargetSystem>();
+	world->RegisterSystem<ParticleUpdater>();
 	auto camera = std::make_unique<Camera>();
 	world->RegisterSystem<SpriteRenderer>( renderer, *camera );
 
@@ -30,18 +28,22 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	setUpDebugDraw( camera );
 	ColliderFactory::Get().Init( physicsWorld.get() );
 
-	wormManager = std::make_unique<WormManager>( renderer, world.get(), physicsWorld.get(), *camera );
+	weaponManager = std::make_unique<WeaponManager>( renderer, *camera );
+	wormManager = std::make_unique<WormManager>( renderer, world.get(), physicsWorld.get(), *camera, *weaponManager->GetWeapon() );
 	wormManager->createTeam( 4 );
 	wormManager->createTeam( 4 );
 	GameObject::activeObjs.emplace_back( std::make_unique<Map>( physicsWorld.get() ) );
-	auto weapon = std::make_unique<Weapon>( *camera );
-	this->weapon = weapon.get();
-	GameObject::activeObjs.emplace_back( std::move( weapon ) );
 	GameObject::activeObjs.emplace_back( std::move( camera ) );
+
+	GameObject::activeObjs.emplace_back( std::make_unique<ParticleSystem>( 1, 1, 100 ) );
 
 	for ( auto& gameObject : GameObject::activeObjs )
 		gameObject->Initialise( renderer, world.get() );
 
+	weaponManager->Initialise();
+
+	music = std::make_unique<Music>( "Rick_Roll.ogg" );
+	music->Play();
 }
 
 void Game::setUpDebugDraw( std::unique_ptr<Camera, std::default_delete<Camera>>& camera )
@@ -51,6 +53,19 @@ void Game::setUpDebugDraw( std::unique_ptr<Camera, std::default_delete<Camera>>&
 	physicsWorld->SetContactListener( &ContactManager::Get() );
 }
 
+void Game::registerComponents()
+{
+	world->RegisterComponent<Position>();
+	world->RegisterComponent<Rotation>();
+	world->RegisterComponent<Health>();
+	world->RegisterComponent<Sprite>();
+	world->RegisterComponent<Motion>();
+	world->RegisterComponent<RigidBody>();
+	world->RegisterComponent<Follow>();
+	world->RegisterComponent<Scale>();
+	world->RegisterComponent<Particle>();
+}
+
 void Game::Update()
 {
 	App::Update();
@@ -58,10 +73,8 @@ void Game::Update()
 	world->Update();
 	physicsWorld->Step( static_cast<float>(Time::deltaTime), 8, 3 );
 	wormManager->Update();
-	weapon->SetParent( wormManager->GetActiveWormId() );
+	weaponManager->Update();
 
-	for ( auto& gameObject : GameObject::activeObjs )
-		gameObject->Update();
 
 	for ( auto& ptr : GameObject::objsToAdd )
 	{
@@ -82,6 +95,10 @@ void Game::Update()
 		);
 
 	GameObject::objsToDelete.clear();
+
+	for ( auto& gameObject : GameObject::activeObjs )
+		gameObject->Update();
+
 }
 
 void Game::Render()
@@ -91,5 +108,4 @@ void Game::Render()
 
 	world->Render();
 	wormManager->RenderHealthBars();
-	//weapon->Render();
 }

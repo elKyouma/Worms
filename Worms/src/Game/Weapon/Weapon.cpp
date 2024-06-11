@@ -18,8 +18,6 @@ void Weapon::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 	rot = &world->AddComponent<Rotation>( objectId, { 0 } );
 
 	Sprite& spriteComponent = world->AddComponent<Sprite>( objectId );
-	spriteComponent.texture = IMG_LoadTexture( renderer, "placeHolderWeapon.png" );
-	SDL_CHECK( spriteComponent.texture );
 
 	powerBar = IMG_LoadTexture( renderer, "powerBar.png" );
 }
@@ -36,18 +34,28 @@ void Weapon::Update()
 
 	if ( Input::Get().UseAction() )
 	{
-		if ( force < 0.25 )
-			force += 0.25f * static_cast<float>(Time::deltaTime);
+		if ( force < 1 )
+			force += static_cast<float>(Time::deltaTime);
 	}
 	else
 	{
 		if ( force )
 		{
+			shootingSound->Play();
 			GameObject::objsToAdd.emplace_back(
-				std::make_unique<Projectille>( pos->x + 0.5f * cosf( rot->degree * static_cast<float>(M_PI) / 180 ),
+				std::make_unique<Projectile>( pos->x + 0.5f * cosf( rot->degree * static_cast<float>(M_PI) / 180 ),
 				pos->y + 0.5f * sinf( rot->degree * static_cast<float>(M_PI) / 180 ),
 				force * cosf( rot->degree * static_cast<float>(M_PI) / 180 ),
 				force * sinf( rot->degree * static_cast<float>(M_PI) / 180 ) ) );
+			Projectile* proc = dynamic_cast<Projectile*>(GameObject::objsToAdd.back().get());
+			proc->SetGravityScale( weaponParams.gravityScale );
+			proc->SetMaxSpeed( weaponParams.maxSpeed );
+			proc->SetBaseDamage( weaponParams.baseDamage );
+			proc->SetExplosionOffset( weaponParams.explosionOffset );
+			proc->SetTexture( projTexture );
+			proc->SetExplosionRadius( weaponParams.explosionRadius );
+			proc->SetCollisionSound( collisionSound );
+			proc->SetExplosionSound( explosionSound );
 		}
 		force = 0;
 	}
@@ -61,7 +69,7 @@ void Weapon::Render()
 	SDL_Rect slice(
 		0,
 		0,
-		static_cast<int>(size.x * force / 0.25),
+		static_cast<int>(size.x * force),
 		size.y );
 
 	SDL_Rect renderQuad(
@@ -74,9 +82,4 @@ void Weapon::Render()
 
 
 	SDL_RenderCopyEx( renderer, powerBar, &slice, &renderQuad, -rot->degree, &centre, SDL_FLIP_NONE );
-}
-
-void Weapon::CleanUp()
-{
-	SDL_DestroyTexture( world->GetComponent<Sprite>( objectId ).texture );
 }

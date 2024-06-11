@@ -1,7 +1,7 @@
 #include "Core/Input.h"
 #include "Game/Player/WormManager.h"
 
-SDL_Texture* createTexture(int team, SDL_Renderer* renderer ) {
+SDL_Texture* createTexture( int team, SDL_Renderer* renderer ) {
 	float width = 40.;
 	float height = 10.;
 	SDL_Surface* surface = SDL_CreateRGBSurface( 0, width, height, 32, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000 );
@@ -33,7 +33,7 @@ SDL_Texture* createTexture(int team, SDL_Renderer* renderer ) {
 		for ( int x = 0; x < width; x++ )
 		{
 			float prc = 0.4 + ((x / width) * 0.5);
-			Uint32 color = SDL_MapRGB( surface->format, r * prc, g * prc, b * prc);
+			Uint32 color = SDL_MapRGB( surface->format, r * prc, g * prc, b * prc );
 			Uint32* pixels = (Uint32*)surface->pixels;
 			pixels[(y * surface->w) + x] = color;
 		}
@@ -43,17 +43,17 @@ SDL_Texture* createTexture(int team, SDL_Renderer* renderer ) {
 	return texture;
 };
 
-WormManager::WormManager( SDL_Renderer* renderer, World* world, b2World* physicsWorld, Camera& camera )
-	: _renderer( renderer ), _world( world ), _teams(), physicsWorld( physicsWorld ), camera( camera ) {}
+WormManager::WormManager( SDL_Renderer* renderer, World* world, b2World* physicsWorld, Camera& camera, Weapon& weapon )
+	: _renderer( renderer ), _world( world ), _teams(), physicsWorld( physicsWorld ), camera( camera ), weapon( weapon ) {}
 
 void WormManager::createTeam( int size )
 {
 	WormTeam* newTeam = new WormTeam;
 
-	SDL_Texture* texture = createTexture( _teams.size(), _renderer);
+	SDL_Texture* texture = createTexture( _teams.size(), _renderer );
 
 	for ( int i = 0; i < size; i++ ) {
-		newTeam->addWorm( new Worm( _renderer, _world, physicsWorld, camera, texture) );
+		newTeam->addWorm( new Worm( _renderer, _world, physicsWorld, camera, texture ) );
 	}
 	_teams.push_back( newTeam );
 }
@@ -73,6 +73,7 @@ void WormManager::Update()
 
 	_teams[_activeTeam]->Update();
 	camera.ChangeTarget( _teams[_activeTeam]->getActiveWorm() );
+	weapon.SetParent( GetActiveWormId() );
 }
 
 void WormManager::RenderHealthBars()

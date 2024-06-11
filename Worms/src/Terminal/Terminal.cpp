@@ -3,13 +3,12 @@
 #include <fstream>
 #include <imgui.h>
 
-void Terminal::Log( const std::string& message, LogLevel level ) {
-	std::string logMessage = getCurrentTime() + " [" + getLogLevelString( level ) + "] " + message;
-	Lines.push_back( logMessage );
-	std::ofstream ofs( logFile );
-	if ( ofs ) {
-		ofs << logMessage << std::endl;
-	}
+void Terminal::Log( std::string&& message, LogLevel level ) {
+	if ( !logFile ) [[unlikely]] return;
+
+	const std::string logMessage = getCurrentTime() + " [" + getLogLevelString( level ) + "] " + message;
+	Lines.emplace_back( logMessage );
+	logFile << logMessage << '\n';
 }
 
 void Terminal::Update()

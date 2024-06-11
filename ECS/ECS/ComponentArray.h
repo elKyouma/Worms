@@ -34,7 +34,7 @@ private:
 	std::unordered_map<EntityId, EntityId> entityToIndex;
 	std::unordered_map<EntityId, EntityId> indexToEntity;
 
-	uint8_t amountOfComponents = 0;
+	uint16_t amountOfComponents = 0;
 };
 
 template<typename Data>

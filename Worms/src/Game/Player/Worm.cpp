@@ -16,6 +16,15 @@ Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, c
 	physicsInfo.tag = PhysicsTag::WORM;
 	physicsInfo.id = objectId;
 
+
+	ContactManager::Get().AddEvent( objectId, CollisionType::BEGIN,
+									[&] ( b2Contact* contact )
+									{
+										auto entId = GetEntityWithTag( contact, PhysicsTag::DESTRUCTION_FIELD );
+										if ( entId.has_value() )
+											healthBar->TakeDamage( 40 );
+									} );
+
 	auto groundedId = world->CreateEntity();
 	groundedPhysicsInfo.tag = PhysicsTag::GROUNDED;
 	groundedPhysicsInfo.id = groundedId;
@@ -57,13 +66,18 @@ void Worm::Update()
 	if ( !active ) return;
 
 	if ( abs( rb->body->GetLinearVelocity().x ) < 2 )
-		rb->body->SetLinearVelocity( { Input::Get().Horizontal() * WORM_SPEED, rb->body->GetLinearVelocity().y });
+		rb->body->SetLinearVelocity( { Input::Get().Horizontal() * WORM_SPEED, rb->body->GetLinearVelocity().y } );
 
-	if ( IsGrounded() && Input::Get().Jump() && rb->body->GetLinearVelocity().y < 0.4 )
-	{
-		grounded = false;
-		rb->body->SetLinearVelocity( { rb->body->GetLinearVelocity().x * sqrtf(2.0), JUMP_FORCE * sqrtf( 2.0 ) });
-	}
+	Jump();
+}
+
+void Worm::Jump()
+{
+	if ( !IsGrounded() || !Input::Get().Jump() || rb->body->GetLinearVelocity().y > 0.4 ) return;
+
+	grounded = false;
+	rb->body->SetLinearVelocity( { rb->body->GetLinearVelocity().x * sqrtf( 2.0 ), JUMP_FORCE * sqrtf( 2.0 ) } );
+	jumpSound.Play();
 }
 
 void Worm::CleanUp()

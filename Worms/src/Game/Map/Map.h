@@ -38,6 +38,7 @@ private:
 	Position bulltetPos;
 	PhysicsInfo physicsInfo;
 	std::optional<PhysicTexture> physTex;
+	float destructionRadius;
 
 	SDL_Point mapSize{};
 };

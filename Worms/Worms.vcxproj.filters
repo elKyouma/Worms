@@ -5,6 +5,9 @@
     <Image Include="placeHolderBullet.png" />
     <Image Include="placeHolderWeapon.png" />
     <Image Include="worms.png" />
+    <Image Include="powerBar.png" />
+    <Image Include="grenade.png" />
+    <Image Include="bazooka.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -12,74 +15,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\**\*.cpp" />
-    <ClCompile Include="src\**\*.cpp" />
-    <ClCompile Include="src\**\*.cpp" />
-    <ClCompile Include="src\**\*.cpp" />
-    <ClCompile Include="src\**\*.cpp" />
-    <ClCompile Include="src\**\*.cpp" />
-    <ClCompile Include="src\**\*.cpp" />
-    <ClCompile Include="src\**\*.cpp" />
-    <ClCompile Include="src\**\*.cpp" />
-    <ClCompile Include="src\**\*.cpp" />
-    <ClCompile Include="src\**\*.cpp" />
-    <ClCompile Include="src\**\*.cpp" />
-    <ClCompile Include="src\**\*.cpp" />
-    <ClCompile Include="src\**\*.cpp" />
-    <ClCompile Include="src\**\*.cpp" />
-    <ClCompile Include="src\**\*.cpp" />
-    <ClCompile Include="src\**\*.cpp" />
-    <ClCompile Include="src\**\*.cpp" />
-    <ClCompile Include="src\**\*.cpp" />
-    <ClCompile Include="src\**\*.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\Core\GameObject.h" />
-    <ClInclude Include="src\Core\Initialization\Game.h" />
-    <ClInclude Include="src\Core\Input.h" />
-    <ClInclude Include="src\Core\Physics\b2ColliderDraw.h" />
-    <ClInclude Include="src\Core\Physics\Collider.h" />
-    <ClInclude Include="src\Core\Physics\ColliderFactory.h" />
-    <ClInclude Include="src\Core\Physics\ContactManager.h" />
-    <ClInclude Include="src\Core\Time.h" />
-    <ClInclude Include="src\Core\Utils.h" />
-    <ClInclude Include="src\ExceptionHandling\AppException.h" />
-    <ClInclude Include="src\ExceptionHandling\ECS_Exception.h" />
-    <ClInclude Include="src\ExceptionHandling\SDL_Exception.h" />
-    <ClInclude Include="src\Game\Components.h" />
-    <ClInclude Include="src\Game\Map\Map.h" />
-    <ClInclude Include="src\Game\Player\HealthBar.h" />
-    <ClInclude Include="src\Game\Player\Worm.h" />
-    <ClInclude Include="src\Game\Player\WormManager.h" />
-    <ClInclude Include="src\Game\Player\WormTeam.h" />
-    <ClInclude Include="src\Game\Systems.h" />
-    <ClInclude Include="src\Game\Tags.h" />
-    <ClInclude Include="src\Game\TagsAndLayers.h" />
-    <ClInclude Include="src\Game\Weapon\Projectille.h" />
-    <ClInclude Include="src\Game\Weapon\Weapon.h" />
-    <ClInclude Include="src\Terminal\Terminal.h" />
-    <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\**\*.h" />
-    <ClInclude Include="src\**\*.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="jump.wav" />
+    <Media Include="Rick_Roll.mp3" />
   </ItemGroup>
 </Project>
