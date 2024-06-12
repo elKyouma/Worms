@@ -2,6 +2,7 @@
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_polygon_shape.h>
 #include "Core/Input.h"
+#include "Core/ParticleSystem.h"
 #include "Core/Physics/ContactManager.h"
 #include "Core/Time.h"
 #include "Core/Utils.h"
@@ -59,13 +60,17 @@ Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, c
 
 void Worm::Update( std::vector<Worm*>& wormsToDelete )
 {
-	if ( world->GetComponent<Position>( objectId ).y < -15.f ) healthBar->TakeDamage( 100 );
+	auto& pos = world->GetComponent<Position>( objectId );
+
+	if ( pos.y < -15.f ) healthBar->TakeDamage( 100 );
 	auto& rb = world->GetComponent<RigidBody>( objectId );
 	healthBar->Update();
 
 	if ( healthBar->getCurrentHp() <= 0 )
+	{
+		GameObject::objsToAdd.emplace_back( std::make_unique<ParticleSystem>( "blood.png", 2.f, pos.x, pos.y, 200 ) );
 		wormsToDelete.emplace_back( this );
-
+	}
 	if ( !active ) return;
 
 	if ( abs( rb.body->GetLinearVelocity().x ) < 2 )

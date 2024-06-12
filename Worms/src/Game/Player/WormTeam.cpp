@@ -26,8 +26,9 @@ void WormTeam::changeActiveWorm()
 
 	if ( _worms.size() > _activeWorm )
 		_worms[_activeWorm]->Disactivate();
+
 	_activeWorm++;
-	if ( _activeWorm == _worms.size() )
+	if ( _activeWorm >= _worms.size() )
 		_activeWorm = 0;
 
 	_worms[_activeWorm]->Activate();
