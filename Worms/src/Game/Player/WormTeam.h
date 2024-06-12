@@ -17,5 +17,6 @@ public:
 private:
 	std::vector<Worm*> _worms;
 	std::vector<Worm*> _wormsToDelete;
+	Sound dieSound{ "scream.wav" };
 	int _activeWorm = 0;
 };

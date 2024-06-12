@@ -9,6 +9,8 @@ void WormTeam::addWorm( Worm* worm )
 
 void WormTeam::removeWorm( Worm* worm )
 {
+	dieSound.Play();
+
 	bool needToUpdate = false;
 	if ( worm == _worms[_activeWorm] )
 		needToUpdate = true;
