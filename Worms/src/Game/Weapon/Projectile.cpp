@@ -16,10 +16,9 @@ Projectile::Projectile( float posX, float posY, float vX, float vY ) : startPosX
 
 void Projectile::Update()
 {
-	if ( timer.Measure() > params.explosionOffset && params.explosionOffset != 0 )
-		createSensor = true;
-
-	if ( createSensor )
+	if ( createSensor ||
+		 world->GetComponent<Position>( objectId ).y < -15.f ||
+		 timer.Measure() > params.explosionOffset && params.explosionOffset != 0 )
 	{
 		createSensor = false;
 		explosionSound->Play();

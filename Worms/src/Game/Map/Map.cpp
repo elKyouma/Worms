@@ -76,7 +76,7 @@ void Map::DestroyMapAtLocalPoint( SDL_Point point )
 			pixel += (y * surf->pitch) + (x * sizeof( Uint32 ));
 
 			if ( dist < destructionRadius * 100 )
-				*((Uint32*)pixel) &= 0x00FFFFFF;
+				*((Uint32*)pixel) &= 0x00000000;
 		}
 
 	}

@@ -59,6 +59,7 @@ Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, c
 
 void Worm::Update( std::vector<Worm*>& wormsToDelete )
 {
+	if ( world->GetComponent<Position>( objectId ).y < -15.f ) healthBar->TakeDamage( 100 );
 	auto& rb = world->GetComponent<RigidBody>( objectId );
 	healthBar->Update();
 

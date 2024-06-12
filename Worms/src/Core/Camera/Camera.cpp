@@ -17,9 +17,9 @@ Position adjustPos( const Position& focusPos, const Position& currentPos )
 {
 	Position newPos{ 0,0 };
 	double dx = focusPos.x - currentPos.x;
-	double dy = focusPos.y - 1.2f - currentPos.y;
+	double dy = focusPos.y - 0.5f - currentPos.y;
 	newPos.x = smoothstep( dx, focusPos.x, currentPos.x );
-	newPos.y = smoothstep( dy, focusPos.y - 1.2f, currentPos.y );
+	newPos.y = smoothstep( dy, focusPos.y - 0.5f, currentPos.y );
 	return newPos;
 }
 
