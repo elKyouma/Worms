@@ -3,6 +3,7 @@
 
 class WormTeam
 {
+	friend class Worm;
 public:
 	void addWorm( Worm* worm );
 	void removeWorm( Worm* worm );
@@ -15,5 +16,6 @@ public:
 	~WormTeam();
 private:
 	std::vector<Worm*> _worms;
+	std::vector<Worm*> _wormsToDelete;
 	int _activeWorm = 0;
 };

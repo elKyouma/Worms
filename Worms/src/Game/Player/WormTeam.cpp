@@ -45,7 +45,13 @@ void WormTeam::RenderHealthBars() {
 void WormTeam::Update()
 {
 	for ( auto& worm : _worms )
-		worm->Update();
+		worm->Update( _wormsToDelete );
+	for ( auto worm : _wormsToDelete )
+	{
+		worm->CleanUp();
+		removeWorm( worm );
+	}
+	_wormsToDelete.clear();
 }
 
 WormTeam::~WormTeam() {

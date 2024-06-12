@@ -1,7 +1,7 @@
 #pragma once
-
-#include "Core/GameObject.h"
-#include "Game/Components.h"
+#include "Core/Camera/FocusPoint.h"
+#include <memory>
+#include <algorithm>
 
 class Camera : public GameObject
 {
@@ -14,16 +14,16 @@ public:
 
 	void Initialise( SDL_Renderer* newRenderer, World* newWorld ) override;
 	void Update() override;
+	void ChangePos( Position newPos ) { pos->x += newPos.x; pos->y += newPos.y; }
 	void ChangeX( float deltaX ) { pos->x += deltaX; }
 	void ChangeY( float deltaY ) { pos->y += deltaY; }
 	void ChangeZoom( float delta ) { zoom += delta; }
-	void ChangeTarget( EntityId newTargetId ) { target->id = newTargetId; }
+	void ChangeTarget( EntityId newTargetId ) { focusPoint->ChangeTarget(newTargetId); }
 private:
 	float zoom = 1.f;
-	bool inputs_enabled = true;
+	bool inputs_enabled = false;
 	Position* pos;
-	Follow* target;
+	std::unique_ptr<FocusPoint> focusPoint;
 
 	static constexpr float CAMERA_SPEED = 2.f;
 };
-
