@@ -37,9 +37,9 @@ Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, c
 
 	b2PolygonShape shape;
 
-	shape.SetAsBox( 0.08, 0.1 );
+	shape.SetAsBox( 0.07, 0.1 );
 	b2PolygonShape groundShape;
-	groundShape.SetAsBox( 0.05, 0.05, { 0.f, -0.08f }, 0.f );
+	groundShape.SetAsBox( 0.05, 0.07, { 0.f, -0.08f }, 0.f );
 
 	collider = std::make_unique<Collider>( ColliderFactory::Get().CreateDynamicBody( &shape, { pos.x, pos.y }, physicsInfo ) );
 	collider->FreezeRotation();

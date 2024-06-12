@@ -22,12 +22,12 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	world->RegisterSystem<TargetSystem>();
 	world->RegisterSystem<ParticleUpdater>();
 	auto camera = std::make_unique<Camera>();
+	auto cameraPtr = camera.get();
 	world->RegisterSystem<SpriteRenderer>( renderer, *camera );
 
 	physicsWorld = std::make_unique<b2World>( b2Vec2( 0, -9.811f ) );
 	setUpDebugDraw( camera );
 	ColliderFactory::Get().Init( physicsWorld.get() );
-
 	weaponManager = std::make_unique<WeaponManager>( renderer, *camera );
 	wormManager = std::make_unique<WormManager>( renderer, world.get(), physicsWorld.get(), *camera, *weaponManager->GetWeapon() );
 	wormManager->createTeam( 4 );
@@ -41,6 +41,8 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 		gameObject->Initialise( renderer, world.get() );
 
 	weaponManager->Initialise();
+
+	cameraPtr->ChangeTarget( wormManager->GetActiveWormId() );
 
 	music = std::make_unique<Music>( "Rick_Roll.ogg" );
 	music->Play();

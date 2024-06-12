@@ -24,6 +24,6 @@ struct Bazooka : public WeaponImpl
 		shootingSound = "shoot_bazooka.wav";
 		gravityScale = 0.5f;
 		maxSpeed = 3.f;
-		explosionRadius = 0.4f;
+		explosionRadius = 0.3f;
 	}
 };

@@ -108,10 +108,9 @@ void WormManager::ChangeTeam()
 
 	_activeTeam += 1;
 	if ( _activeTeam == _teams.size() )
-	{
 		_activeTeam = 0;
-		ChangeActiveWorm();
-	}
+
+	ChangeActiveWorm();
 	camera.ChangeTarget( _teams[_activeTeam]->getActiveWorm() );
 }
 
