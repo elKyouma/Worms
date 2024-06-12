@@ -14,7 +14,7 @@ class Worm : public GameObject
 {
 public:
 	Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, const Camera& camera, SDL_Texture* texture );
-	void Update(std::vector<Worm*>& wormsToDelete);
+	void Update( std::vector<Worm*>& wormsToDelete );
 	void Jump();
 	void CleanUp() override;
 	void Render() override;
@@ -24,8 +24,6 @@ public:
 	bool IsGrounded() const;
 
 private:
-	RigidBody* rb;
-	Position* pos;
 	Sound jumpSound{ "jump.wav" };
 	std::unique_ptr<HealthBar> healthBar;
 	std::unique_ptr<Collider> collider = NULL;
@@ -35,7 +33,7 @@ private:
 
 	PhysicsInfo physicsInfo;
 	PhysicsInfo groundedPhysicsInfo;
-
+	EntityId groundedId;
 	static constexpr float WORM_SPEED = 2.f;
 	static constexpr float JUMP_FORCE = 2.5f;
 };

@@ -44,7 +44,14 @@ SDL_Texture* createTexture( int team, SDL_Renderer* renderer ) {
 };
 
 WormManager::WormManager( SDL_Renderer* renderer, World* world, b2World* physicsWorld, Camera& camera, Weapon& weapon )
-	: _renderer( renderer ), _world( world ), _teams(), physicsWorld( physicsWorld ), camera( camera ), weapon( weapon ) {}
+	: _renderer( renderer ), _world( world ), _teams(), physicsWorld( physicsWorld ), camera( camera ), weapon( weapon )
+{
+	camera.noTargetEvent = [&] ()
+		{
+			ChangeTeam();
+			camera.ChangeTarget( _teams[_activeTeam]->getActiveWorm() );
+		};
+}
 
 void WormManager::createTeam( int size )
 {
@@ -72,7 +79,6 @@ void WormManager::Update()
 		ChangeTeam();
 
 	_teams[_activeTeam]->Update();
-	camera.ChangeTarget( _teams[_activeTeam]->getActiveWorm() );
 	weapon.SetParent( GetActiveWormId() );
 }
 
@@ -102,7 +108,11 @@ void WormManager::ChangeTeam()
 
 	_activeTeam += 1;
 	if ( _activeTeam == _teams.size() )
+	{
 		_activeTeam = 0;
+		ChangeActiveWorm();
+	}
+	camera.ChangeTarget( _teams[_activeTeam]->getActiveWorm() );
 }
 
 void WormManager::ChangeActiveWorm()

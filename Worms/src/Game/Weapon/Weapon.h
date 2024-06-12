@@ -9,7 +9,7 @@
 class Weapon : public GameObject
 {
 public:
-	Weapon( const Camera& camera );
+	Weapon( Camera& camera );
 
 	void Initialise( SDL_Renderer* newRenderer, World* newWorld ) override;
 	void Update() override;
@@ -24,8 +24,6 @@ public:
 
 private:
 	EntityId parentId;
-	Position* pos;
-	Rotation* rot;
 	float force = 0;
 	SDL_Texture* powerBar;
 	SDL_Texture* projTexture;
@@ -33,7 +31,7 @@ private:
 	Sound* collisionSound;
 	Sound* shootingSound;
 
-	const Camera& camera;
+	Camera& camera;
 	WeaponImpl weaponParams;
 };
 

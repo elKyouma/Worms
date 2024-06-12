@@ -75,7 +75,6 @@ void Game::Update()
 	wormManager->Update();
 	weaponManager->Update();
 
-
 	for ( auto& ptr : GameObject::objsToAdd )
 	{
 		ptr->Initialise( renderer, world.get() );

@@ -7,12 +7,11 @@
 #include "Core/Utils.h"
 #include "ExceptionHandling/SDL_Exception.h"
 #include "Game/Player/Worm.h"
-#include "Terminal/Terminal.h"
 
 Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, const Camera& camera, SDL_Texture* texture )
 {
 	Initialise( newRenderer, newWorld );
-	pos = &world->AddComponent<Position>( objectId, { 2, 1 } );
+	auto& pos = world->AddComponent<Position>( objectId, { 2, 1 } );
 
 	physicsInfo.tag = PhysicsTag::WORM;
 	physicsInfo.id = objectId;
@@ -26,7 +25,7 @@ Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, c
 											healthBar->TakeDamage( 40 );
 									} );
 
-	auto groundedId = world->CreateEntity();
+	groundedId = world->CreateEntity();
 	groundedPhysicsInfo.tag = PhysicsTag::GROUNDED;
 	groundedPhysicsInfo.id = groundedId;
 
@@ -40,7 +39,7 @@ Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, c
 	b2PolygonShape groundShape;
 	groundShape.SetAsBox( 0.1, 0.05, { 0.f, -0.15f }, 0.f );
 
-	collider = std::make_unique<Collider>( ColliderFactory::Get().CreateDynamicBody( &shape, { pos->x, pos->y }, physicsInfo ) );
+	collider = std::make_unique<Collider>( ColliderFactory::Get().CreateDynamicBody( &shape, { pos.x, pos.y }, physicsInfo ) );
 	collider->FreezeRotation();
 	ColliderFactory::Get().CreateTriggerFixture( collider->GetBody(), &groundShape, groundedPhysicsInfo );
 	ContactManager::Get().AddEvent( groundedId, CollisionType::BEGIN,
@@ -53,15 +52,12 @@ Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, c
 									} );
 
 	healthBar = std::make_unique<HealthBar>( newRenderer, newWorld, objectId, camera, 100, texture );
-	rb = &world->AddComponent<RigidBody>( objectId );
-	rb->body = collider->GetBody();
+	world->AddComponent<RigidBody>( objectId, { collider->GetBody() } );
 }
 
 void Worm::Update( std::vector<Worm*>& wormsToDelete )
 {
-	pos->x = rb->body->GetPosition().x;
-	pos->y = rb->body->GetPosition().y;
-
+	auto& rb = world->GetComponent<RigidBody>( objectId );
 	healthBar->Update();
 
 	if ( healthBar->getCurrentHp() <= 0 )
@@ -69,24 +65,30 @@ void Worm::Update( std::vector<Worm*>& wormsToDelete )
 
 	if ( !active ) return;
 
-	if ( abs( rb->body->GetLinearVelocity().x ) < 2 )
-		rb->body->SetLinearVelocity( { Input::Get().Horizontal() * WORM_SPEED, rb->body->GetLinearVelocity().y } );
+	if ( abs( rb.body->GetLinearVelocity().x ) < 2 )
+		rb.body->SetLinearVelocity( { Input::Get().Horizontal() * WORM_SPEED, rb.body->GetLinearVelocity().y } );
 
 	Jump();
 }
 
 void Worm::Jump()
 {
-	if ( !IsGrounded() || !Input::Get().Jump() || rb->body->GetLinearVelocity().y > 0.4 ) return;
+	auto& rb = world->GetComponent<RigidBody>( objectId );
+	if ( !IsGrounded() || !Input::Get().Jump() || rb.body->GetLinearVelocity().y > 0.4 ) return;
 
 	grounded = false;
-	rb->body->SetLinearVelocity( { rb->body->GetLinearVelocity().x * sqrtf( 2.0 ), JUMP_FORCE * sqrtf( 2.0 ) } );
+	rb.body->SetLinearVelocity( { rb.body->GetLinearVelocity().x * sqrtf( 2.0 ), JUMP_FORCE * sqrtf( 2.0 ) } );
 	jumpSound.Play();
 }
 
 void Worm::CleanUp()
 {
-	SDL_DestroyTexture( world->GetComponent<Sprite>( objectId ).texture );
+	ColliderFactory::Get().GetPhysicsWorld()->DestroyBody( collider->GetBody() );
+	world->DestroyEntity( groundedId );
+	ContactManager::Get().ClearEvent( groundedId, CollisionType::BEGIN );
+	ContactManager::Get().ClearEvent( groundedId, CollisionType::END );
+	healthBar->CleanUp();
+	GameObject::CleanUp();
 }
 
 void Worm::Render() {

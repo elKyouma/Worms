@@ -33,8 +33,6 @@ private:
 	bool destroyed = false;
 	b2World* physicsWorld;
 
-	Position* pos;
-	Sprite* sprite;
 	Position bulltetPos;
 	PhysicsInfo physicsInfo;
 	std::optional<PhysicTexture> physTex;

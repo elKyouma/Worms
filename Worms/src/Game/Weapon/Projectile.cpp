@@ -16,36 +16,29 @@ Projectile::Projectile( float posX, float posY, float vX, float vY ) : startPosX
 
 void Projectile::Update()
 {
-	if ( destroyNextFrame )
-	{
-		destroyNextFrame = false;
-		collider->GetBody()->DestroyFixture( fixture );
-		GameObject::objsToDelete.emplace_back( this );
-		return;
-	}
 	if ( timer.Measure() > params.explosionOffset && params.explosionOffset != 0 )
 		createSensor = true;
 
 	if ( createSensor )
 	{
 		createSensor = false;
-		destroyNextFrame = true;
 		explosionSound->Play();
 
-		rigidBody->body->SetAwake( true );
+		world->GetComponent<RigidBody>( objectId ).body->SetAwake( true );
 		sensorInfo.id = objectId;
 		sensorInfo.tag = PhysicsTag::DESTRUCTION_FIELD;
 		b2CircleShape shape;
 		shape.m_radius = params.explosionRadius;
 		fixture = ColliderFactory::Get().CreateTriggerFixture( collider->GetBody(), &shape, sensorInfo );
+		GameObject::objsToDelete.emplace_back( this );
 	}
 }
 
 void Projectile::CleanUp()
 {
-	GameObject::CleanUp();
 	world->GetComponent<Sprite>( objectId ).texture = nullptr;
-	ColliderFactory::Get().GetPhysicsWorld()->DestroyBody( rigidBody->body );
+	ColliderFactory::Get().GetPhysicsWorld()->DestroyBody( world->GetComponent<RigidBody>( objectId ).body );
+	GameObject::CleanUp();
 }
 
 void Projectile::onCollision( b2Contact* constact )
@@ -63,19 +56,19 @@ void Projectile::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 
 	timer.Reset();
 
-	position = &world->AddComponent<Position>( objectId, { startPosX, startPosY } );
+	world->AddComponent<Position>( objectId, { startPosX, startPosY } );
 
 	Sprite& spriteComponent = world->AddComponent<Sprite>( objectId, { texture } );
 
 	world->AddComponent<Rotation>( objectId, { 0 } );
-	rigidBody = &world->AddComponent<RigidBody>( objectId );
+	auto rigidBody = &world->AddComponent<RigidBody>( objectId );
 
 	physicsInfo.id = objectId;
 	physicsInfo.tag = PhysicsTag::BULLET;
 
 	b2CircleShape shape;
 	shape.m_radius = 0.1f;
-	collider = std::make_unique<Collider>( ColliderFactory::Get().CreateDynamicBody( &shape, { position->x, position->y }, physicsInfo, reinterpret_cast<uintptr_t>(&params) ) );
+	collider = std::make_unique<Collider>( ColliderFactory::Get().CreateDynamicBody( &shape, { startPosX, startPosY }, physicsInfo, reinterpret_cast<uintptr_t>(&params) ) );
 	collider->SetContinuous( true );
 	collider->SetVelocity( b2Vec2( startVelX * params.maxSpeed, startVelY * params.maxSpeed ) );
 
@@ -84,4 +77,5 @@ void Projectile::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 
 	ContactManager::Get().AddEvent( objectId, CollisionType::BEGIN, std::bind( &Projectile::onCollision, this, std::placeholders::_1 ) );
 
+	camera->ChangeTarget( objectId );
 }

@@ -13,8 +13,6 @@
 
 Map::Map( b2World* physicsWorld ) : physicsWorld( physicsWorld )
 {
-	//else
-		//TODO return error
 }
 
 void Map::Initialise( SDL_Renderer* renderer, World* world )
@@ -23,8 +21,7 @@ void Map::Initialise( SDL_Renderer* renderer, World* world )
 
 	physicsInfo.id = objectId;
 	physicsInfo.tag = PhysicsTag::MAP;
-	pos = &world->AddComponent<Position>( objectId, { 1.5f, -1.f } );
-	sprite = &world->AddComponent<Sprite>( objectId );
+	world->AddComponent<Position>( objectId, { 1.5f, -1.f } );
 
 	physTex = IMG_LoadPhysicTexture( renderer, "map.png" );
 	ContactManager::Get().AddEvent( objectId, CollisionType::BEGIN, std::bind( &Map::DestroyMap, this, std::placeholders::_1 ) );
@@ -35,7 +32,7 @@ void Map::Initialise( SDL_Renderer* renderer, World* world )
 		SDL_QueryTexture( texture, NULL, NULL, &mapSize.x, &mapSize.y );
 		CreateNewColliders();
 
-		sprite->texture = texture;
+		world->AddComponent<Sprite>( objectId, { texture } );
 	}
 }
 
@@ -50,7 +47,7 @@ void Map::Update()
 
 	auto texture = SDL_CreateTextureFromSurface( renderer, physTex.value().surface );
 	SDL_DestroyTexture( world->GetComponent<Sprite>( objectId ).texture );
-	sprite->texture = texture;
+	world->GetComponent<Sprite>( objectId ).texture = texture;
 }
 
 void Map::CleanUp()
@@ -92,7 +89,7 @@ void Map::DestroyMap( b2Contact* contact )
 
 	bulltetPos = world->GetComponent<Position>( entId.value() );
 	auto contactBody = GetObjectWithTag( contact, PhysicsTag::DESTRUCTION_FIELD );
-	destructionRadius = reinterpret_cast<Parameters *>(contactBody.value()->GetUserData().pointer)->explosionRadius;
+	destructionRadius = reinterpret_cast<Parameters*>(contactBody.value()->GetUserData().pointer)->explosionRadius;
 	if ( destroyed ) return;
 
 	destroyed = true;
@@ -116,7 +113,8 @@ void Map::CreateNewColliders()
 
 	b2ChainShape shape;
 	shape.CreateLoop( &physTex->points[0][0], physTex->points[0].size() );
-	auto collider = ColliderFactory::Get().CreateStaticBody( &shape, { pos->x, pos->y }, physicsInfo );
+	auto& pos = world->GetComponent<Position>( objectId );
+	auto collider = ColliderFactory::Get().CreateStaticBody( &shape, { pos.x, pos.y }, physicsInfo );
 	GenerateFixturesForAllContours( collider );
 
 	world->GetComponent<RigidBody>( objectId ).body = collider.GetBody();

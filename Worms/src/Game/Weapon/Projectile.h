@@ -24,6 +24,7 @@ public:
 	void SetBaseDamage( float damage ) { params.baseDamage = damage; }
 	void SetGravityScale( float scale ) { params.gravityScale = scale; }
 	void SetMaxSpeed( float speed ) { params.maxSpeed = speed / 10.f; }
+	void SetCamera( Camera* camera ) { this->camera = camera; }
 
 private:
 
@@ -31,16 +32,12 @@ private:
 
 	float startPosX, startPosY, startVelX, startVelY;
 
-	bool destroyNextFrame = false;
 	bool createSensor = false;
 	PhysicsInfo physicsInfo;
 	PhysicsInfo sensorInfo;
-	RigidBody* rigidBody;
-	Position* position;
-	Rotation* rotation;
 	b2Fixture* fixture;
+	Camera* camera;
 	std::unique_ptr<Collider> collider;
-	EntityId sensorId;
 	Time::Timer timer;
 	Parameters params{};
 

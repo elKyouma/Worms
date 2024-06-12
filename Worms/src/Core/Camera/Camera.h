@@ -1,7 +1,8 @@
 #pragma once
-#include "Core/Camera/FocusPoint.h"
-#include <memory>
 #include <algorithm>
+#include <memory>
+#include "Core/Camera/FocusPoint.h"
+#include "Core/Time.h"
 
 class Camera : public GameObject
 {
@@ -18,12 +19,17 @@ public:
 	void ChangeX( float deltaX ) { pos->x += deltaX; }
 	void ChangeY( float deltaY ) { pos->y += deltaY; }
 	void ChangeZoom( float delta ) { zoom += delta; }
-	void ChangeTarget( EntityId newTargetId ) { focusPoint->ChangeTarget(newTargetId); }
+	void ChangeTarget( EntityId newTargetId ) { focusPoint->ChangeTarget( newTargetId ); }
+
+	std::function<void()> noTargetEvent = nullptr;
+
 private:
 	float zoom = 1.f;
 	bool inputs_enabled = false;
 	Position* pos;
 	std::unique_ptr<FocusPoint> focusPoint;
+	Time::Timer timer{};
+
 
 	static constexpr float CAMERA_SPEED = 2.f;
 };
