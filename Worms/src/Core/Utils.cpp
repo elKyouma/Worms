@@ -38,7 +38,7 @@ std::vector<std::vector<SDL_Point>>  MarchingSquares( Uint32* org_pixels, int w,
 	{
 		for ( int x = 0; x < w; x++ )
 		{
-			if ( org_pixels[x + y * w] == 0xFF000000 )
+			if ( (org_pixels[x + y * w] & 0xFF00000) != 0x00000000 )
 			{
 				bitmap_pixels[x + y * bitmap->w]++;
 				bitmap_pixels[x + 1 + y * bitmap->w] += 2;

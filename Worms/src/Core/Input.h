@@ -25,11 +25,12 @@ public:
 	bool ChangeWorm() { if ( change_worm ) { change_worm = false; return true; } else return false; }
 	bool ChangeTeam() { if ( change_team ) { change_team = false; return true; } else return false; }
 
-	bool UseAction() { return use_action; }
+	bool UseAction() const { return use_action; }
 
-	bool Jump() { return jump; }
+	bool Jump() const { return jump; }
 
 	int ChangeWeapon() { int temp = changeWeapon; changeWeapon = 0; return temp; }
+	bool CameraControll() const { return cameraControl; };
 
 private:
 	float horizontal;
@@ -46,6 +47,7 @@ private:
 	bool jump;
 
 	int changeWeapon;
+	bool cameraControl = false;
 
 	Input() = default;
 

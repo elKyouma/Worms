@@ -11,7 +11,9 @@
 Worm::Worm( SDL_Renderer* newRenderer, World* newWorld, b2World* physicsWorld, const Camera& camera, SDL_Texture* texture )
 {
 	Initialise( newRenderer, newWorld );
-	auto& pos = world->AddComponent<Position>( objectId, { 2, 1 } );
+	static float posX = -2.f;
+	posX += 1.f;
+	auto& pos = world->AddComponent<Position>( objectId, { posX, 2 } );
 
 	physicsInfo.tag = PhysicsTag::WORM;
 	physicsInfo.id = objectId;

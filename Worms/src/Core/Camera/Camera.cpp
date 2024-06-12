@@ -32,7 +32,7 @@ void Camera::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 
 void Camera::Update()
 {
-	if ( inputs_enabled )
+	if ( Input::Get().CameraControll() )
 	{
 		ChangeX( Input::Get().CameraHorizontal() * static_cast<float>(Time::deltaTime) * CAMERA_SPEED );
 		ChangeY( Input::Get().CameraVertical() * static_cast<float>(Time::deltaTime) * CAMERA_SPEED );

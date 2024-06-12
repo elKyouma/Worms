@@ -21,7 +21,7 @@ void Map::Initialise( SDL_Renderer* renderer, World* world )
 
 	physicsInfo.id = objectId;
 	physicsInfo.tag = PhysicsTag::MAP;
-	world->AddComponent<Position>( objectId, { 1.5f, -1.f } );
+	world->AddComponent<Position>( objectId, { 1.5f, -2.f } );
 
 	physTex = IMG_LoadPhysicTexture( renderer, "map.png" );
 	ContactManager::Get().AddEvent( objectId, CollisionType::BEGIN, std::bind( &Map::DestroyMap, this, std::placeholders::_1 ) );
@@ -151,7 +151,7 @@ void Map::SimplifyContour( std::vector<std::vector<b2Vec2>>& physPoints )
 {
 	for ( auto& points : physPoints )
 	{
-		points = DouglasPeucker( points, 0.02 );
+		points = DouglasPeucker( points, 0.05 );
 		for ( auto& point : points ) {
 			point.x -= mapSize.x / 200.f;
 			point.y += mapSize.y / 200.f;
