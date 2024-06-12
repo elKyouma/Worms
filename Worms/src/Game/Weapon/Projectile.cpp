@@ -4,11 +4,11 @@
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_world.h>
 #include <SDL2/SDL_image.h>
+#include "Core/ParticleSystem.h"
 #include "Core/Physics/ColliderFactory.h"
 #include "Core/Physics/ContactManager.h"
 #include "ExceptionHandling/SDL_Exception.h"
 #include "Game/Weapon/Projectile.h"
-#include "Terminal/Terminal.h"
 
 Projectile::Projectile( float posX, float posY, float vX, float vY ) : startPosX( posX ), startPosY( posY ), startVelX( vX ), startVelY( vY )
 {
@@ -16,12 +16,14 @@ Projectile::Projectile( float posX, float posY, float vX, float vY ) : startPosX
 
 void Projectile::Update()
 {
+	auto& pos = world->GetComponent<Position>( objectId );
 	if ( createSensor ||
-		 world->GetComponent<Position>( objectId ).y < -15.f ||
+		 pos.y < -15.f ||
 		 timer.Measure() > params.explosionOffset && params.explosionOffset != 0 )
 	{
 		createSensor = false;
 		explosionSound->Play();
+		GameObject::objsToAdd.emplace_back( std::make_unique<ParticleSystem>( "particle.png", params.explosionRadius * 3.f, pos.x, pos.y, 100 ) );
 
 		world->GetComponent<RigidBody>( objectId ).body->SetAwake( true );
 		sensorInfo.id = objectId;

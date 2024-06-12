@@ -10,7 +10,7 @@
 class ParticleSystem : public GameObject
 {
 public:
-	ParticleSystem( float startPosX, float startPosY, int amountOfParticles );
+	ParticleSystem( std::string particleImg, float startScale, float startPosX, float startPosY, int amountOfParticles );
 
 	void CleanUp() final;
 	void Update() final;
@@ -19,6 +19,8 @@ public:
 private:
 	float easeOutCubic( float x );
 	float startPosX, startPosY;
+	std::string particleImg;
+	float startScale;
 	int amountOfParticles;
 	float timer = 0.f;
 	float length = 5.f;

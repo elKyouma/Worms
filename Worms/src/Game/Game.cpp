@@ -35,7 +35,6 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	GameObject::activeObjs.emplace_back( std::make_unique<Map>( physicsWorld.get() ) );
 	GameObject::activeObjs.emplace_back( std::move( camera ) );
 
-	GameObject::activeObjs.emplace_back( std::make_unique<ParticleSystem>( 1, 1, 100 ) );
 
 	for ( auto& gameObject : GameObject::activeObjs )
 		gameObject->Initialise( renderer, world.get() );

@@ -1,6 +1,9 @@
 #include "ParticleSystem.h"
 
-ParticleSystem::ParticleSystem( float startPosX, float startPosY, int amountOfParticles ) : startPosX( startPosX ), startPosY( startPosY ), amountOfParticles( amountOfParticles )
+ParticleSystem::ParticleSystem( std::string particleImg, float startScale, float startPosX,
+								float startPosY, int amountOfParticles ) : particleImg( particleImg ),
+	startScale( startScale ), startPosX( startPosX ), startPosY( startPosY ),
+	amountOfParticles( amountOfParticles )
 {
 	srand( time( NULL ) );
 }
@@ -24,7 +27,7 @@ void ParticleSystem::Update()
 void ParticleSystem::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 {
 	GameObject::Initialise( newRenderer, newWorld );
-	SDL_Texture* texture = IMG_LoadTexture( renderer, "worms.png" );
+	SDL_Texture* texture = IMG_LoadTexture( renderer, particleImg.c_str() );
 	SDL_CHECK( texture );
 
 
@@ -38,7 +41,7 @@ void ParticleSystem::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 		world->AddComponent<Position>( particleId, { startPosX, startPosY } );
 		world->AddComponent<Motion>( particleId, { vel.x, vel.y } );
 		world->AddComponent<Sprite>( particleId, { texture } );
-		world->AddComponent<Scale>( particleId, { 1.f * rand() / RAND_MAX } );
+		world->AddComponent<Scale>( particleId, { startScale * rand() / RAND_MAX } );
 		particles.emplace_back( particleId );
 	}
 }
