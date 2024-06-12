@@ -9,8 +9,15 @@ void WormTeam::addWorm( Worm* worm )
 
 void WormTeam::removeWorm( Worm* worm )
 {
+	bool needToUpdate = false;
+	if ( worm == _worms[_activeWorm] )
+		needToUpdate = true;
+
 	_worms.erase( std::remove_if( _worms.begin(), _worms.end(),
 				  [worm] ( Worm* current ) {return worm == current; } ) );
+
+	if ( needToUpdate )
+		changeActiveWorm();
 }
 
 void WormTeam::changeActiveWorm()
