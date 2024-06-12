@@ -23,6 +23,8 @@ void Weapon::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 
 void Weapon::Update()
 {
+	if ( !canShoot ) return;
+
 	auto& pos = world->GetComponent<Position>( objectId );
 	auto& rot = world->GetComponent<Rotation>( objectId );
 	pos = world->GetComponent<Position>( parentId );
@@ -41,6 +43,7 @@ void Weapon::Update()
 	{
 		if ( force )
 		{
+			canShoot = false;
 			shootingSound->Play();
 			GameObject::objsToAdd.emplace_back(
 				std::make_unique<Projectile>( pos.x + 0.5f * cosf( rot.degree * static_cast<float>(M_PI) / 180 ),

@@ -14,6 +14,7 @@ public:
 	void Initialise( SDL_Renderer* newRenderer, World* newWorld ) override;
 	void Update() override;
 	void Render() override;
+	void Activate() { canShoot = true; }
 	void SetParent( EntityId newParent ) { parentId = newParent; }
 	void SetParams( WeaponImpl params ) { weaponParams = params; }
 	void SetTexture( SDL_Texture* texture ) { world->GetComponent<Sprite>( objectId ).texture = texture; }
@@ -25,6 +26,7 @@ public:
 private:
 	EntityId parentId;
 	float force = 0;
+	bool canShoot = true;
 	SDL_Texture* powerBar;
 	SDL_Texture* projTexture;
 	Sound* explosionSound;

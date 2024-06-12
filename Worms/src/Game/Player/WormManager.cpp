@@ -50,6 +50,7 @@ WormManager::WormManager( SDL_Renderer* renderer, World* world, b2World* physics
 		{
 			ChangeTeam();
 			camera.ChangeTarget( _teams[_activeTeam]->getActiveWorm() );
+			weapon.Activate();
 		};
 }
 
