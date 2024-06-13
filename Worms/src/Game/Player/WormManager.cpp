@@ -49,8 +49,10 @@ WormManager::WormManager( SDL_Renderer* renderer, World* world, b2World* physics
 	camera.noTargetEvent = [&] ()
 		{
 			ChangeTeam();
-			camera.ChangeTarget( _teams[_activeTeam]->getActiveWorm() );
-			weapon.Activate();
+			if ( _teams.size() != 0 ) {
+				camera.ChangeTarget( _teams[_activeTeam]->getActiveWorm() );
+				weapon.Activate();
+			}
 		};
 }
 
@@ -78,11 +80,20 @@ void WormManager::Update()
 		ChangeActiveWorm();
 	if ( Input::Get().ChangeTeam() )
 		ChangeTeam();
-
+	if ( _activeTeam >= _teams.size() ) {
+		_activeTeam--;
+	}
+	if ( _teams.size() <= 0 )
+		return;
 	_teams[_activeTeam]->Update();
+
 	if ( _teams[_activeTeam]->Size() == 0 ) {
 		deleteTeam( _teams[_activeTeam] );
 	}
+
+	if ( _teams.size() <= 0 )
+		return;
+
 	weapon.SetParent( GetActiveWormId() );
 }
 
