@@ -80,6 +80,9 @@ void WormManager::Update()
 		ChangeTeam();
 
 	_teams[_activeTeam]->Update();
+	if ( _teams[_activeTeam]->Size() == 0 ) {
+		deleteTeam( _teams[_activeTeam] );
+	}
 	weapon.SetParent( GetActiveWormId() );
 }
 
