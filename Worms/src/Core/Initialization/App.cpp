@@ -115,6 +115,8 @@ void App::PreRender()
 	if ( ImGui::BeginMenu( "Debug" ) )
 	{
 		ImGui::Checkbox( "Toggle colliders", &toggleColliders );
+		if ( ImGui::Button( "Terminal" ) )
+			Terminal::Get().TurnOn();
 		ImGui::EndMenu();
 	}
 	ImGui::EndMainMenuBar();
