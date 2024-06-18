@@ -24,13 +24,11 @@ public:
 
 	void Log( std::string&& message, LogLevel level );
 
-	void TurnOn();;
+	void TurnOn();
 	void Update();
 	void Render();
 
 private:
-	bool scroll = true;
-
 	std::string fileName = "logs.txt";
 	std::vector<std::string> Lines;
 
