@@ -12,9 +12,7 @@ void WormTeam::removeWorm( Worm* worm )
 	dieSound.Play();
 
 	bool needToUpdate = false;
-	if ( _activeWorm >= _worms.size() ) {
-		_activeWorm--;
-	}
+	activeCheck();
 	if ( worm == _worms[_activeWorm] )
 		needToUpdate = true;
 
@@ -33,17 +31,14 @@ void WormTeam::changeActiveWorm()
 		_worms[_activeWorm]->Disactivate();
 
 	_activeWorm++;
-	if ( _activeWorm >= _worms.size() )
-		_activeWorm = 0;
+	activeCheck();
 
 	_worms[_activeWorm]->Activate();
 }
 
 EntityId WormTeam::getActiveWorm()
 {
-	if ( _activeWorm >= _worms.size() ) {
-		_activeWorm--;
-	}
+	activeCheck();
 	return _worms[_activeWorm]->GetId();
 }
 
@@ -75,4 +70,11 @@ WormTeam::~WormTeam() {
 	for ( auto& worm : _worms )
 		delete worm;
 	_worms.clear();
+}
+
+void WormTeam::activeCheck()
+{
+	if ( _activeWorm >= _worms.size() ) {
+		_activeWorm = 0;
+	}
 }

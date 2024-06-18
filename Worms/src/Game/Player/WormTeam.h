@@ -15,6 +15,7 @@ public:
 
 	~WormTeam();
 private:
+	void activeCheck();
 	std::vector<Worm*> _worms;
 	std::vector<Worm*> _wormsToDelete;
 	Sound dieSound{ "scream.wav" };

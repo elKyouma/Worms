@@ -5,29 +5,24 @@ SDL_Texture* createTexture( int team, SDL_Renderer* renderer ) {
 	float width = 40.;
 	float height = 10.;
 	SDL_Surface* surface = SDL_CreateRGBSurface( 0, width, height, 32, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000 );
-	int r = 0;
-	int g = 0;
-	int b = 0;
-	switch ( team ) {
-	case 0:
-		g = 255;
-		break;
-	case 1:
-		r = 255;
-		break;
-	case 2:
-		r = 255;
-		g = 255;
-		break;
-	case 3:
-		g = 255;
-		b = 255;
-		break;
-	default:
-		r = 255;
-		g = 255;
-		b = 255;
+	if ( !surface ) {
+		return nullptr;
 	}
+
+	Uint8 colors[4][3] = {
+		{0, 255, 0},  // team 0: green
+		{255, 0, 0},  // team 1: red
+		{255, 255, 0},// team 2: yellow
+		{0, 255, 255} // team 3: cyan
+	};
+
+	Uint8 r = 255, g = 255, b = 255; // default: white
+	if ( team < 4 ) {
+		r = colors[team][0];
+		g = colors[team][1];
+		b = colors[team][2];
+	}
+
 	for ( int y = 0; y < height; y++ )
 	{
 		for ( int x = 0; x < width; x++ )
@@ -53,7 +48,7 @@ WormManager::WormManager( SDL_Renderer* renderer, World* world, b2World* physics
 				camera.ChangeTarget( _teams[_activeTeam]->getActiveWorm() );
 				weapon.Activate();
 			}
-		};
+		};	
 }
 
 void WormManager::createTeam( int size )
@@ -74,27 +69,34 @@ void WormManager::deleteTeam( WormTeam* team )
 				  [team] ( WormTeam* current ) {return team == current; } ) );
 }
 
+void WormManager::ChangeTeam()
+{
+	if ( _teams.empty() ) return;
+
+	_activeTeam = (_activeTeam + 1) % _teams.size();
+	ChangeActiveWorm();
+	camera.ChangeTarget( _teams[_activeTeam]->getActiveWorm() );
+}
+
+void WormManager::ChangeActiveWorm()
+{
+	if ( !_teams.empty() )
+		_teams[_activeTeam]->changeActiveWorm();
+}
+
 void WormManager::Update()
 {
-	if ( Input::Get().ChangeWorm() )
-		ChangeActiveWorm();
-	if ( Input::Get().ChangeTeam() )
-		ChangeTeam();
-	if ( _activeTeam >= _teams.size() ) {
-		_activeTeam--;
-	}
-	if ( _teams.size() <= 0 )
-		return;
+	if ( Input::Get().ChangeWorm() ) ChangeActiveWorm();
+	if ( Input::Get().ChangeTeam() ) ChangeTeam();
+	if ( _teams.empty() ) return;
+
 	_teams[_activeTeam]->Update();
 
 	if ( _teams[_activeTeam]->Size() == 0 ) {
 		deleteTeam( _teams[_activeTeam] );
 	}
-
-	if ( _teams.size() <= 0 )
-		return;
-
-	weapon.SetParent( GetActiveWormId() );
+	if ( !_teams.empty() )
+		weapon.SetParent( GetActiveWormId() );
 }
 
 void WormManager::RenderHealthBars()
@@ -115,22 +117,4 @@ WormManager::~WormManager() {
 		}
 		_teams.clear();
 	}
-}
-
-void WormManager::ChangeTeam()
-{
-	if ( _teams.empty() ) return;
-
-	_activeTeam += 1;
-	if ( _activeTeam == _teams.size() )
-		_activeTeam = 0;
-
-	ChangeActiveWorm();
-	camera.ChangeTarget( _teams[_activeTeam]->getActiveWorm() );
-}
-
-void WormManager::ChangeActiveWorm()
-{
-	if ( _teams.empty() ) return;
-	_teams[_activeTeam]->changeActiveWorm();
 }
