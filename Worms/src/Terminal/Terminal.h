@@ -24,18 +24,20 @@ public:
 
 	void Log( std::string&& message, LogLevel level );
 
+	void TurnOn();
 	void Update();
 	void Render();
 
 private:
-	bool scroll = true;
-
 	std::string fileName = "logs.txt";
 	std::vector<std::string> Lines;
 
 	std::string getCurrentTime();
 	std::string getLogLevelString( LogLevel level );
 	std::ofstream logFile;
+
+	bool open = false;
+
 
 	Terminal() { Lines.reserve( 10000 ); logFile.open( fileName ); }
 	~Terminal() { logFile.close(); }
