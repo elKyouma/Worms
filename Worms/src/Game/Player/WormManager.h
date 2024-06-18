@@ -18,6 +18,7 @@ public:
 
 	~WormManager();
 private:
+	void activeCheck();
 	void ChangeTeam();
 	void ChangeActiveWorm();
 

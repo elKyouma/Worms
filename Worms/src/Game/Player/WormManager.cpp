@@ -95,6 +95,7 @@ void WormManager::Update()
 	if ( _teams[_activeTeam]->Size() == 0 ) {
 		deleteTeam( _teams[_activeTeam] );
 	}
+	activeCheck();
 	if ( !_teams.empty() )
 		weapon.SetParent( GetActiveWormId() );
 }
@@ -116,5 +117,12 @@ WormManager::~WormManager() {
 			team = nullptr;
 		}
 		_teams.clear();
+	}
+}
+
+void WormManager::activeCheck()
+{
+	if ( _activeTeam >= _teams.size() ) {
+		_activeTeam = 0;
 	}
 }
