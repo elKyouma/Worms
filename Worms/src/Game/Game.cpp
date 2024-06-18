@@ -30,8 +30,8 @@ void Game::InitWindow( const std::string& title, const int width, const int heig
 	ColliderFactory::Get().Init( physicsWorld.get() );
 	weaponManager = std::make_unique<WeaponManager>( renderer, *camera );
 	wormManager = std::make_unique<WormManager>( renderer, world.get(), physicsWorld.get(), *camera, *weaponManager->GetWeapon() );
-	wormManager->createTeam( 4 );
-	wormManager->createTeam( 4 );
+	wormManager->CreateTeam( 4 );
+	wormManager->CreateTeam( 4 );
 	GameObject::activeObjs.emplace_back( std::make_unique<Map>( physicsWorld.get() ) );
 	GameObject::activeObjs.emplace_back( std::move( camera ) );
 

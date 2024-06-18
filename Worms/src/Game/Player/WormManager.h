@@ -10,23 +10,23 @@ public:
 	WormManager( const WormManager& ) = delete;
 	WormManager( WormManager&& ) = delete;
 
-	void createTeam( int size );
-	void deleteTeam( WormTeam* team );
-	EntityId GetActiveWormId() { return _teams[_activeTeam]->getActiveWorm(); }
+	void CreateTeam( int size );
+	void DeleteTeam( WormTeam* team );
+	EntityId GetActiveWormId() { return teams[activeTeam]->GetActiveWorm(); }
 	void RenderHealthBars();
 	void Update();
 
 	~WormManager();
 private:
-	void activeCheck();
+	void ActiveWormCheck();
 	void ChangeTeam();
 	void ChangeActiveWorm();
 
-	std::vector<WormTeam*> _teams;
-	int _activeTeam = 0;
+	std::vector<WormTeam*> teams;
+	int activeTeam = 0;
 
-	SDL_Renderer* _renderer;
-	World* _world;
+	SDL_Renderer* renderer;
+	World* world;
 	b2World* physicsWorld;
 	Camera& camera;
 	Weapon& weapon;

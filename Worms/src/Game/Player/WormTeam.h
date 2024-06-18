@@ -5,19 +5,19 @@ class WormTeam
 {
 	friend class Worm;
 public:
-	void addWorm( Worm* worm );
-	void removeWorm( Worm* worm );
-	void changeActiveWorm();
-	EntityId getActiveWorm();
+	void AddWorm( Worm* worm );
+	void RemoveWorm( Worm* worm );
+	void ChangeActiveWorm();
+	EntityId GetActiveWorm();
 	int Size() const;
 	void Update();
 	void RenderHealthBars();
 
 	~WormTeam();
 private:
-	void activeCheck();
-	std::vector<Worm*> _worms;
-	std::vector<Worm*> _wormsToDelete;
+	void ActiveWormCheck();
+	std::vector<Worm*> worms;
+	std::vector<Worm*> wormsToDelete;
 	Sound dieSound{ "scream.wav" };
-	int _activeWorm = 0;
+	int activeWorm = 0;
 };
