@@ -14,4 +14,5 @@ struct WeaponImpl
 	float baseDamage = 40.f;
 	float gravityScale = 1.f;
 	float maxSpeed = 2.5f;
+	float bounciness = 0.f;
 };
