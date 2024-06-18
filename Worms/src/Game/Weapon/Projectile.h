@@ -24,6 +24,7 @@ public:
 	void SetBaseDamage( float damage ) { params.baseDamage = damage; }
 	void SetGravityScale( float scale ) { params.gravityScale = scale; }
 	void SetMaxSpeed( float speed ) { params.maxSpeed = speed / 10.f; }
+	void SetBounciness( float bounciness ) { params.bounciness = bounciness / 10.f; }
 	void SetCamera( Camera* camera ) { this->camera = camera; }
 
 private:
