@@ -11,6 +11,7 @@ struct Grenade : public WeaponImpl
 		collisionSound = "collision_sound.wav";
 		explosionSound = "big_explosion.wav";
 		explosionOffset = 2.f;
+		bounciness = 0.55f;
 	}
 };
 

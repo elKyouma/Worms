@@ -60,6 +60,7 @@ void Weapon::Update()
 			proc->SetCollisionSound( collisionSound );
 			proc->SetExplosionSound( explosionSound );
 			proc->SetCamera( &camera );
+			proc->SetBounciness( weaponParams.bounciness );
 		}
 		force = 0;
 	}

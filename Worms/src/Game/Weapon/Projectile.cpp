@@ -74,6 +74,7 @@ void Projectile::Initialise( SDL_Renderer* newRenderer, World* newWorld )
 	collider->SetVelocity( b2Vec2( startVelX * params.maxSpeed, startVelY * params.maxSpeed ) );
 
 	rigidBody->body = collider->GetBody();
+	rigidBody->body->GetFixtureList()[0].SetRestitution( params.bounciness );
 	rigidBody->body->SetGravityScale( params.gravityScale );
 
 	ContactManager::Get().AddEvent( objectId, CollisionType::BEGIN, std::bind( &Projectile::onCollision, this, std::placeholders::_1 ) );

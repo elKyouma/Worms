@@ -27,6 +27,7 @@ struct Parameters
 	float baseDamage;
 	float gravityScale;
 	float maxSpeed;
+	float bounciness;
 };
 
 std::optional<EntityId> GetEntityWithTag( b2Contact* contact, PhysicsTag tag );
